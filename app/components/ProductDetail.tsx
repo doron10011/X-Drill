@@ -401,22 +401,37 @@ export default function ProductDetail({ product, relatedProducts, categoryPath, 
                         <td className="py-2 font-medium">קוטר חיצוני</td>
                         <td className="py-2">{product.diameter}</td>
                       </tr>
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 font-medium">אורך כולל</td>
-                        <td className="py-2">{product.length}</td>
-                      </tr>
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 font-medium">אורך אפקטיבי</td>
-                        <td className="py-2">{product.effective_length}</td>
-                      </tr>
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 font-medium">סוג הברגה</td>
-                        <td className="py-2">{product.thread}</td>
-                      </tr>
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 font-medium">חומר ליבה</td>
-                        <td className="py-2">{product.core_material}</td>
-                      </tr>
+                      {isDrillBitProduct(product) ? (
+                        <>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">אורך כולל</td>
+                            <td className="py-2">{product.length}</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">אורך אפקטיבי</td>
+                            <td className="py-2">{product.effective_length}</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">סוג הברגה</td>
+                            <td className="py-2">{product.thread}</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">חומר ליבה</td>
+                            <td className="py-2">{product.core_material}</td>
+                          </tr>
+                        </>
+                      ) : (
+                        <>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">קוטר פנימי</td>
+                            <td className="py-2">{('bore' in product) ? product.bore : ''}</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 font-medium">עובי</td>
+                            <td className="py-2">{('thickness' in product) ? product.thickness : ''}</td>
+                          </tr>
+                        </>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -436,10 +451,12 @@ export default function ProductDetail({ product, relatedProducts, categoryPath, 
                         <td className="py-2 font-medium">סוג סגמנט</td>
                         <td className="py-2">{product.segment_type}</td>
                       </tr>
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 font-medium">טכנולוגיית סגמנט</td>
-                        <td className="py-2">{product.segment_technology}</td>
-                      </tr>
+                      {isDrillBitProduct(product) && (
+                        <tr className="border-b border-gray-200">
+                          <td className="py-2 font-medium">טכנולוגיית סגמנט</td>
+                          <td className="py-2">{product.segment_technology}</td>
+                        </tr>
+                      )}
                       <tr className="border-b border-gray-200">
                         <td className="py-2 font-medium">שימוש ייעודי</td>
                         <td className="py-2">{product.material}</td>
