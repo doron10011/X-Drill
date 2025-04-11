@@ -2,223 +2,239 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FaChevronDown } from '@react-icons/all-files/fa/FaChevronDown';
-import { FaChevronUp } from '@react-icons/all-files/fa/FaChevronUp';
-import { FaQuestion } from '@react-icons/all-files/fa/FaQuestion';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-// FAQ data
-const faqData = [
-  {
-    category: 'כללי',
-    items: [
-      {
-        question: 'מהו קידוח יהלום?',
-        answer: 'קידוח יהלום הוא שיטת קידוח המשתמשת בכלים עם קצה יהלום תעשייתי לקידוח מדויק בחומרים קשים כמו בטון, אבן או אספלט. יתרונות השיטה כוללים דיוק גבוה, רעש מופחת, ללא ויברציות משמעותיות וללא נזק מבני לסביבת הקידוח.'
-      },
-      {
-        question: 'האם X-Drill מציעה משלוחים לכל הארץ?',
-        answer: 'כן, אנו מספקים משלוחים לכל רחבי הארץ. משלוחים בהזמנות מעל 500 ₪ ניתנים בחינם. זמני האספקה הם 2-3 ימי עסקים באזור המרכז, ו-3-5 ימי עסקים לשאר חלקי הארץ.'
-      },
-      {
-        question: 'האם יש אחריות על המוצרים?',
-        answer: 'כל המוצרים של X-Drill מגיעים עם אחריות של יצרן. משך האחריות משתנה בהתאם למוצר, כאשר רוב כוסות הקידוח מגיעות עם אחריות ל-12 חודשים. פרטי האחריות המלאים מופיעים בדף המוצר.'
-      }
-    ]
-  },
-  {
-    category: 'כוסות קידוח יהלום',
-    items: [
-      {
-        question: 'מה ההבדל בין קידוח יבש לקידוח רטוב?',
-        answer: 'קידוח יבש מתבצע ללא שימוש במים ומתאים לעבודות קלות ובמקומות שבהם מים עלולים לגרום לנזק. קידוח רטוב משתמש במים לקירור הכוס בזמן הקידוח, מה שמאריך את חיי הכוס ומתאים לעבודות ארוכות ומאומצות יותר. קידוח רטוב גם מפחית את כמות האבק שנוצרת בזמן העבודה.'
-      },
-      {
-        question: 'מהו סגמנט Arix ולמה הוא משמש?',
-        answer: 'סגמנט Arix הוא טכנולוגיה מתקדמת המשמשת בייצור כוסות קידוח יהלום. הסגמנטים מכילים יהלומים תעשייתיים בצפיפות גבוהה ובסידור מיוחד שמבטיח ביצועים מעולים וחיי עבודה ארוכים. כוסות עם סגמנט Arix יעילות במיוחד בקידוח בטון מזוין וחומרים קשים אחרים.'
-      },
-      {
-        question: 'איך בוחרים את הקוטר הנכון של כוס הקידוח?',
-        answer: 'בחירת הקוטר הנכון תלויה במטרת הקידוח. לדוגמה, לצורך התקנת צנרת מים, הקוטר צריך להיות גדול ב-10-15 מ"מ מקוטר הצינור. עבור חיווט חשמלי, בדרך כלל משתמשים בקוטר של 67-77 מ"מ. מומלץ להתייעץ עם הצוות המקצועי שלנו לקבלת המלצה מדויקת בהתאם לצרכים שלכם.'
-      },
-      {
-        question: 'מהי הברגה UNC ו-BSP ומתי משתמשים בכל אחת?',
-        answer: 'UNC (Unified National Coarse) ו-BSP (British Standard Pipe) הם שני סוגי הברגות נפוצים בכוסות קידוח. הברגת 1-1/4" UNC נפוצה במכונות קידוח אמריקאיות, בעוד שהברגת 1/2" BSP נפוצה במכונות אירופאיות. חשוב להתאים את סוג ההברגה של הכוס למכונת הקידוח שלכם, או להשתמש במתאם מתאים.'
-      }
-    ]
-  },
-  {
-    category: 'מסורי יהלום',
-    items: [
-      {
-        question: 'איזה מסור יהלום מתאים לחיתוך בטון מזוין?',
-        answer: 'לחיתוך בטון מזוין מומלץ להשתמש במסור יהלום עם סגמנטים בטכנולוגיית Arix שמתוכננים במיוחד להתמודד עם ברזלי זיון. המסורים בקוטר 350 מ"מ עם סגמנט Arix שלנו אידיאליים למשימה זו ומספקים חיתוך מדויק וחלק תוך התמודדות יעילה עם הברזל.'
-      },
-      {
-        question: 'מהו עומק החיתוך המקסימלי של מסור יהלום?',
-        answer: 'עומק החיתוך המקסימלי תלוי בקוטר המסור. ככלל, עומק החיתוך המקסימלי הוא כ-35% מקוטר המסור. לדוגמה, מסור בקוטר 350 מ"מ יכול לחתוך לעומק של כ-120-130 מ"מ. יש לציין שהמכונה המפעילה את המסור משפיעה גם היא על עומק החיתוך האפשרי.'
-      }
-    ]
-  },
-  {
-    category: 'אביזרים ותחזוקה',
-    items: [
-      {
-        question: 'מהם האביזרים הנלווים המומלצים לרכישה יחד עם כוסות הקידוח?',
-        answer: 'מומלץ לרכוש מתאמי הברגה (אם נדרשים להתאמה למכונת הקידוח), מקדח מוביל לדיוק בתחילת הקידוח, ומערכת איסוף אבק או קירור מים בהתאם לסוג הקידוח (יבש או רטוב). עבור עבודות מקצועיות, כדאי לשקול גם רכישת מעמד קידוח לדיוק ויציבות מרביים.'
-      },
-      {
-        question: 'כיצד לתחזק את כוסות הקידוח כדי להאריך את חיי העבודה שלהן?',
-        answer: 'לתחזוקה נכונה של כוסות קידוח: 1) ניקוי יסודי לאחר כל שימוש, במיוחד הסרת שאריות בטון. 2) בקידוח רטוב, ודאו זרימת מים מתאימה למניעת התחממות. 3) התחילו קידוח במהירות נמוכה והגבירו בהדרגה. 4) הימנעו מלחץ מופרז בזמן הקידוח. 5) אחסנו במקום יבש ומוגן מפגיעות. 6) בדקו באופן קבוע את מצב הסגמנטים והחליפו כאשר נשחקים באופן משמעותי.'
-      },
-      {
-        question: 'מה עושים כאשר נתקעים באמצע קידוח?',
-        answer: 'כאשר כוס הקידוח נתקעת: 1) הפסיקו את המכונה מיד. 2) נסו לשחרר את הכוס בעדינות על ידי תנועה קלה של המכונה. 3) אל תנסו למשוך את המכונה בכוח. 4) אם הכוס עדיין תקועה, השתמשו במפתח מתאים ונסו להוציא את הכוס בסיבוב עדין נגד כיוון השעון. 5) במקרים קשים, ייתכן שתצטרכו לקדוח חור מקביל ולשבור את החומר בין החורים. 6) לעבודות עתידיות, ודאו שאתם משתמשים במהירות הסיבוב הנכונה ובלחץ מתאים.'
-      }
-    ]
-  }
-];
-
-export default function FAQ() {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>('כללי');
-  const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({});
-
-  const toggleCategory = (category: string) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
-  };
-
-  const toggleItem = (categoryIndex: number, itemIndex: number) => {
-    const key = `${categoryIndex}-${itemIndex}`;
-    setOpenItems(prev => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const isItemOpen = (categoryIndex: number, itemIndex: number) => {
-    const key = `${categoryIndex}-${itemIndex}`;
-    return openItems[key] || false;
-  };
+// FAQ Item Component
+const FAQItem = ({ question, answer }: { question: string; answer: string | JSX.Element }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 animate-fadeIn">
-      {/* Hero Section */}
+    <div className="border-b border-gray-200 py-4">
+      <button
+        className="flex justify-between items-center w-full text-right"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-lg font-medium text-gray-900">{question}</span>
+        <span className="text-orange-600">
+          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+        </span>
+      </button>
+      {isOpen && (
+        <div className="mt-2 text-gray-600 text-right">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default function FAQ() {
+  const faqs = [
+    {
+      question: "מהו קידוח יהלום ומהם יתרונותיו?",
+      answer: (
+        <div>
+          <p>קידוח יהלום הוא שיטה לקידוח חורים עגולים בחומרים קשים כגון בטון, בטון מזוין, אבן וקירות לבנים באמצעות כלי קידוח המצופים בגרגירי יהלום קשים במיוחד.</p>
+          <p className="mt-2">יתרונות בולטים:</p>
+          <ul className="list-disc list-inside mr-6 mt-1">
+            <li>קידוח מדויק ונקי ללא סדקים בחומר</li>
+            <li>יכולת לקדוח חורים בקטרים גדולים</li>
+            <li>רעש רעידות ואבק מופחתים</li>
+            <li>מתאים לעבודה בחללים מוגמרים</li>
+            <li>יכולת לקדוח בחומרים קשים במיוחד כולל בטון מזוין</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      question: "מהו ההבדל בין קידוח רטוב לקידוח יבש?",
+      answer: (
+        <div>
+          <p><strong>קידוח רטוב:</strong> מתבצע עם אספקת מים לראש הקידוח. המים מסייעים בקירור וסיכה של כוס הקידוח, מפנים את השבבים ומפחיתים אבק. מאפשר קידוח מהיר יותר וחיי כלי ארוכים יותר, אך דורש ניהול של הנוזלים.</p>
+          <p className="mt-2"><strong>קידוח יבש:</strong> מתבצע ללא שימוש במים, לרוב עם מערכת שאיבת אבק. מתאים לעבודות פנים ולמקומות בהם שימוש במים אינו מעשי. טכנולוגיות מיוחדות בסגמנטים מונעות התחממות יתר.</p>
+          <p className="mt-2">הבחירה בין השיטות תלויה בסוג העבודה, החומר המקודח והסביבה בה מתבצעת העבודה.</p>
+        </div>
+      )
+    },
+    {
+      question: "אילו קטרים זמינים לכוסות קידוח יהלום?",
+      answer: (
+        <div>
+          <p>כוסות קידוח יהלום זמינות במגוון רחב של קטרים המתאימים ליישומים שונים:</p>
+          <p className="mt-2"><strong>כוסות קידוח רטובות:</strong></p>
+          <ul className="list-disc list-inside mr-6 mt-1">
+            <li>קטרים נפוצים: 67 מ"מ, 72 מ"מ, 77 מ"מ, 82 מ"מ, 91 מ"מ, 102 מ"מ, 132 מ"מ, 162 מ"מ, 200 מ"מ</li>
+            <li>קטרים גדולים: עד 500 מ"מ זמינים עבור יישומים מיוחדים</li>
+          </ul>
+          <p className="mt-2"><strong>כוסות קידוח יבשות/ואקום:</strong></p>
+          <ul className="list-disc list-inside mr-6 mt-1">
+            <li>קטרים נפוצים: 80 מ"מ, 85 מ"מ, 90 מ"מ, 95 מ"מ, 100 מ"מ, 105 מ"מ</li>
+            <li>קטרים קטנים יותר: 6 מ"מ עד 14 מ"מ (מיני)</li>
+          </ul>
+          <p className="mt-2">הקטרים הנפוצים ביותר הם 67 מ"מ, 82 מ"מ ו-102 מ"מ המתאימים לרוב לצנרת תקנית.</p>
+        </div>
+      )
+    },
+    {
+      question: "מהם סוגי ההברגות השונים לכוסות קידוח יהלום?",
+      answer: (
+        <div>
+          <p>קיימים מספר סוגי הברגות סטנדרטיים המשמשים בכוסות קידוח יהלום:</p>
+          <ul className="list-disc list-inside mr-6 mt-2">
+            <li><strong>1-1/4" UNC:</strong> סטנדרט נפוץ עבור כוסות גדולות ומכונות קידוח מקצועיות</li>
+            <li><strong>1/2" BSP (BSPP1/2"):</strong> נפוץ באירופה ובמכונות קידוח בינוניות</li>
+            <li><strong>M14:</strong> נפוץ בכוסות קידוח קטנות ומיועד בעיקר למשחזות זוויתיות</li>
+            <li><strong>G1/2" ו-A-Rod:</strong> תקנים נוספים המשמשים במכונות מסוימות</li>
+          </ul>
+          <p className="mt-2">חשוב לוודא התאמה בין הברגת המכונה להברגת כוס הקידוח, או להשתמש במתאם הברגה מתאים.</p>
+        </div>
+      )
+    },
+    {
+      question: "מהי טכנולוגיית Arix?",
+      answer: (
+        <div>
+          <p>טכנולוגיית Arix היא טכנולוגיה מתקדמת בייצור סגמנטים של כוסות קידוח יהלום, המאופיינת בפיזור מיוחד של גרגירי היהלום בסגמנט, הגורם ל:</p>
+          <ul className="list-disc list-inside mr-6 mt-2">
+            <li>ביצועי קידוח משופרים וחיתוך מהיר יותר</li>
+            <li>יכולת טובה יותר לחיתוך דרך ברזל זיון</li>
+            <li>אורך חיים משופר של כוס הקידוח</li>
+            <li>עמידות גבוהה בתנאי עבודה קשים</li>
+          </ul>
+          <p className="mt-2">כוסות קידוח עם סגמנט Arix מתאימות במיוחד לקידוח בבטון מזוין קשה, והן נחשבות לאיכותיות יותר מסגמנטים רגילים.</p>
+        </div>
+      )
+    },
+    {
+      question: "איזה אביזרים נלווים נדרשים עבור קידוח יהלום מקצועי?",
+      answer: (
+        <div>
+          <p>לביצוע עבודת קידוח יהלום מקצועית נדרשים מספר אביזרים חיוניים:</p>
+          <ul className="list-disc list-inside mr-6 mt-2">
+            <li><strong>מתאמי הברגות:</strong> לחיבור בין כוסות קידוח למכונות עם סוגי הברגה שונים</li>
+            <li><strong>מאריכי קידוח:</strong> להגדלת עומק הקידוח של כוסות קידוח (זמינים באורכים כגון 250 מ"מ, 300 מ"מ ו-400 מ"מ)</li>
+            <li><strong>מחזיקי כוסות קידוח:</strong> להחזקה יציבה ואבטחה של כוס הקידוח</li>
+            <li><strong>משאבות מים ומיכלי לחץ:</strong> לאספקת מים בקידוח רטוב</li>
+            <li><strong>מערכות איסוף מים:</strong> טבעות ומתקנים לאיסוף מים בזמן הקידוח הרטוב</li>
+            <li><strong>מערכות שאיבת אבק:</strong> לקידוח יבש נקי מאבק</li>
+          </ul>
+          <p className="mt-2">בחירת האביזרים המתאימים משפרת את יעילות העבודה, את איכות התוצאה ואת בטיחות הקידוח.</p>
+        </div>
+      )
+    },
+    {
+      question: "כיצד בוחרים את כוס הקידוח המתאימה?",
+      answer: (
+        <div>
+          <p>בחירת כוס הקידוח המתאימה תלויה במספר גורמים:</p>
+          <ol className="list-decimal list-inside mr-6 mt-2">
+            <li><strong>חומר המקודח:</strong> קיימות כוסות ייעודיות לבטון, בטון מזוין, אבן, גרניט, קרמיקה וכו'</li>
+            <li><strong>שיטת קידוח:</strong> קידוח רטוב או יבש בהתאם לסביבת העבודה</li>
+            <li><strong>קוטר הקידוח:</strong> יש לבחור את הקוטר המתאים לצורך הספציפי</li>
+            <li><strong>עומק הקידוח:</strong> לקידוח עמוק יש לבחור באורך מתאים או להשתמש במאריכים</li>
+            <li><strong>סוג ההברגה:</strong> יש להתאים להברגה של המכונה או להשתמש במתאם</li>
+            <li><strong>איכות הסגמנטים:</strong> לעבודות קשות (כמו בטון מזוין) מומלץ להשתמש בטכנולוגיות מתקדמות כמו Arix</li>
+          </ol>
+          <p className="mt-2">המלצה: התייעצו עם מומחה או ספק מקצועי לבחירת כוס הקידוח המתאימה ביותר לעבודה הספציפית.</p>
+        </div>
+      )
+    },
+    {
+      question: "מהם מסורי היהלום ולאילו יישומים הם משמשים?",
+      answer: (
+        <div>
+          <p>מסורי יהלום הם להבי מסור המצופים בגרגירי יהלום, המיועדים לחיתוך מדויק וחלק של חומרים קשים. הם משמשים למגוון יישומים:</p>
+          <p className="mt-2"><strong>מסורי יהלום לבטון ובטון מזוין:</strong></p>
+          <ul className="list-disc list-inside mr-6 mt-1">
+            <li>חיתוך קירות בטון, רצפות ומרכיבים מבניים</li>
+            <li>יצירת פתחים לדלתות וחלונות</li>
+            <li>חיתוך כבישים ומדרכות</li>
+            <li>קטרים נפוצים: 200 מ"מ עד 400 מ"מ</li>
+          </ul>
+          <p className="mt-2"><strong>מסורי יהלום לאבן, גרניט וחומרי בניין קלים:</strong></p>
+          <ul className="list-disc list-inside mr-6 mt-1">
+            <li>חיתוך אריחים לריצוף וחיפוי קירות</li>
+            <li>עיבוד גרניט ושיש עבור משטחי עבודה</li>
+            <li>חיתוך אבן לעבודות גינון ובנייה</li>
+            <li>קטרים נפוצים: 150 מ"מ עד 300 מ"מ</li>
+          </ul>
+          <p className="mt-2">בחירת המסור המתאים תלויה בסוג החומר, עומק החיתוך הנדרש וסוג המכונה בה משתמשים.</p>
+        </div>
+      )
+    },
+    {
+      question: "אילו טיפים חשובים יש לעבודה עם כלי קידוח יהלום?",
+      answer: (
+        <div>
+          <p>עצות מקצועיות לעבודה יעילה ובטוחה עם כלי קידוח יהלום:</p>
+          <ol className="list-decimal list-inside mr-6 mt-2">
+            <li><strong>בקידוח רטוב:</strong> ודאו אספקת מים מספקת ורציפה למניעת התחממות יתר וקיצור חיי הכלי</li>
+            <li><strong>מהירות סיבוב:</strong> עבדו במהירות המומלצת (לרוב 600-900 סל"ד לכוסות קידוח בינוניות)</li>
+            <li><strong>לחץ:</strong> הפעילו לחץ מתון וקבוע, אל תלחצו חזק מדי</li>
+            <li><strong>בבטון מזוין:</strong> האטו כשנתקלים בברזל זיון, הפעילו לחץ קבוע ואפשרו לכלי לעבוד את דרכו</li>
+            <li><strong>תחזוקה:</strong> נקו ואחסנו את הכלים כראוי לאחר השימוש להארכת חייהם</li>
+            <li><strong>בטיחות:</strong> השתמשו בציוד מגן אישי מתאים (משקפי מגן, מגני אוזניים, כפפות)</li>
+            <li><strong>הדרכה:</strong> למדו את הטכניקה הנכונה או היעזרו באנשי מקצוע לעבודות מורכבות</li>
+          </ol>
+          <p className="mt-2">עבודה נכונה תוביל לתוצאות טובות יותר ולחיסכון בזמן ובעלויות החלפת כלים.</p>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
       <div className="bg-gray-900 text-white py-16">
-        <div className="container-custom">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">שאלות נפוצות</h1>
             <p className="text-xl text-gray-300">
-              מצאו תשובות לשאלות הנפוצות ביותר בנושא כלי קידוח יהלום
+              מידע חשוב על כלי קידוח יהלום, טכנולוגיות, שימושים ועצות מקצועיות
             </p>
           </div>
         </div>
       </div>
 
-      <div className="container-custom py-12">
+      {/* FAQ Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
         <nav className="flex mb-8" aria-label="Breadcrumb">
-          <ol className="flex items-center">
+          <ol className="flex items-center space-x-2">
             <li>
-              <Link href="/" className="text-gray-500 hover:text-orange-600">
+              <Link href="/" className="text-gray-500 hover:text-gray-700">
                 דף הבית
               </Link>
             </li>
             <li>
               <span className="text-gray-500 mx-2">/</span>
             </li>
-            <li className="text-gray-700 font-medium">שאלות נפוצות</li>
+            <li className="text-gray-700">שאלות נפוצות</li>
           </ol>
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Categories sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden sticky top-24">
-              <div className="p-6">
-                <h2 className="text-xl font-bold mb-6 text-gray-800 border-b border-gray-200 pb-4">
-                  קטגוריות
-                </h2>
-                <ul className="space-y-3">
-                  {faqData.map((category, index) => (
-                    <li key={index}>
-                      <button
-                        onClick={() => toggleCategory(category.category)}
-                        className={`w-full text-right py-2 px-3 rounded-md transition-colors duration-200 flex items-center justify-between ${
-                          expandedCategory === category.category
-                            ? 'bg-orange-100 text-orange-600'
-                            : 'hover:bg-gray-100'
-                        }`}
-                      >
-                        <FaQuestion className={expandedCategory === category.category ? 'text-orange-600' : 'text-gray-400'} />
-                        <span className="font-medium">{category.category}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+            <h2 className="text-2xl font-bold mb-8 text-center">כל מה שרצית לדעת על קידוח יהלום</h2>
+
+            <div className="space-y-1">
+              {faqs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
             </div>
           </div>
 
-          {/* FAQ content */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="p-8">
-                <h2 className="text-3xl font-bold mb-8 text-gray-800 border-b border-gray-200 pb-4">
-                  שאלות נפוצות
-                </h2>
-                
-                <div className="space-y-8">
-                  {faqData
-                    .filter(category => !expandedCategory || category.category === expandedCategory)
-                    .map((category, categoryIndex) => (
-                      <div key={categoryIndex} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
-                        <h3 className="text-2xl font-semibold mb-6 text-gray-800">
-                          {category.category}
-                        </h3>
-                        <div className="space-y-4">
-                          {category.items.map((item, itemIndex) => (
-                            <div 
-                              key={itemIndex} 
-                              className="border border-gray-200 rounded-lg overflow-hidden"
-                            >
-                              <button
-                                onClick={() => toggleItem(categoryIndex, itemIndex)}
-                                className="w-full text-right p-4 bg-gray-50 hover:bg-gray-100 flex items-center justify-between"
-                              >
-                                <span className="font-medium text-lg">{item.question}</span>
-                                {isItemOpen(categoryIndex, itemIndex) ? (
-                                  <FaChevronUp className="text-orange-600 text-sm" />
-                                ) : (
-                                  <FaChevronDown className="text-gray-500 text-sm" />
-                                )}
-                              </button>
-                              {isItemOpen(categoryIndex, itemIndex) && (
-                                <div className="p-4 bg-white">
-                                  <p className="text-gray-700 leading-relaxed">{item.answer}</p>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-            
-            {/* Contact box */}
-            <div className="bg-orange-600 text-white rounded-lg shadow-md mt-8 overflow-hidden">
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                  <div className="mb-4 md:mb-0">
-                    <h3 className="text-xl font-bold mb-2">לא מצאת את התשובה שחיפשת?</h3>
-                    <p>צוות המומחים שלנו ישמח לענות על כל שאלה</p>
-                  </div>
-                  <Link
-                    href="/contact"
-                    className="bg-white text-orange-600 hover:bg-gray-100 px-6 py-3 rounded-md font-semibold"
-                  >
-                    צור קשר
-                  </Link>
-                </div>
-              </div>
-            </div>
+          <div className="mt-10 text-center">
+            <h3 className="text-xl font-semibold mb-4">עדיין יש לך שאלות?</h3>
+            <p className="text-gray-600 mb-6">
+              צוות המומחים שלנו ישמח לענות על כל שאלה ולסייע לך בבחירת המוצרים המתאימים לצרכים שלך
+            </p>
+            <Link
+              href="/contact"
+              className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-md font-medium inline-block"
+            >
+              צור קשר
+            </Link>
           </div>
         </div>
       </div>

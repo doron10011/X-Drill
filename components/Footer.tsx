@@ -1,11 +1,5 @@
 import Link from 'next/link';
-import { FaPhone } from '@react-icons/all-files/fa/FaPhone';
-import { FaEnvelope } from '@react-icons/all-files/fa/FaEnvelope';
-import { FaMapMarkerAlt } from '@react-icons/all-files/fa/FaMapMarkerAlt';
-import { FaClock } from '@react-icons/all-files/fa/FaClock';
-import { FaFacebookF } from '@react-icons/all-files/fa/FaFacebookF';
-import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
-import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export default function Footer() {
   return (

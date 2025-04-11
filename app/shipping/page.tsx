@@ -1,12 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaTruck } from '@react-icons/all-files/fa/FaTruck';
-import { FaBox } from '@react-icons/all-files/fa/FaBox';
-import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
-import { FaExchangeAlt } from '@react-icons/all-files/fa/FaExchangeAlt';
-import { FaInfoCircle } from '@react-icons/all-files/fa/FaInfoCircle';
-import { FaCalendarAlt } from '@react-icons/all-files/fa/FaCalendarAlt';
+import { FaTruck, FaBox, FaGlobe, FaExchangeAlt, FaInfoCircle, FaCalendarAlt } from 'react-icons/fa';
 
 export default function ShippingPolicy() {
   return (

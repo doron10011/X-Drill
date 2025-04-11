@@ -1,22 +1,18 @@
-import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import './globals.css';
+import type { Metadata } from 'next';
+import { Heebo } from 'next/font/google';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { CartProvider } from '../components/CartContext';
 
-// Rubik font works well for Hebrew and Latin characters
-const rubik = Rubik({ 
-  subsets: ["latin", "hebrew"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-rubik",
+const heebo = Heebo({ 
+  subsets: ['latin', 'hebrew'],
+  variable: '--font-heebo',
 });
 
 export const metadata: Metadata = {
-  title: "X-Drill - כלי קידוח יהלום מקצועיים",
-  description: "חנות מקוונת לכלי קידוח יהלום מקצועיים, המיועדים לקבלנים, שיפוצניקים ובעלי מקצוע בישראל. מגוון רחב של כוסות קידוח, מסורי יהלום ואביזרים נלווים.",
-  keywords: "קידוח יהלום, כוסות קידוח, מסורי יהלום, אביזרי קידוח, כלי עבודה מקצועיים, כלי קידוח לקבלנים, ציוד לשיפוצניקים",
-  authors: [{ name: "X-Drill" }],
+  title: 'X-Drill - כלי קידוח יהלום מקצועיים',
+  description: 'חנות מקוונת של X-Drill, המספקת כלי קידוח יהלום איכותיים ומקצועיים לבטון, בטון מזוין ואבן',
 };
 
 export default function RootLayout({
@@ -25,13 +21,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="he" dir="rtl" className={rubik.className}>
-      <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+    <html lang="he" dir="rtl">
+      <body className={`${heebo.className} min-h-screen flex flex-col`}>
+        <CartProvider>
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

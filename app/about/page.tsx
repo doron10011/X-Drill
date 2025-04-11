@@ -1,13 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaArrowLeft } from '@react-icons/all-files/fa/FaArrowLeft';
-import { FaCheck } from '@react-icons/all-files/fa/FaCheck';
-import { FaTrophy } from '@react-icons/all-files/fa/FaTrophy';
-import { FaUsers } from '@react-icons/all-files/fa/FaUsers';
-import { FaTools } from '@react-icons/all-files/fa/FaTools';
-import { FaShieldAlt } from '@react-icons/all-files/fa/FaShieldAlt';
-import { FaTruck } from '@react-icons/all-files/fa/FaTruck';
+import { FaArrowLeft, FaCheck, FaTrophy, FaUsers, FaTools, FaShieldAlt, FaTruck, FaStar, FaCertificate, FaGlobeAmericas } from 'react-icons/fa';
 
 export default function About() {
   return (
@@ -60,6 +54,12 @@ export default function About() {
                     של אנשי המקצוע בישראל. מאז הקמתה, X-Drill שמה לה למטרה לספק את הפתרונות 
                     המתקדמים ביותר בתחום קידוח היהלום.
                   </p>
+                  
+                  <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                    עם ניסיון של למעלה מ-15 שנה בענף, הצוות המקצועי שלנו צבר ידע עמוק ומומחיות בתחום כוסות קידוח יהלום, 
+                    מסורים, מקדחים, ואביזרים נלווים. היכרות מעמיקה עם הטכנולוגיות המתקדמות בתעשייה, כמו סגמנטי Arix המהפכניים, 
+                    מאפשרת לנו להציע ללקוחותינו את הפתרונות האיכותיים והיעילים ביותר לכל משימת קידוח בבטון, בטון מזוין, אספלט ואבן.
+                  </p>
 
                   <div className="bg-orange-50 border-r-4 border-orange-500 p-6 my-8">
                     <h3 className="text-2xl font-semibold mb-4 text-gray-800">החזון שלנו</h3>
@@ -107,6 +107,41 @@ export default function About() {
                         <h4 className="font-semibold mb-1">שירות לקוחות</h4>
                         <p className="text-gray-600">אנחנו מחויבים לספק את השירות הטוב ביותר ללקוחותינו</p>
                       </div>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-semibold mb-4 text-gray-800">המומחיות שלנו</h3>
+                  <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                    X-Drill מתמחה בשלושה תחומים עיקריים:
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="bg-gray-50 p-5 rounded-lg">
+                      <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <FaStar className="text-orange-600 text-xl" />
+                      </div>
+                      <h4 className="text-lg font-semibold mb-2">כוסות קידוח יהלום</h4>
+                      <p className="text-gray-600">
+                        מגוון רחב של כוסות בקטרים שונים לקידוח רטוב ויבש, עם סגמנטים מתקדמים לכל סוגי העבודות.
+                      </p>
+                    </div>
+                    <div className="bg-gray-50 p-5 rounded-lg">
+                      <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <FaCertificate className="text-orange-600 text-xl" />
+                      </div>
+                      <h4 className="text-lg font-semibold mb-2">מסורי יהלום</h4>
+                      <p className="text-gray-600">
+                        מסורים מקצועיים לחיתוך בטון, בטון מזוין, אספלט ואבן, המספקים דיוק וביצועים מעולים.
+                      </p>
+                    </div>
+                    <div className="bg-gray-50 p-5 rounded-lg">
+                      <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <FaGlobeAmericas className="text-orange-600 text-xl" />
+                      </div>
+                      <h4 className="text-lg font-semibold mb-2">אביזרים משלימים</h4>
+                      <p className="text-gray-600">
+                        מתאמים, מקדחי ואקום, מאריכים וציוד עזר המשלים את מערכת הקידוח המקצועית.
+                      </p>
                     </div>
                   </div>
                   
@@ -159,16 +194,27 @@ export default function About() {
                       <div className="bg-orange-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs ml-2">
                         3
                       </div>
-                      בעלי מקצוע
+                      אינסטלטורים
                     </h4>
                     <p className="text-gray-600">
-                      כלי עבודה איכותיים לעבודות התקנה ותחזוקה מקצועיות
+                      כלי קידוח מדויקים להתקנת צנרת מים וביוב
                     </p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold mb-2 flex items-center">
                       <div className="bg-orange-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs ml-2">
                         4
+                      </div>
+                      חשמלאים
+                    </h4>
+                    <p className="text-gray-600">
+                      פתרונות לקידוח מדויק עבור התקנת תשתיות חשמל
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-2 flex items-center">
+                      <div className="bg-orange-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs ml-2">
+                        5
                       </div>
                       חובבי DIY
                     </h4>
@@ -180,7 +226,7 @@ export default function About() {
               </div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-6 text-gray-800 border-b border-gray-200 pb-4 flex items-center">
                   <FaTrophy className="ml-2 text-orange-600" />
@@ -193,7 +239,7 @@ export default function About() {
                   </li>
                   <li className="flex items-center">
                     <FaUsers className="text-orange-600 ml-2" />
-                    <span>שירות מקצועי ואדיב</span>
+                    <span>צוות מקצועי עם ניסיון של 15+ שנים</span>
                   </li>
                   <li className="flex items-center">
                     <FaTruck className="text-orange-600 ml-2" />
@@ -201,9 +247,32 @@ export default function About() {
                   </li>
                   <li className="flex items-center">
                     <FaShieldAlt className="text-orange-600 ml-2" />
-                    <span>אחריות על כל המוצרים</span>
+                    <span>אחריות יצרן על כל המוצרים</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaStar className="text-orange-600 ml-2" />
+                    <span>ייעוץ מקצועי לפני הרכישה</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaCertificate className="text-orange-600 ml-2" />
+                    <span>עמידה בתקנים בינלאומיים מחמירים</span>
                   </li>
                 </ul>
+              </div>
+            </div>
+            
+            <div className="bg-orange-600 text-white rounded-lg shadow-md overflow-hidden">
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-4">צריכים עזרה בבחירת מוצר?</h3>
+                <p className="mb-4">
+                  הצוות המקצועי שלנו ישמח לייעץ לכם בבחירת כלי הקידוח המתאים לצרכים שלכם
+                </p>
+                <Link
+                  href="/contact"
+                  className="block w-full bg-white text-orange-600 hover:bg-gray-100 text-center py-3 rounded-md font-semibold"
+                >
+                  צור קשר לייעוץ
+                </Link>
               </div>
             </div>
           </div>

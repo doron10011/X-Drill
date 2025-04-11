@@ -1,11 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaShieldAlt } from '@react-icons/all-files/fa/FaShieldAlt';
-import { FaLock } from '@react-icons/all-files/fa/FaLock';
-import { FaCookieBite } from '@react-icons/all-files/fa/FaCookieBite';
-import { FaUserShield } from '@react-icons/all-files/fa/FaUserShield';
-import { FaEnvelope } from '@react-icons/all-files/fa/FaEnvelope';
+import { FaShieldAlt, FaLock, FaCookieBite, FaUserShield, FaEnvelope } from 'react-icons/fa';
 
 export default function PrivacyPolicy() {
   return (

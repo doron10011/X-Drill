@@ -1,12 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaFileContract } from '@react-icons/all-files/fa/FaFileContract';
-import { FaShoppingCart } from '@react-icons/all-files/fa/FaShoppingCart';
-import { FaTruck } from '@react-icons/all-files/fa/FaTruck';
-import { FaExchangeAlt } from '@react-icons/all-files/fa/FaExchangeAlt';
-import { FaShieldAlt } from '@react-icons/all-files/fa/FaShieldAlt';
-import { FaGavel } from '@react-icons/all-files/fa/FaGavel';
+import { FaFileContract, FaShoppingCart, FaTruck, FaExchangeAlt, FaShieldAlt, FaGavel } from 'react-icons/fa';
 
 export default function TermsOfService() {
   return (

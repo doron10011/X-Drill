@@ -2,13 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FaArrowLeft } from '@react-icons/all-files/fa/FaArrowLeft';
-import { FaPhone } from '@react-icons/all-files/fa/FaPhone';
-import { FaEnvelope } from '@react-icons/all-files/fa/FaEnvelope';
-import { FaMapMarkerAlt } from '@react-icons/all-files/fa/FaMapMarkerAlt';
-import { FaClock } from '@react-icons/all-files/fa/FaClock';
-import { FaCheckCircle } from '@react-icons/all-files/fa/FaCheckCircle';
-import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
+import { FaArrowLeft, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaWhatsapp, FaTools, FaCog, FaUserHardHat, FaQuestionCircle } from 'react-icons/fa';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -17,6 +11,7 @@ export default function Contact() {
     phone: '',
     subject: '',
     message: '',
+    productType: '',
   });
   
   const [formStatus, setFormStatus] = useState({
@@ -49,6 +44,7 @@ export default function Contact() {
           phone: '',
           subject: '',
           message: '',
+          productType: '',
         });
       }
     }, 1500);
@@ -62,7 +58,7 @@ export default function Contact() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">צור קשר</h1>
             <p className="text-xl text-gray-300">
-              אנחנו כאן לענות על כל שאלה ולעזור לכם למצוא את הפתרון המושלם
+              המומחים לקידוח יהלום - כאן לעזור לכם למצוא את הפתרון המושלם
             </p>
           </div>
         </div>
@@ -97,7 +93,7 @@ export default function Contact() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 text-green-700">ההודעה נשלחה בהצלחה!</h3>
                       <p className="text-green-600">
-                        תודה שפנית אלינו! נציג יחזור אליך בהקדם האפשרי.
+                        תודה שפנית אלינו! נציג יחזור אליך בהקדם האפשרי. אנו מתחייבים לתת מענה מקצועי לכל שאלה בנושא קידוח יהלום.
                       </p>
                       <button 
                         onClick={() => setFormStatus({isSubmitted: false, isSubmitting: false, error: null})}
@@ -166,10 +162,33 @@ export default function Contact() {
                         required
                       >
                         <option value="">בחר נושא</option>
-                        <option value="product">שאלה על מוצר</option>
-                        <option value="order">מעקב הזמנה</option>
-                        <option value="technical">תמיכה טכנית</option>
+                        <option value="product-inquiry">התייעצות לגבי בחירת מוצר</option>
+                        <option value="technical-support">תמיכה טכנית ועצות מקצועיות</option>
+                        <option value="order-tracking">מעקב אחר הזמנה</option>
+                        <option value="bulk-order">הזמנה בכמויות גדולות / מחירים מיוחדים</option>
+                        <option value="custom-solution">פתרונות מותאמים אישית לקידוח</option>
                         <option value="other">אחר</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="productType" className="block text-sm font-medium text-gray-700 mb-1">
+                        סוג מוצר
+                      </label>
+                      <select
+                        id="productType"
+                        name="productType"
+                        value={formData.productType}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      >
+                        <option value="">בחר סוג מוצר (אופציונלי)</option>
+                        <option value="wet-drilling">כוסות קידוח יהלום לקידוח רטוב</option>
+                        <option value="dry-drilling">כוסות קידוח יהלום לקידוח יבש/ואקום</option>
+                        <option value="special-bits">כוסות קידוח מיוחדות (Arix, וכו')</option>
+                        <option value="concrete-saw-blades">מסורי יהלום לבטון ובטון מזוין</option>
+                        <option value="stone-saw-blades">מסורי יהלום לאבן וגרניט</option>
+                        <option value="drilling-machines">מכונות קידוח</option>
+                        <option value="accessories">אביזרים נלווים</option>
                       </select>
                     </div>
                     <div>
@@ -184,6 +203,7 @@ export default function Contact() {
                         rows={6}
                         className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                         required
+                        placeholder="פרט את שאלתך או בקשתך. ככל שתספק יותר מידע, נוכל לעזור לך טוב יותר (למשל: סוג החומר שברצונך לקדוח, קוטר הקידוח, סוג המכונה בה אתה משתמש)"
                       />
                     </div>
                     <button
@@ -226,6 +246,16 @@ export default function Contact() {
                   </div>
                   <div className="flex items-start">
                     <div className="bg-orange-100 rounded-full p-2 ml-4 shrink-0">
+                      <FaWhatsapp className="text-orange-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">וואטסאפ</h4>
+                      <a href="https://wa.me/9721234567" className="text-gray-600 hover:text-orange-600 block">050-1234567</a>
+                      <p className="text-sm text-gray-500 mt-1">מענה מהיר לשאלות טכניות</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-orange-100 rounded-full p-2 ml-4 shrink-0">
                       <FaEnvelope className="text-orange-600" />
                     </div>
                     <div>
@@ -255,46 +285,69 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            
+
+            {/* Expert Support Section */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-4 border-b border-gray-200 pb-4 text-gray-800">
-                  צור קשר מהיר
-                </h3>
-                <div className="grid grid-cols-1 gap-4">
-                  <a 
-                    href="https://wa.me/972501234567" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md flex items-center justify-center"
-                  >
-                    <FaWhatsapp className="ml-2 text-xl" />
-                    שלח הודעת וואטסאפ
-                  </a>
-                  <a 
-                    href="tel:+972501234567" 
-                    className="bg-gray-800 hover:bg-gray-700 text-white py-3 px-4 rounded-md flex items-center justify-center"
-                  >
-                    <FaPhone className="ml-2" />
-                    התקשר עכשיו
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="p-6">
                 <h3 className="text-xl font-semibold mb-6 border-b border-gray-200 pb-4 text-gray-800">
-                  מפת הגעה
+                  תמיכה מקצועית
                 </h3>
-                <div className="h-64 bg-gray-200 rounded-lg relative overflow-hidden">
-                  {/* You would insert an actual map iframe here */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-gray-500">מפה תוצג כאן</span>
+                <div className="space-y-5">
+                  <div className="flex items-start">
+                    <div className="bg-orange-100 rounded-full p-2 ml-3 shrink-0">
+                      <FaTools className="text-orange-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">ייעוץ טכני</h4>
+                      <p className="text-gray-600 text-sm">מומחים בתחום קידוח היהלום זמינים לעזור בבחירת כוסות קידוח, מסורים ואביזרים מתאימים לצרכים שלך</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-orange-100 rounded-full p-2 ml-3 shrink-0">
+                      <FaCog className="text-orange-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">פתרונות מותאמים אישית</h4>
+                      <p className="text-gray-600 text-sm">אנו מספקים פתרונות ייחודיים לאתגרי קידוח מורכבים - צור קשר לדיון בצרכים הספציפיים שלך</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-orange-100 rounded-full p-2 ml-3 shrink-0">
+                      <FaUserHardHat className="text-orange-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">תמיכה לקבלנים</h4>
+                      <p className="text-gray-600 text-sm">שירות מיוחד לקבלנים ואנשי מקצוע - הנחות כמות, אספקה מהירה ותמיכה בפרויקטים גדולים</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* FAQ Teaser */}
+            <div className="bg-gray-50 rounded-lg border border-gray-200 p-6">
+              <div className="flex items-start">
+                <FaQuestionCircle className="text-orange-600 text-xl ml-3 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">שאלות נפוצות</h4>
+                  <p className="text-gray-600 text-sm mb-3">למידע על סוגי קידוח יהלום, בחירת כוסות קידוח, והמלצות מקצועיות, בקר בעמוד השאלות הנפוצות שלנו.</p>
+                  <Link 
+                    href="/faq"
+                    className="text-orange-600 hover:text-orange-700 font-medium inline-flex items-center"
+                  >
+                    לשאלות נפוצות
+                    <FaArrowLeft className="mr-1 text-sm" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Map */}
+        <div className="mt-12 bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="h-96 bg-gray-200 flex items-center justify-center">
+            <p className="text-gray-500">מפת מיקום החנות תוצג כאן</p>
           </div>
         </div>
       </div>
