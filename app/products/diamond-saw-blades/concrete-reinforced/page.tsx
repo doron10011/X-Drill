@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
-import { concreteSawBlades } from '@/lib/products/concreteSawBlades';
+import { concreteSawBlades } from '@/app/lib/products/concreteSawBlades';
 
 // המרת נתוני המוצרים מהקובץ
 const concreteProducts = Object.entries(concreteSawBlades).map(([slug, product]) => {

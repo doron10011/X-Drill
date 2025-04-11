@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { FaArrowLeft, FaShoppingCart, FaTruck, FaShieldAlt, FaInfoCircle, FaExchangeAlt, FaRuler } from 'react-icons/fa';
 import Image from 'next/image';
-import { useCart } from '../../../../../../components/CartContext';
+import { useCart } from '@/components/CartContext';
 
 // Product data
 const product = {

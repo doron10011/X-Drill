@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
-import { stoneGraniteSawBlades } from '@/lib/products/stoneGraniteSawBlades';
+import { stoneGraniteSawBlades } from '@/app/lib/products/stoneGraniteSawBlades';
 
 // המרת נתוני המוצרים מהקובץ
 const stoneProducts = Object.entries(stoneGraniteSawBlades).map(([slug, product]) => {

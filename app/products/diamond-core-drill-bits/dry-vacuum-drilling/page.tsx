@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
-import { dryVacuumDrillBits } from '../../../../lib/products/dryVacuumDrillBits';
+import { dryVacuumDrillBits } from '@/app/lib/products/dryVacuumDrillBits';
 
 // המרת נתוני המוצרים מהקובץ
 const dryVacuumProducts = Object.entries(dryVacuumDrillBits).map(([slug, product]) => {
