@@ -9,4 +9,4 @@ export default function LoadingPage() {
       <h2 className="text-xl font-semibold text-gray-700">טוען פרטי מוצר...</h2>
     </div>
   );
-}
+} 

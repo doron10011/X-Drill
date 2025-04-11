@@ -12,6 +12,7 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
+    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
@@ -31,7 +32,7 @@ export default function ErrorPage({
             נסה שוב
           </button>
           <Link
-            href="/products/diamond-core-drill-bits/wet-drilling"
+            href="/products/accessories"
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded flex items-center justify-center"
           >
             <FaArrowLeft className="ml-2" />
@@ -41,4 +42,4 @@ export default function ErrorPage({
       </div>
     </div>
   );
-}
+} 

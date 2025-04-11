@@ -1,10 +1,10 @@
 import ProductDetail from '../../../../components/ProductDetail';
 import { wetDrillBits, wetRelatedProducts } from '../../../../lib/products/wetDrillBits';
 
-export default function Wet67mmPage() {
+export default function Wet77mmPage() {
   // Get product data
-  const product = wetDrillBits['67mm'];
-  const relatedProducts = wetRelatedProducts['67mm'];
+  const product = wetDrillBits['77mm'];
+  const relatedProducts = wetRelatedProducts['77mm'];
   
   return (
     <ProductDetail 

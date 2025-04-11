@@ -4,14 +4,15 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
 
-export default function ErrorPage({
-  error,
-  reset,
-}: {
+interface ProductErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+  categoryPath: string;
+}
+
+export default function ProductError({ error, reset, categoryPath }: ProductErrorProps) {
   useEffect(() => {
+    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
@@ -31,7 +32,7 @@ export default function ErrorPage({
             נסה שוב
           </button>
           <Link
-            href="/products/diamond-core-drill-bits/wet-drilling"
+            href={categoryPath}
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded flex items-center justify-center"
           >
             <FaArrowLeft className="ml-2" />
@@ -41,4 +42,4 @@ export default function ErrorPage({
       </div>
     </div>
   );
-}
+} 

@@ -31,7 +31,7 @@ export default function ErrorPage({
             נסה שוב
           </button>
           <Link
-            href="/products/diamond-core-drill-bits/wet-drilling"
+            href="/products/diamond-core-drill-bits/dry-vacuum-drilling"
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded flex items-center justify-center"
           >
             <FaArrowLeft className="ml-2" />
@@ -41,4 +41,4 @@ export default function ErrorPage({
       </div>
     </div>
   );
-}
+} 
