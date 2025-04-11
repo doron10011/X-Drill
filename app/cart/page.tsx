@@ -26,7 +26,7 @@ export default function Cart() {
     updateQuantity(id, newQuantity);
     
     // Trigger animation
-    setUpdateAnimation(id);
+    setUpdateAnimation(typeof id === 'string' ? parseInt(id, 10) : id);
     setTimeout(() => setUpdateAnimation(null), 300);
   };
 

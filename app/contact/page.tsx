@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FaArrowLeft, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaWhatsapp, FaTools, FaCog, FaUserHardHat, FaQuestionCircle } from 'react-icons/fa';
+import { FaArrowLeft, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaWhatsapp, FaTools, FaCog, FaHardHat, FaQuestionCircle } from 'react-icons/fa';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -313,7 +313,7 @@ export default function Contact() {
                   </div>
                   <div className="flex items-start">
                     <div className="bg-orange-100 rounded-full p-2 ml-3 shrink-0">
-                      <FaUserHardHat className="text-orange-600" />
+                      <FaHardHat className="text-orange-600" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-800">תמיכה לקבלנים</h4>
