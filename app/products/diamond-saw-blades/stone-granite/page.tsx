@@ -3,58 +3,24 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
+import { stoneGraniteSawBlades } from '@/lib/products/stoneGraniteSawBlades';
 
-// מוצרי מסורי יהלום לאבן וגרניט
-const stoneProducts = [
-  {
-    id: 1,
-    name: 'מסור יהלום לעבודה עם אבן',
-    diameter: '150 מ"מ',
-    bore: '22.23 מ"מ',
-    rpm_max: '8000',
-    segment_height: '7 מ"מ',
-    segment_count: '12',
-    price: 650,
-    image: '/placeholder.jpg',
-    slug: '150mm',
-  },
-  {
-    id: 2,
-    name: 'מסור יהלום לעבודה עם אבן',
-    diameter: '200 מ"מ',
-    bore: '22.23 מ"מ',
-    rpm_max: '6600',
-    segment_height: '7 מ"מ',
-    segment_count: '14',
-    price: 800,
-    image: '/placeholder.jpg',
-    slug: '200mm',
-  },
-  {
-    id: 3,
-    name: 'מסור יהלום לעבודה עם אבן',
-    diameter: '250 מ"מ',
-    bore: '22.23 מ"מ',
-    rpm_max: '5500',
-    segment_height: '7 מ"מ',
-    segment_count: '18',
-    price: 950,
-    image: '/placeholder.jpg',
-    slug: '250mm',
-  },
-  {
-    id: 4,
-    name: 'מסור יהלום לעבודה עם אבן',
-    diameter: '300 מ"מ',
-    bore: '25.4 מ"מ',
-    rpm_max: '4400',
-    segment_height: '7 מ"מ',
-    segment_count: '20',
-    price: 1100,
-    image: '/placeholder.jpg',
-    slug: '300mm',
-  },
-];
+// המרת נתוני המוצרים מהקובץ
+const stoneProducts = Object.entries(stoneGraniteSawBlades).map(([slug, product]) => {
+  return {
+    id: product.id,
+    name: product.name,
+    diameter: product.diameter,
+    bore: product.bore,
+    segment_height: product.segment_height,
+    segment_count: product.segments.toString(),
+    rpm_max: product.diameter.includes('25.4') ? '8500' : String(9000 - parseInt(product.diameter) * 10),
+    price: product.price,
+    discount_price: product.discount_price,
+    image: product.images[0],
+    slug: slug,
+  };
+});
 
 export default function StoneGranite() {
   const [filters, setFilters] = useState({

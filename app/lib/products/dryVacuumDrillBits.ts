@@ -3,7 +3,7 @@ import { DrillBitProduct, RelatedProduct } from './types';
 // Helper function to generate related products
 const getRelatedDryVacuumProducts = (currentDiameter: string): RelatedProduct[] => {
   // Get all available diameters
-  const diameters = ['80', '85', '90', '95', '100', '105'];
+  const diameters = ['35', '45', '65', '72', '82', '95', '105', '125', '152'];
   
   // Select 2 diameters that are different from the current one
   const relatedDiameters = diameters
@@ -13,9 +13,9 @@ const getRelatedDryVacuumProducts = (currentDiameter: string): RelatedProduct[] 
   // Create related products
   const relatedProducts: RelatedProduct[] = relatedDiameters.map(diameter => ({
     id: `dry-vacuum-${diameter}mm`,
-    name: `כוס קידוח יהלום ליבש/ואקום - ${diameter} מ"מ`,
-    price: 500 + (Number(diameter) - 80) * 50, // Price increases with diameter
-    discount_price: 450 + (Number(diameter) - 80) * 50,
+    name: `כוס קידוח יהלום לקידוח יבש/ואקום - ${diameter} מ"מ`,
+    price: 350 + (Number(diameter) - 35) * 20, // Price increases with diameter
+    discount_price: 299 + (Number(diameter) - 35) * 20,
     image: '/placeholder.jpg',
     slug: `/products/diamond-core-drill-bits/dry-vacuum-drilling/${diameter}mm`,
   }));
@@ -23,18 +23,18 @@ const getRelatedDryVacuumProducts = (currentDiameter: string): RelatedProduct[] 
   // Add accessory products
   relatedProducts.push(
     {
-      id: 'adapter-unc-bsp',
-      name: 'מתאם הברגה 1-1/4" UNC ל-1/2" BSP',
-      price: 120,
+      id: 'vacuum-adapter',
+      name: 'מתאם למערכת ואקום',
+      price: 150,
       image: '/placeholder.jpg',
-      slug: '/products/accessories/thread-adapters/unc-bsp',
+      slug: '/products/accessories/vacuum-adapters',
     },
     {
-      id: 'drill-extension-250',
-      name: 'מאריך קידוח 250 מ"מ',
-      price: 180,
+      id: 'drill-extension-200',
+      name: 'מאריך קידוח 200 מ"מ',
+      price: 160,
       image: '/placeholder.jpg',
-      slug: '/products/accessories/drill-extensions/250mm',
+      slug: '/products/accessories/drill-extensions/200mm',
     }
   );
 
@@ -46,65 +46,64 @@ const createDryVacuumDrillBit = (diameter: string): DrillBitProduct => {
   const numDiameter = Number(diameter);
   
   // Calculate price based on diameter (larger diameter = higher price)
-  const basePrice = 500;
-  const priceIncrement = (numDiameter - 80) * 50;
+  const basePrice = 350;
+  const priceIncrement = (numDiameter - 35) * 20;
   const price = basePrice + priceIncrement;
   
   // Calculate segments based on diameter
-  const segments = numDiameter >= 100 ? 7 : 6;
+  const segments = numDiameter >= 100 ? 7 : 5;
   
   return {
     id: `dry-vacuum-${diameter}mm`,
-    name: `כוס קידוח יהלום ליבש/ואקום עם סגמנט מיוחד – בקוטר ${diameter} מ"מ`,
+    name: `כוס קידוח יהלום לקידוח יבש/ואקום – בקוטר ${diameter} מ"מ`,
     nameEn: `Diamond Core Drill Bit for Dry/Vacuum Drilling - ${diameter}mm`,
-    description: `כוס קידוח מקצועית לקידוח יבש/ואקום בקוטר ${diameter} מ"מ, מתאימה לקידוח בבטון, בטון מזוין וחומרים קשים. עם טכנולוגיה מיוחדת למניעת התחממות.`,
+    description: `כוס קידוח מקצועית לקידוח יבש/ואקום בקוטר ${diameter} מ"מ, מתאימה לקידוח בבטון, בלוקים, אבן וחומרים קשים. איכות גבוהה וביצועים מעולים.`,
     longDescription: `
-      <p>מקדח יהלום מקצועי לקידוח יבש/ואקום המיועד לקידוח בבטון ובבטון מזוין. המקדח מצויד בסגמנטים מיוחדים המתוכננים לפזר חום ביעילות גם ללא שימוש במים.</p>
-      <p>כוס הקידוח מאפשרת עבודה עם שואב אבק תעשייתי לסילוק האבק בזמן הקידוח, מה שמאפשר עבודה נקיה יותר. המבנה המחוזק מאפשר קידוח איכותי תוך שמירה על דיוק וביצועים גבוהים.</p>
-      <p>בקוטר ${diameter} מ"מ, הכוס מתאימה במיוחד לקידוח פתחים להתקנת צנרת, מערכות חשמל ותקשורת. מתאימה לשימוש עם מקדחות ייעודיות לקידוח יבש בעלות חיבור 1-1/4" UNC.</p>
+      <p>מקדח יהלום מסדרת Premium לקידוח יבש ווואקום המיועד לקידוח מדוייק בבטון, בלוקים ואבן. המקדח מצויד בסגמנטים מיוחדים המאפשרים קידוח ללא שימוש במים, בשילוב עם שואב אבק או מערכת ואקום.</p>
+      <p>כוס הקידוח תוכננה עם פתחי אוורור אופטימליים למניעת התחממות יתר בזמן עבודה יבשה. המבנה המחוזק של הכוס מאפשר קידוח דיוק עם אורך חיים משופר.</p>
+      <p>בקוטר ${diameter} מ"מ, הכוס מתאימה במיוחד לקידוח פתחים להתקנת צנרת, חשמל ותקשורת. מתאימה לשימוש עם מקדחות קידוח בעלות חיבור M16 סטנדרטי.</p>
     `,
     diameter: `${diameter} מ"מ`,
     length: '400 מ"מ',
     effective_length: '350 מ"מ',
-    thread: '1-1/4" UNC',
+    thread: 'M16',
     segments,
-    segment_height: '8 מ"מ',
-    segment_type: 'סגמנט מיוחד לקידוח יבש',
-    segment_technology: 'טכנולוגיית פיזור חום מתקדמת למניעת התחממות בקידוח יבש',
-    core_material: 'פלדה באיכות גבוהה, מחוזקת במיוחד לקידוח בבטון מזוין',
-    material: 'בטון, בטון מזוין, מתאים במיוחד לבלוקים ואריחים',
-    usage_type: 'יבש / ואקום',
+    segment_height: '9 מ"מ',
+    segment_type: 'Dry/Vacuum Premium',
+    segment_technology: 'טכנולוגיה מיוחדת לקידוח יבש עם פינוי אבק אופטימלי',
+    core_material: 'פלדה באיכות גבוהה, עם פתחי אוורור למניעת התחממות',
+    material: 'בטון, בלוקים, אבן, קרמיקה',
+    usage_type: 'יבש/ואקום',
     warranty: '12 חודשים',
     price,
     discount_price: price - 50,
-    stock: 10,
+    stock: 15,
     delivery_time: '1-3 ימי עסקים',
     applications: [
       'קידוח בבטון',
-      'קידוח בבטון מזוין',
       'קידוח בבלוקים',
-      'התקנת צינורות',
+      'קידוח באבן וקרמיקה',
+      'ביצוע עבודות אינסטלציה',
       'התקנת צנרת חשמל ותקשורת',
-      'עבודה במקומות רגישים למים'
+      'התקנת מערכות מיזוג אוויר'
     ],
     compatible_machines: [
-      'מקדחות ייעודיות לקידוח יבש עם חיבור 1-1/4" UNC',
-      'מכונות עם חיבורים אחרים בשילוב עם מתאם מתאים',
-      'שואבי אבק תעשייתיים'
+      'מכונות קידוח עם חיבור M16',
+      'מכונות עם חיבורים אחרים בשילוב עם מתאם מתאים'
     ],
     recommended_accessories: [
-      'מתאם הברגה 1-1/4" UNC ל-1/2" BSP',
-      'מאריך קידוח 250 מ"מ',
+      'מתאם למערכת ואקום',
+      'מאריך קידוח 200 מ"מ',
       'שואב אבק תעשייתי'
     ],
-    technical_note: 'לביצועים מיטביים מומלץ להשתמש בשואב אבק חזק. יש לעבוד בלחץ מתון למניעת התחממות. מומלץ לתת למקדח להתקרר במידת הצורך בין קידוחים.',
+    technical_note: 'יש להשתמש עם שואב אבק או מערכת ואקום למניעת נזק בריאותי עקב אבק. מומלץ לקדוח במהירות סיבוב של 800-1200 סל"ד לתוצאות מיטביות.',
     features: [
-      'סגמנטים מיוחדים לקידוח יבש',
-      'מבנה לפיזור חום יעיל',
-      'עבודה נקיה יותר בעזרת שואב אבק',
-      'אידיאלי למקומות ללא גישה למים',
-      'חיבור סטנדרטי 1-1/4" UNC',
-      'עמידות גבוהה לשחיקה'
+      'מותאם במיוחד לקידוח יבש או עם מערכת ואקום',
+      'פתחי אוורור למניעת התחממות',
+      'אורך חיים משופר',
+      'רמת רעש נמוכה יחסית',
+      'חיבור סטנדרטי M16',
+      'עיצוב המאפשר פינוי אבק אופטימלי'
     ],
     images: [
       '/placeholder.jpg',
@@ -129,20 +128,26 @@ const createDryVacuumDrillBit = (diameter: string): DrillBitProduct => {
 
 // Create products for each diameter
 export const dryVacuumDrillBits: Record<string, DrillBitProduct> = {
-  '80mm': createDryVacuumDrillBit('80'),
-  '85mm': createDryVacuumDrillBit('85'),
-  '90mm': createDryVacuumDrillBit('90'),
+  '35mm': createDryVacuumDrillBit('35'),
+  '45mm': createDryVacuumDrillBit('45'),
+  '65mm': createDryVacuumDrillBit('65'),
+  '72mm': createDryVacuumDrillBit('72'),
+  '82mm': createDryVacuumDrillBit('82'),
   '95mm': createDryVacuumDrillBit('95'),
-  '100mm': createDryVacuumDrillBit('100'),
   '105mm': createDryVacuumDrillBit('105'),
+  '125mm': createDryVacuumDrillBit('125'),
+  '152mm': createDryVacuumDrillBit('152'),
 };
 
 // Create related products for each product
 export const dryVacuumRelatedProducts: Record<string, RelatedProduct[]> = {
-  '80mm': getRelatedDryVacuumProducts('80'),
-  '85mm': getRelatedDryVacuumProducts('85'),
-  '90mm': getRelatedDryVacuumProducts('90'),
+  '35mm': getRelatedDryVacuumProducts('35'),
+  '45mm': getRelatedDryVacuumProducts('45'),
+  '65mm': getRelatedDryVacuumProducts('65'),
+  '72mm': getRelatedDryVacuumProducts('72'),
+  '82mm': getRelatedDryVacuumProducts('82'),
   '95mm': getRelatedDryVacuumProducts('95'),
-  '100mm': getRelatedDryVacuumProducts('100'),
   '105mm': getRelatedDryVacuumProducts('105'),
+  '125mm': getRelatedDryVacuumProducts('125'),
+  '152mm': getRelatedDryVacuumProducts('152'),
 }; 

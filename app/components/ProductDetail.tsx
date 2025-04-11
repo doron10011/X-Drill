@@ -4,8 +4,8 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { FaChevronLeft, FaShoppingCart, FaTruck, FaShieldAlt, FaInfoCircle, FaExchangeAlt, FaCheck, FaPrint, FaShare, FaDownload, FaRuler, FaCog, FaTools, FaHeadset } from 'react-icons/fa';
 import Image from 'next/image';
-import { useCart } from '../../components/CartContext';
-import { DrillBitProduct, RelatedProduct } from '../../lib/products/types';
+import { useCart } from '@/components/CartContext';
+import { DrillBitProduct, RelatedProduct } from '@/app/lib/products/types';
 
 interface ProductDetailProps {
   product: DrillBitProduct;

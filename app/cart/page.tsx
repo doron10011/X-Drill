@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaTrash, FaChevronLeft, FaShoppingCart, FaCreditCard, FaTruck, FaShieldAlt, FaInfoCircle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCart } from '../../components/CartContext';
+import { useCart } from '@/components/CartContext';
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, cartTotal } = useCart();

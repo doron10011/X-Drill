@@ -3,82 +3,24 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
+import { dryVacuumDrillBits } from '../../../../lib/products/dryVacuumDrillBits';
 
-// מוצרי קידוח יבש/ואקום
-const dryVacuumProducts = [
-  {
-    id: 1,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '80 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '6',
-    price: 500,
-    image: '/placeholder.jpg',
-    slug: '80mm',
-  },
-  {
-    id: 2,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '85 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '6',
-    price: 550,
-    image: '/placeholder.jpg',
-    slug: '85mm',
-  },
-  {
-    id: 3,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '90 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '6',
-    price: 600,
-    image: '/placeholder.jpg',
-    slug: '90mm',
-  },
-  {
-    id: 4,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '95 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '6',
-    price: 650,
-    image: '/placeholder.jpg',
-    slug: '95mm',
-  },
-  {
-    id: 5,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '100 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '7',
-    price: 700,
-    image: '/placeholder.jpg',
-    slug: '100mm',
-  },
-  {
-    id: 6,
-    name: 'כוס קידוח יהלום ליבש/ואקום',
-    diameter: '105 מ"מ',
-    length: '400 מ"מ',
-    thread: '1-1/4" UNC',
-    segment_height: '8 מ"מ',
-    segment_count: '7',
-    price: 750,
-    image: '/placeholder.jpg',
-    slug: '105mm',
-  },
-];
+// המרת נתוני המוצרים מהקובץ
+const dryVacuumProducts = Object.entries(dryVacuumDrillBits).map(([slug, product]) => {
+  return {
+    id: product.id,
+    name: product.name,
+    diameter: product.diameter,
+    length: product.length,
+    thread: product.thread,
+    segment_height: product.segment_height,
+    segment_count: product.segments.toString(),
+    price: product.price,
+    discount_price: product.discount_price,
+    image: product.images[0],
+    slug: slug,
+  };
+});
 
 export default function DryVacuumDrilling() {
   const [filters, setFilters] = useState({

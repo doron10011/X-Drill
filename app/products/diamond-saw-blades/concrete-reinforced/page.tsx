@@ -3,82 +3,24 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaFilter, FaArrowLeft, FaSearch } from 'react-icons/fa';
+import { concreteSawBlades } from '@/lib/products/concreteSawBlades';
 
-// מוצרי מסורי יהלום לבטון ובטון מזוין
-const concreteProducts = [
-  {
-    id: 1,
-    name: 'מסור יהלום לבטון מזוין',
-    diameter: '200 מ"מ',
-    bore: '22.23 מ"מ',
-    rpm_max: '6600',
-    segment_height: '10 מ"מ',
-    segment_count: '14',
-    price: 800,
-    image: '/placeholder.jpg',
-    slug: '200mm',
-  },
-  {
-    id: 2,
-    name: 'מסור יהלום לבטון מזוין',
-    diameter: '250 מ"מ',
-    bore: '22.23 מ"מ',
-    rpm_max: '5500',
-    segment_height: '10 מ"מ',
-    segment_count: '18',
-    price: 950,
-    image: '/placeholder.jpg',
-    slug: '250mm',
-  },
-  {
-    id: 3,
-    name: 'מסור יהלום לבטון מזוין',
-    diameter: '300 מ"מ',
-    bore: '25.4 מ"מ',
-    rpm_max: '4400',
-    segment_height: '10 מ"מ',
-    segment_count: '20',
-    price: 1100,
-    image: '/placeholder.jpg',
-    slug: '300mm',
-  },
-  {
-    id: 4,
-    name: 'מסור יהלום לבטון מזוין',
-    diameter: '350 מ"מ',
-    bore: '25.4 מ"מ',
-    rpm_max: '3700',
-    segment_height: '10 מ"מ',
-    segment_count: '24',
-    price: 1250,
-    image: '/placeholder.jpg',
-    slug: '350mm',
-  },
-  {
-    id: 5,
-    name: 'מסור יהלום לבטון מזוין',
-    diameter: '400 מ"מ',
-    bore: '25.4 מ"מ',
-    rpm_max: '3200',
-    segment_height: '10 מ"מ',
-    segment_count: '28',
-    price: 1500,
-    image: '/placeholder.jpg',
-    slug: '400mm',
-  },
-  {
-    id: 6,
-    name: 'מסור יהלום לקידוח בבטון ובטון מזוין',
-    diameter: 'D25.4/20 מ"מ',
-    bore: '20 מ"מ',
-    rpm_max: '8500',
-    segment_height: '8 מ"מ',
-    segment_count: '7',
-    price: 450,
-    image: '/placeholder.jpg',
-    slug: 'd25mm',
-  },
-];
+// המרת נתוני המוצרים מהקובץ
+const concreteProducts = Object.entries(concreteSawBlades).map(([slug, product]) => {
+  return {
+    id: product.id,
+    name: product.name,
+    diameter: product.diameter,
+    bore: product.bore,
+    segment_height: product.segment_height,
+    segment_count: product.segments.toString(),
+    rpm_max: product.diameter.includes('25.4') ? '8500' : String(9000 - parseInt(product.diameter) * 10),
+    price: product.price,
+    discount_price: product.discount_price,
+    image: product.images[0],
+    slug: slug,
+  };
+});
 
 export default function ConcreteReinforced() {
   const [filters, setFilters] = useState({

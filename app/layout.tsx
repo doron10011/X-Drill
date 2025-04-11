@@ -1,9 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Heebo } from 'next/font/google';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { CartProvider } from '../components/CartContext';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { CartProvider } from '@/components/CartContext';
 
 const heebo = Heebo({ 
   subsets: ['latin', 'hebrew'],

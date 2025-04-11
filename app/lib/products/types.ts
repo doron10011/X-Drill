@@ -29,6 +29,18 @@ export interface DrillBitSpecs {
   usage_type: string;
 }
 
+// Technical specifications for saw blades
+export interface SawBladeSpecs {
+  diameter: string;
+  bore: string;
+  thickness: string;
+  segments: number;
+  segment_height: string;
+  segment_type: string;
+  material: string;
+  usage_type: string;
+}
+
 // Additional product information
 export interface ProductDetails {
   warranty: string;
@@ -49,6 +61,9 @@ export interface ProductDetails {
 // Complete drill bit product type
 export interface DrillBitProduct extends ProductBase, DrillBitSpecs, ProductDetails {}
 
+// Complete saw blade product type
+export interface SawBladeProduct extends ProductBase, SawBladeSpecs, ProductDetails {}
+
 // Related product information
 export interface RelatedProduct {
   id: string;
@@ -61,4 +76,5 @@ export interface RelatedProduct {
 
 // Product category types
 export type DrillType = "wet-drilling" | "dry-vacuum-drilling";
+export type SawBladeType = "concrete-reinforced" | "stone-granite";
 export type AccessoryType = "thread-adapters" | "drill-extensions"; 
