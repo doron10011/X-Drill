@@ -5,13 +5,18 @@ import Link from 'next/link';
 import { FaChevronLeft, FaShoppingCart, FaTruck, FaShieldAlt, FaInfoCircle, FaExchangeAlt, FaCheck, FaPrint, FaShare, FaDownload, FaRuler, FaCog, FaTools, FaHeadset } from 'react-icons/fa';
 import Image from 'next/image';
 import { useCart } from '@/components/CartContext';
-import { DrillBitProduct, RelatedProduct } from '@/app/lib/products/types';
+import { DrillBitProduct, RelatedProduct, SawBladeProduct } from '@/app/lib/products/types';
 
 interface ProductDetailProps {
-  product: DrillBitProduct;
+  product: DrillBitProduct | SawBladeProduct;
   relatedProducts: RelatedProduct[];
   categoryPath: string;
   categoryName: string;
+}
+
+// Helper to determine if product is a drill bit
+function isDrillBitProduct(product: any): product is DrillBitProduct {
+  return 'thread' in product && 'length' in product;
 }
 
 export default function ProductDetail({ product, relatedProducts, categoryPath, categoryName }: ProductDetailProps) {
@@ -42,10 +47,15 @@ export default function ProductDetail({ product, relatedProducts, categoryPath, 
         price: product.discount_price || product.price,
         quantity: quantity,
         image: product.images[0],
-        attributes: {
-          diameter: product.diameter,
-          thread: product.thread
-        }
+        attributes: isDrillBitProduct(product) 
+          ? {
+              diameter: product.diameter,
+              thread: product.thread
+            } 
+          : {
+              diameter: product.diameter,
+              bore: product.bore
+            }
       });
       
       setIsAddingToCart(false);
@@ -128,7 +138,7 @@ export default function ProductDetail({ product, relatedProducts, categoryPath, 
                   <div className="text-4xl sm:text-5xl text-gray-400 mb-4">
                     <FaTools />
                   </div>
-                  <span className="text-gray-500">תמונת כוס קידוח יהלום {product.diameter}</span>
+                  <span className="text-gray-500">תמונת {isDrillBitProduct(product) ? 'כוס קידוח יהלום' : 'דיסק יהלום'} {product.diameter}</span>
                 </div>
                 
                 {/* Product badges - mobile friendly */}
@@ -204,15 +214,28 @@ export default function ProductDetail({ product, relatedProducts, categoryPath, 
                       <p className="text-gray-600">
                         <span className="font-semibold">קוטר:</span> {product.diameter}
                       </p>
-                      <p className="text-gray-600">
-                        <span className="font-semibold">אורך:</span> {product.length}
-                      </p>
-                      <p className="text-gray-600">
-                        <span className="font-semibold">אורך אפקטיבי:</span> {product.effective_length}
-                      </p>
-                      <p className="text-gray-600">
-                        <span className="font-semibold">הברגה:</span> {product.thread}
-                      </p>
+                      {isDrillBitProduct(product) ? (
+                        <>
+                          <p className="text-gray-600">
+                            <span className="font-semibold">אורך:</span> {product.length}
+                          </p>
+                          <p className="text-gray-600">
+                            <span className="font-semibold">אורך אפקטיבי:</span> {product.effective_length}
+                          </p>
+                          <p className="text-gray-600">
+                            <span className="font-semibold">הברגה:</span> {product.thread}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-gray-600">
+                            <span className="font-semibold">קוטר פנימי:</span> {product.bore}
+                          </p>
+                          <p className="text-gray-600">
+                            <span className="font-semibold">עובי:</span> {product.thickness}
+                          </p>
+                        </>
+                      )}
                     </div>
                     <div>
                       <p className="text-gray-600">
