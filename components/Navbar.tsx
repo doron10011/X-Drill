@@ -6,11 +6,14 @@ import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaPhone, FaChevronLe
 import { useCart } from './CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type SubmenuType = 'products' | 'diamond-core' | 'diamond-saw' | 'accessories' | null;
+type SubmenuType = {
+  main: 'products' | null;
+  sub: 'diamond-core' | 'diamond-saw' | 'accessories' | null;
+};
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState<SubmenuType>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<SubmenuType>({ main: null, sub: null });
   const [mounted, setMounted] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   
@@ -23,11 +26,19 @@ export default function Navbar() {
   }, []);
 
   // Handle submenu clicks on mobile
-  const toggleSubmenu = (submenu: SubmenuType) => {
-    if (activeSubmenu === submenu) {
-      setActiveSubmenu(null);
+  const toggleMainSubmenu = (submenu: 'products' | null) => {
+    if (activeSubmenu.main === submenu) {
+      setActiveSubmenu({ main: null, sub: null });
     } else {
-      setActiveSubmenu(submenu);
+      setActiveSubmenu({ main: submenu, sub: null });
+    }
+  };
+
+  const toggleSubSubmenu = (submenu: 'diamond-core' | 'diamond-saw' | 'accessories' | null) => {
+    if (activeSubmenu.sub === submenu) {
+      setActiveSubmenu({ ...activeSubmenu, sub: null });
+    } else {
+      setActiveSubmenu({ ...activeSubmenu, sub: submenu });
     }
   };
   
@@ -145,26 +156,26 @@ export default function Navbar() {
                   {/* קטגוריית מוצרים */}
                   <div>
                     <button 
-                      onClick={() => toggleSubmenu('products')}
+                      onClick={() => toggleMainSubmenu('products')}
                       className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
                     >
                       <span>מוצרים</span>
-                      <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'products' ? 'rotate-180' : ''}`} />
+                      <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu.main === 'products' ? 'rotate-180' : ''}`} />
                     </button>
                     
-                    {activeSubmenu === 'products' && (
+                    {activeSubmenu.main === 'products' && (
                       <div className="submenu bg-gray-800">
                         {/* כוסות קידוח */}
                         <div>
                           <button
-                            onClick={() => toggleSubmenu('diamond-core')}
+                            onClick={() => toggleSubSubmenu('diamond-core')}
                             className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
                           >
                             <span>כוסות קידוח יהלום</span>
-                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'diamond-core' ? 'rotate-180' : ''}`} />
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu.sub === 'diamond-core' ? 'rotate-180' : ''}`} />
                           </button>
                           
-                          {activeSubmenu === 'diamond-core' && (
+                          {activeSubmenu.sub === 'diamond-core' && (
                             <div className="submenu-child bg-gray-700">
                               <Link 
                                 href="/products/diamond-core-drill-bits/wet-drilling"
@@ -194,14 +205,14 @@ export default function Navbar() {
                         {/* מסורי יהלום */}
                         <div>
                           <button
-                            onClick={() => toggleSubmenu('diamond-saw')}
+                            onClick={() => toggleSubSubmenu('diamond-saw')}
                             className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
                           >
                             <span>מסורי יהלום</span>
-                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'diamond-saw' ? 'rotate-180' : ''}`} />
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu.sub === 'diamond-saw' ? 'rotate-180' : ''}`} />
                           </button>
                           
-                          {activeSubmenu === 'diamond-saw' && (
+                          {activeSubmenu.sub === 'diamond-saw' && (
                             <div className="submenu-child bg-gray-700">
                               <Link 
                                 href="/products/diamond-saw-blades/concrete-reinforced"
@@ -233,14 +244,14 @@ export default function Navbar() {
                         {/* אביזרים */}
                         <div>
                           <button
-                            onClick={() => toggleSubmenu('accessories')}
+                            onClick={() => toggleSubSubmenu('accessories')}
                             className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
                           >
                             <span>אביזרים נלווים</span>
-                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'accessories' ? 'rotate-180' : ''}`} />
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu.sub === 'accessories' ? 'rotate-180' : ''}`} />
                           </button>
                           
-                          {activeSubmenu === 'accessories' && (
+                          {activeSubmenu.sub === 'accessories' && (
                             <div className="submenu-child bg-gray-700">
                               <Link 
                                 href="/products/accessories/vacuum-drills"
