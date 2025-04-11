@@ -17,6 +17,8 @@ body {
   color: var(--text-color);
   background: rgb(var(--background-rgb));
   text-align: right;
+  direction: rtl;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -238,4 +240,570 @@ svg[data-icon="chevron-down"] {
 /* Ensure RTL spacing works correctly */
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+/* Mobile optimizations - Fix issues with width and layout */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  /* Fix padding for mobile screens */
+  .px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Improve touch targets */
+  button, 
+  [role="button"],
+  a.btn,
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.625rem 1rem;
+  }
+  
+  /* סגנונות מעודכנים לתפריט מובייל בסגנון אפליקציה */
+  .mobile-menu {
+    height: 100vh !important;
+    width: 80% !important;
+    max-width: 300px !important;
+    overflow-y: auto !important;
+    position: fixed !important;
+    z-index: 50 !important;
+    background-color: #111827 !important;
+    top: 0 !important;
+    right: 0 !important;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* שיפור גודל ומרווחים בפריטי תפריט */
+  .mobile-menu a,
+  .mobile-menu button {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+    transition: background-color 0.2s ease !important;
+  }
+
+  /* שיפור עיצוב תתי-תפריטים */
+  .mobile-menu .border-b {
+    border-bottom-width: 1px !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* מעברים חלקים יותר בלחיצה */
+  .mobile-menu a:active,
+  .mobile-menu button:active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  /* עיצוב כפתור ההמבורגר */
+  .p-2.rounded-md {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease-in-out !important;
+  }
+
+  /* שיפור אייקונים בתפריט */
+  .mobile-menu svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* שיפור אנימציית צוורון (אייקון חץ למטה) */
+  .transform.rotate-180 {
+    transform: rotate(180deg) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* תמיכה בסדר האלמנטים במובייל (פלקסבוקס) */
+  .order-1 {
+    order: 1 !important;
+  }
+  
+  .order-2 {
+    order: 2 !important;
+  }
+  
+  .order-3 {
+    order: 3 !important;
+  }
+
+  /* שמירה על מרווחים שווים בין אזורים בנאבבר */
+  .flex-1 {
+    flex: 1 1 0% !important;
+  }
+
+  /* עיצוב כפתורי פעולה בנאבבר */
+  .p-1 {
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* כותרת תפריט בראש תפריט המובייל */
+  .mobile-menu h2 {
+    color: white !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* רשימת פריטי תפריט */
+  .space-y-0 > * + * {
+    margin-top: 0 !important;
+  }
+
+  /* עיצוב כפתור סגירה */
+  .mobile-menu button.rounded {
+    border-radius: 4px !important;
+    transition: background-color 0.2s ease !important;
+  }
+
+  .mobile-menu button.rounded:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* שיפור עיצוב תתי-קטגוריות */
+  .bg-gray-700 {
+    background-color: #1f2937 !important;
+  }
+
+  .bg-gray-600 {
+    background-color: #374151 !important;
+  }
+  
+  /* Adjust breadcrumb for small screens */
+  nav[aria-label="Breadcrumb"] {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    mask-image: linear-gradient(to right, transparent, black 1rem, black 95%, transparent);
+  }
+  
+  /* Fix grid layouts */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    width: 100% !important;
+  }
+  
+  /* Fixed positioning for mobile nav when needed */
+  .mobile-nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    width: 100vw;
+  }
+  
+  /* Optimize mobile hero section */
+  .hero-section {
+    padding: 2rem 1rem !important;
+  }
+  
+  /* Improve product cards on mobile */
+  .product-card {
+    margin-bottom: 1rem;
+    width: 100% !important;
+  }
+  
+  /* Ensure product images are responsive */
+  .product-image {
+    max-height: 70vh;
+    object-fit: contain;
+    width: 100% !important;
+  }
+
+  /* Fix mobile navigation menu width */
+  .md\:hidden.absolute {
+    width: 100% !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  /* Ensure mobile containers have proper width */
+  .container-custom,
+  .max-w-7xl {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fix tab navigation on mobile */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100vw;
+    overflow-x: auto !important;
+  }
+
+  /* Fix image sizing in product cards */
+  .h-48, .h-64 {
+    height: 180px !important;
+  }
+  
+  /* Improve navbar layout on mobile */
+  nav.bg-gray-900 {
+    width: 100vw !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix phone number display at top bar */
+  .top-bar-phone {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 14px !important;
+  }
+
+  /* תיקון עיצוב וממדים של תפריט הקניות */
+  .cart-dropdown {
+    position: fixed !important;
+    top: 105px !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 105px) !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    z-index: 100 !important;
+    border: none !important;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller screens */
+  body {
+    font-size: 14px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Adjust button layout on very small screens */
+  .flex-col-mobile, 
+  .sm\:flex-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  /* Make buttons full width on small screens */
+  .sm\:w-32, 
+  .sm\:space-x-3, 
+  .sm\:space-x-reverse {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .sm\:space-y-0 {
+    margin-top: 0.5rem !important;
+  }
+
+  /* Fix product detail page layout */
+  .order-1,
+  .order-2 {
+    width: 100% !important;
+  }
+  
+  /* Fix footer layout on small screens */
+  footer .grid-cols-1 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+  }
+  
+  footer .justify-end,
+  footer .text-right {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  
+  /* Center newsletter form */
+  footer form.flex {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  footer form.flex input,
+  footer form.flex button {
+    width: 100% !important;
+    border-radius: 0.375rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Additional fixes for RTL on mobile */
+@media (max-width: 768px) {
+  /* Ensure RTL works correctly */
+  .rtl, 
+  [dir="rtl"],
+  .rtl-flex,
+  body,
+  .text-right {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  /* Fix left/right alignment in flex containers */
+  .justify-between {
+    width: 100%;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Fix margins in RTL context */
+  .ml-2, .mr-2, .ml-3, .mr-3, .ml-4, .mr-4 {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+
+  /* Mobile menu fixes */
+  .md\:hidden.absolute {
+    position: fixed !important;
+    max-height: calc(100vh - 120px) !important;
+    overflow-y: auto !important;
+    top: 64px !important;
+  }
+
+  /* Fix mobile menu positioning */
+  .md\:hidden.absolute.z-40 {
+    right: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+  }
+
+  /* Fix cart dropdown positioning */
+  .cart-dropdown {
+    position: fixed !important;
+    right: 0 !important;
+    left: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    top: 64px !important;
+    margin-top: 0 !important;
+    max-height: calc(100vh - 64px) !important;
+    overflow-y: auto !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Fix content alignment on very narrow screens */
+@media (max-width: 320px) {
+  .px-4, .px-3, .sm\:px-6, .lg\:px-8 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Fix small screen sizing */
+  html, body {
+    width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
+
+/* Fix content overflows */
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+/* Ensure RTL works on mobile */
+@media (max-width: 768px) {
+  body {
+    direction: rtl !important;
+    text-align: right !important;
+    width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Ensure all elements respect the container width */
+  #__next, 
+  div[data-reactroot],
+  main,
+  section,
+  article,
+  aside,
+  header,
+  footer,
+  nav {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
+
+/* Fix for screen width issues */
+html, body {
+  width: 100% !important;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* Mobile-first modal styling */
+.modal,
+.dialog,
+.popup {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+@media (min-width: 769px) {
+  .modal,
+  .dialog,
+  .popup {
+    width: auto !important;
+    max-width: 90vw !important;
+    margin: 1.75rem auto !important;
+    border-radius: 0.5rem !important;
+  }
+}
+
+/* =============================
+   סגנונות נאבבר מובייל חדש
+   ============================= */
+
+/* כפתור המבורגר - גדול וברור */
+.hamburger-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.hamburger-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger-button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* מיקום נאבבר מובייל */
+.mobile-navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* כפתורי אייקונים במובייל */
+.mobile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.mobile-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-icon:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* סגנונות תפריט מובייל */
+.mobile-menu {
+  box-shadow: -2px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu-header {
+  height: 60px;
+}
+
+.mobile-menu-item {
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-item:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* סגנונות עגלת קניות מובייל */
+.cart-drawer {
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* תיקון נראות בטלפון למעלה */
+.top-phone-bar {
+  display: block;
+}
+
+/* מדיה קווריז להפרדה מוחלטת בין דסקטופ למובייל */
+@media (max-width: 767px) {
+  .desktop-navbar {
+    display: none !important;
+  }
+  
+  .mobile-navbar {
+    display: block !important;
+  }
+  
+  /* להבטיח שכפתור ההמבורגר נראה היטב */
+  .hamburger-button {
+    padding: 10px;
+  }
+  
+  /* נראות מיוחדת לתפריט המובייל */
+  .mobile-menu-links a,
+  .mobile-menu-links button {
+    font-size: 16px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  
+  /* שיפור נראות סאב-מנו במובייל */
+  .submenu, .submenu-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (min-width: 768px) {
+  .desktop-navbar {
+    display: block !important;
+  }
+  
+  .mobile-navbar {
+    display: none !important;
+  }
 }

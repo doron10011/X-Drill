@@ -172,127 +172,123 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 rtl pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
         {/* Breadcrumb */}
-        <nav className="flex mb-8" aria-label="Breadcrumb">
-          <ol className="flex items-center space-x-2">
+        <nav className="flex mb-4 md:mb-8 rtl overflow-x-auto pb-2 hide-scrollbar" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center whitespace-nowrap">
             <li>
               <Link href="/" className="text-gray-500 hover:text-gray-700">
                 דף הבית
               </Link>
             </li>
-            <li>
-              <span className="text-gray-500 mx-2">/</span>
-            </li>
+            <li className="mx-2 text-gray-500">/</li>
             <li>
               <Link href="/products" className="text-gray-500 hover:text-gray-700">
                 מוצרים
               </Link>
             </li>
-            <li>
-              <span className="text-gray-500 mx-2">/</span>
-            </li>
-            <li>
+            <li className="mx-2 text-gray-500">/</li>
+            <li className="hidden sm:block">
               <Link href="/products/diamond-core-drill-bits" className="text-gray-500 hover:text-gray-700">
                 כוסות קידוח יהלום
               </Link>
             </li>
-            <li>
-              <span className="text-gray-500 mx-2">/</span>
-            </li>
+            <li className="hidden sm:block mx-2 text-gray-500">/</li>
             <li>
               <Link href="/products/diamond-core-drill-bits/wet-drilling" className="text-gray-500 hover:text-gray-700">
                 קידוח רטוב
               </Link>
             </li>
-            <li>
-              <span className="text-gray-500 mx-2">/</span>
-            </li>
-            <li className="text-gray-700 truncate max-w-xs">{product.name}</li>
+            <li className="mx-2 text-gray-500">/</li>
+            <li className="text-gray-700 truncate max-w-[150px] sm:max-w-xs">{product.name}</li>
           </ol>
         </nav>
 
-        {/* Back button */}
-        <div className="mb-6">
+        {/* Back button - mobile friendly */}
+        <div className="mb-4 md:mb-6">
           <Link 
             href="/products/diamond-core-drill-bits/wet-drilling" 
             className="inline-flex items-center text-orange-600 hover:text-orange-700"
           >
-            <FaChevronLeft className="mr-2" />
+            <span className="rtl-flip">
+              <FaChevronLeft className="mr-2" />
+            </span>
             חזרה לכוסות קידוח רטובות
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Product Images */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
+          {/* Product Images - mobile optimized */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            className="order-1"
           >
             <div className="bg-white rounded-lg shadow overflow-hidden mb-4">
-              <div className="h-96 bg-gray-200 flex items-center justify-center relative">
+              <div className="h-64 sm:h-80 md:h-96 bg-gray-200 flex items-center justify-center relative product-image">
                 {/* Placeholder for actual image */}
                 <div className="text-center">
-                  <div className="text-5xl text-gray-400 mb-4">
+                  <div className="text-4xl sm:text-5xl text-gray-400 mb-4">
                     <FaTools />
                   </div>
                   <span className="text-gray-500">תמונת כוס קידוח יהלום {product.diameter}</span>
                 </div>
                 
-                {/* Product badges */}
-                <div className="absolute top-4 right-4 flex flex-col space-y-2">
+                {/* Product badges - mobile friendly */}
+                <div className="absolute top-2 sm:top-4 right-2 sm:right-4 flex flex-col space-y-1 sm:space-y-2">
                   {product.discount_price && (
-                    <span className="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-md">
+                    <span className="bg-red-500 text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-md">
                       מבצע!
                     </span>
                   )}
-                  <span className="bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-md">
+                  <span className="bg-green-500 text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-md">
                     במלאי
                   </span>
                 </div>
               </div>
             </div>
             
-            {/* Thumbnail Images */}
+            {/* Thumbnail Images - better on mobile */}
             <div className="grid grid-cols-4 gap-2">
               {[0, 1, 2].map((idx) => (
                 <div 
                   key={idx} 
-                  className={`h-24 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer border-2 ${selectedImage === idx ? 'border-orange-500' : 'border-transparent'}`}
+                  className={`h-16 sm:h-24 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer border-2 ${selectedImage === idx ? 'border-orange-500' : 'border-transparent'}`}
                   onClick={() => setSelectedImage(idx)}
                 >
-                  <FaTools className="text-gray-400 text-2xl" />
+                  <FaTools className="text-gray-400 text-xl sm:text-2xl" />
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Product Info */}
+          {/* Product Info - mobile optimized */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="order-2"
           >
-            <div className="bg-white rounded-lg shadow p-6">
-              <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-              <p className="text-gray-600 mb-4">{product.description}</p>
+            <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+              <h1 className="text-xl sm:text-2xl font-bold mb-2">{product.name}</h1>
+              <p className="text-gray-600 text-sm sm:text-base mb-4">{product.description}</p>
               
-              {/* Price */}
+              {/* Price - mobile friendly */}
               <div className="mb-6">
                 {product.discount_price ? (
-                  <div className="flex items-center">
-                    <span className="text-3xl font-bold text-orange-600">{product.discount_price} ₪</span>
-                    <span className="text-xl text-gray-500 line-through mr-2">{product.price} ₪</span>
-                    <span className="bg-red-100 text-red-800 text-sm px-2 py-1 rounded mr-2">
+                  <div className="flex flex-wrap items-center">
+                    <span className="text-2xl sm:text-3xl font-bold text-orange-600 ml-2">{product.discount_price} ₪</span>
+                    <span className="text-lg sm:text-xl text-gray-500 line-through ml-2">{product.price} ₪</span>
+                    <span className="bg-red-100 text-red-800 text-xs sm:text-sm px-2 py-1 rounded">
                       {Math.round(((product.price - product.discount_price) / product.price) * 100)}% הנחה
                     </span>
                   </div>
                 ) : (
-                  <span className="text-3xl font-bold text-orange-600">{product.price} ₪</span>
+                  <span className="text-2xl sm:text-3xl font-bold text-orange-600">{product.price} ₪</span>
                 )}
-                <p className="text-sm text-gray-500 mt-1">כולל מע"מ</p>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">כולל מע"מ</p>
               </div>
               
               {/* Key Features */}
@@ -330,66 +326,61 @@ export default function ProductDetail() {
                 </div>
               </div>
               
-              {/* Add to Cart */}
+              {/* Add to cart section - mobile friendly */}
               <div className="mb-6">
-                <div className="flex items-center mb-4">
-                  <div className="flex items-center border border-gray-300 rounded-md">
+                <div className="flex flex-col sm:flex-row items-stretch space-y-3 sm:space-y-0 sm:space-x-3 sm:space-x-reverse">
+                  <div className="flex items-center border border-gray-300 rounded-md w-full sm:w-32 justify-between">
                     <button 
-                      className="px-3 py-2 text-orange-600 hover:bg-gray-100 rounded-r-md"
-                      onClick={() => handleQuantityChange(quantity - 1)}
+                      onClick={() => handleQuantityChange(quantity - 1)} 
+                      className="px-3 py-2 text-gray-600 hover:text-gray-800"
                       disabled={quantity <= 1}
                     >
                       -
                     </button>
-                    <span className="px-4 py-2">{quantity}</span>
+                    <span className="text-gray-800 font-medium">{quantity}</span>
                     <button 
-                      className="px-3 py-2 text-orange-600 hover:bg-gray-100 rounded-l-md"
-                      onClick={() => handleQuantityChange(quantity + 1)}
+                      onClick={() => handleQuantityChange(quantity + 1)} 
+                      className="px-3 py-2 text-gray-600 hover:text-gray-800"
                       disabled={quantity >= product.stock}
                     >
                       +
                     </button>
                   </div>
-                  <span className="text-sm text-gray-600 mr-3">
-                    {product.stock} יחידות במלאי
-                  </span>
+                  <motion.button
+                    onClick={handleAddToCart}
+                    className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-md flex items-center justify-center w-full"
+                    whileTap={{ scale: 0.95 }}
+                    disabled={isAddingToCart}
+                  >
+                    {isAddingToCart ? (
+                      <>
+                        <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></span>
+                        מוסיף...
+                      </>
+                    ) : (
+                      <>
+                        <FaShoppingCart className="ml-2" />
+                        הוסף לעגלה
+                      </>
+                    )}
+                  </motion.button>
                 </div>
-                
-                <motion.button
-                  onClick={handleAddToCart}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-md font-medium flex items-center justify-center relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  disabled={isAddingToCart}
-                >
-                  {isAddingToCart ? (
-                    <div className="flex items-center">
-                      <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      מוסיף לעגלה...
-                    </div>
-                  ) : (
-                    <>
-                      <FaShoppingCart className="ml-2" />
-                      הוסף לעגלה
-                    </>
-                  )}
-                </motion.button>
               </div>
               
-              {/* Delivery Info */}
+              {/* Delivery Info - mobile optimized */}
               <div className="border-t border-gray-200 pt-4">
                 <div className="flex items-start mb-3">
-                  <FaTruck className="text-gray-500 ml-3 mt-1" />
+                  <FaTruck className="text-gray-500 ml-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold">זמן אספקה:</h4>
-                    <p className="text-sm text-gray-600">{product.delivery_time}</p>
+                    <h4 className="font-semibold text-sm sm:text-base">זמן אספקה:</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">{product.delivery_time}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <FaShieldAlt className="text-gray-500 ml-3 mt-1" />
+                  <FaShieldAlt className="text-gray-500 ml-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold">אחריות:</h4>
-                    <p className="text-sm text-gray-600">{product.warranty}</p>
+                    <h4 className="font-semibold text-sm sm:text-base">אחריות:</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">{product.warranty}</p>
                   </div>
                 </div>
               </div>
@@ -397,11 +388,11 @@ export default function ProductDetail() {
           </motion.div>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-12 bg-white rounded-lg shadow">
-          <div className="flex border-b">
+        {/* Tabs - mobile friendly */}
+        <div className="mb-8 md:mb-12 bg-white rounded-lg shadow">
+          <div className="flex overflow-x-auto hide-scrollbar border-b">
             <button
-              className={`px-4 py-3 font-medium ${
+              className={`px-3 md:px-4 py-3 font-medium whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'description'
                   ? 'border-b-2 border-orange-500 text-orange-600'
                   : 'text-gray-600 hover:text-orange-500'
@@ -411,7 +402,7 @@ export default function ProductDetail() {
               תיאור מפורט
             </button>
             <button
-              className={`px-4 py-3 font-medium ${
+              className={`px-3 md:px-4 py-3 font-medium whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'specifications'
                   ? 'border-b-2 border-orange-500 text-orange-600'
                   : 'text-gray-600 hover:text-orange-500'
@@ -421,7 +412,7 @@ export default function ProductDetail() {
               מפרט טכני
             </button>
             <button
-              className={`px-4 py-3 font-medium ${
+              className={`px-3 md:px-4 py-3 font-medium whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'uses'
                   ? 'border-b-2 border-orange-500 text-orange-600'
                   : 'text-gray-600 hover:text-orange-500'
@@ -432,7 +423,7 @@ export default function ProductDetail() {
             </button>
             {(product.videos && product.videos.length > 0) && (
               <button
-                className={`px-4 py-3 font-medium ${
+                className={`px-3 md:px-4 py-3 font-medium whitespace-nowrap text-sm md:text-base ${
                   activeTab === 'videos'
                     ? 'border-b-2 border-orange-500 text-orange-600'
                     : 'text-gray-600 hover:text-orange-500'
@@ -444,12 +435,12 @@ export default function ProductDetail() {
             )}
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {activeTab === 'description' && (
-              <div className="prose max-w-none">
+              <div className="prose max-w-none text-sm sm:text-base">
                 <div dangerouslySetInnerHTML={{ __html: product.longDescription }} />
                 
-                <h3 className="text-xl font-semibold mt-6 mb-4">יתרונות מרכזיים</h3>
+                <h3 className="text-lg sm:text-xl font-semibold mt-6 mb-4">יתרונות מרכזיים</h3>
                 <ul className="space-y-2">
                   {product.features.map((feature, index) => (
                     <li key={index} className="flex items-start">
@@ -462,7 +453,7 @@ export default function ProductDetail() {
             )}
 
             {activeTab === 'specifications' && (
-              <div>
+              <div className="text-sm sm:text-base">
                 <ProductSpecifications 
                   groups={[
                     {
@@ -499,12 +490,12 @@ export default function ProductDetail() {
                 />
 
                 {product.technical_note && (
-                  <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
+                  <div className="mt-6 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-md">
                     <div className="flex items-start">
                       <FaInfoCircle className="text-blue-500 ml-2 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold mb-1">הערה טכנית:</p>
-                        <p className="text-sm text-gray-700">{product.technical_note}</p>
+                        <p className="font-semibold mb-1 text-sm sm:text-base">הערה טכנית:</p>
+                        <p className="text-xs sm:text-sm text-gray-700">{product.technical_note}</p>
                       </div>
                     </div>
                   </div>
@@ -513,12 +504,12 @@ export default function ProductDetail() {
             )}
 
             {activeTab === 'uses' && (
-              <div>
-                <h3 className="text-xl font-semibold mb-4">שימושים מומלצים</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-semibold mb-3 flex items-center">
-                      <FaTools className="ml-2 text-orange-500" />
+              <div className="text-sm sm:text-base">
+                <h3 className="text-lg sm:text-xl font-semibold mb-4">שימושים מומלצים</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                  <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                    <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
+                      <FaTools className="ml-2 text-orange-500 flex-shrink-0" />
                       יישומים
                     </h4>
                     <ul className="space-y-2">
@@ -530,9 +521,9 @@ export default function ProductDetail() {
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-semibold mb-3 flex items-center">
-                      <FaCog className="ml-2 text-orange-500" />
+                  <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                    <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
+                      <FaCog className="ml-2 text-orange-500 flex-shrink-0" />
                       אביזרים מומלצים
                     </h4>
                     <ul className="space-y-2">

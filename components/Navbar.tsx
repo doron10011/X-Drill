@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaPhone, FaChevronLeft, FaChevronDown } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaPhone, FaChevronLeft, FaChevronDown, FaTools } from 'react-icons/fa';
 import { useCart } from './CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -45,344 +45,670 @@ export default function Navbar() {
   }, [isCartOpen]);
 
   return (
-    <nav className="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
-      {/* Top bar with contact info */}
-      <div className="bg-orange-600 text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end">
-          <div className="flex items-center text-sm">
+    <>
+      {/* טלפון למעלה - רק במובייל */}
+      <div className="top-phone-bar bg-orange-600 text-white py-2 block md:hidden">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center text-sm">
             <FaPhone className="ml-1" />
             <span>התקשרו עכשיו: 03-1234567</span>
           </div>
         </div>
       </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-white">
-              <span className="text-orange-500">X</span>-Drill
-            </Link>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 space-x-reverse">
-            <Link href="/" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
-              דף הבית
-            </Link>
-            <div className="relative px-3 py-2 group">
-              <span className="text-white hover:text-orange-400 font-medium flex items-center cursor-pointer">
-                מוצרים
-                <FaChevronDown className="w-3 h-3 mr-1" />
-              </span>
-              <div className="absolute right-0 mt-5 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block text-right">
-                {/* כוסות קידוח יהלום */}
-                <div className="relative dropdown-item">
-                  <Link href="/products/diamond-core-drill-bits" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
-                    כוסות קידוח יהלום
-                    <FaChevronLeft className="h-3 w-3" />
-                  </Link>
-                  <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
-                    <Link href="/products/diamond-core-drill-bits/wet-drilling" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      כוסות קידוח רטובות
-                    </Link>
-                    <Link href="/products/diamond-core-drill-bits/dry-vacuum-drilling" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      כוסות קידוח יבשות/ואקום
-                    </Link>
-                    <Link href="/products/diamond-core-drill-bits/special" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      כוסות קידוח מיוחדות
-                    </Link>
-                  </div>
-                </div>
-
-                {/* מסורי יהלום */}
-                <div className="relative dropdown-item">
-                  <Link href="/products/diamond-saw-blades" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
-                    מסורי יהלום
-                    <FaChevronLeft className="h-3 w-3" />
-                  </Link>
-                  <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
-                    <Link href="/products/diamond-saw-blades/concrete-reinforced" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      לבטון ובטון מזוין
-                    </Link>
-                    <Link href="/products/diamond-saw-blades/stone-granite" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      לאבן, גרניט וחומרי בניין קלים
-                    </Link>
-                  </div>
-                </div>
-
-                {/* מכונות קידוח */}
-                <Link href="/products/drilling-machines" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                  מכונות קידוח
-                </Link>
-
-                {/* אביזרים */}
-                <div className="relative dropdown-item">
-                  <Link href="/products/accessories" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
-                    אביזרים נלווים
-                    <FaChevronLeft className="h-3 w-3" />
-                  </Link>
-                  <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
-                    <Link href="/products/accessories/vacuum-drills" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      מקדחי ואקום לקידוח יבש
-                    </Link>
-                    <Link href="/products/accessories/thread-adapters" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      מתאמי הברגות
-                    </Link>
-                    <Link href="/products/accessories/drill-extensions" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      מאריכי קידוח
-                    </Link>
-                    <Link href="/products/accessories/drill-holders" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      מחזיקי כוסות קידוח/מקדחים
-                    </Link>
-                    <Link href="/products/accessories/water-pumps" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                      משאבות מים ומערכות איסוף
-                    </Link>
-                  </div>
-                </div>
-
-                {/* מוצרים מיוחדים */}
-                <Link href="/products/special-products" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
-                  מוצרים מיוחדים
-                </Link>
-              </div>
-            </div>
-            <Link href="/about" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
-              אודות
-            </Link>
-            <Link href="/faq" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
-              שאלות נפוצות
-            </Link>
-            <Link href="/blog" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
-              בלוג
-            </Link>
-            <Link href="/contact" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
-              צור קשר
-            </Link>
-          </div>
-
-          {/* Icons */}
-          <div className="hidden md:flex items-center space-x-4 space-x-reverse">
-            <button className="text-white hover:text-orange-400 p-1">
-              <FaSearch className="h-5 w-5" />
-            </button>
-            <div className="relative">
+      {/* נאבבר למובייל - פשוט ונקי */}
+      <nav className="mobile-navbar bg-gray-900 text-white py-3 sticky top-0 z-50 shadow-lg block md:hidden">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            {/* אייקון המבורגר גדול וברור בצד ימין */}
+            <div className="hamburger-menu">
               <button 
-                className="text-white hover:text-orange-400 p-1 relative cart-trigger"
-                onClick={() => setIsCartOpen(!isCartOpen)}
+                onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                className="hamburger-button p-2"
+                aria-label="תפריט"
               >
-                <FaShoppingCart className="h-5 w-5" />
-                {mounted && cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
+                <FaBars className="text-white text-2xl" />
+              </button>
+            </div>
+            
+            {/* לוגו באמצע */}
+            <div className="logo text-center">
+              <Link href="/" className="text-2xl font-bold">
+                <span className="text-orange-500">X</span>-Drill
+              </Link>
+            </div>
+            
+            {/* אייקונים בצד שמאל */}
+            <div className="mobile-icons flex items-center space-x-3 space-x-reverse">
+              <button 
+                className="mobile-icon p-2"
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                aria-label="עגלת קניות"
+              >
+                <div className="relative">
+                  <FaShoppingCart className="text-white text-xl" />
+                  {mounted && cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
               </button>
               
-              {/* Cart Dropdown */}
-              <AnimatePresence>
-                {isCartOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute left-0 mt-2 w-72 bg-white rounded-md shadow-lg py-2 z-50 cart-dropdown text-right"
-                  >
-                    <div className="px-4 py-2 border-b border-gray-200">
-                      <h3 className="font-semibold text-gray-800">עגלת קניות</h3>
-                    </div>
-                    
-                    {items.length === 0 ? (
-                      <div className="px-4 py-3 text-gray-600 text-center">
-                        העגלה שלך ריקה
-                      </div>
-                    ) : (
-                      <>
-                        <div className="max-h-60 overflow-y-auto">
-                          {items.map(item => (
-                            <div key={item.id} className="px-4 py-2 border-b border-gray-100 flex items-start">
-                              <div className="w-10 h-10 bg-gray-200 rounded flex-shrink-0 flex items-center justify-center ml-2">
-                                <span className="text-gray-500 text-xs">תמונה</span>
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-sm text-gray-700 truncate">{item.name}</p>
-                                <div className="flex items-center justify-between mt-1">
-                                  <div className="text-xs text-gray-500">
-                                    {item.quantity} x {item.price} ₪
-                                  </div>
-                                  <button
-                                    onClick={() => removeItem(item.id)}
-                                    className="text-red-500 hover:text-red-700 text-xs"
-                                  >
-                                    הסר
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="px-4 py-2 border-t border-gray-200">
-                          <div className="flex justify-between font-semibold text-gray-800 mb-2">
-                            <span>סה"כ:</span>
-                            <span>{cartTotal} ₪</span>
-                          </div>
-                          <div className="flex flex-col space-y-2">
-                            <Link 
-                              href="/cart"
-                              className="w-full bg-orange-600 hover:bg-orange-700 text-white text-center py-2 rounded-md text-sm"
-                              onClick={() => setIsCartOpen(false)}
-                            >
-                              לעגלת הקניות
-                            </Link>
-                            <Link 
-                              href="/checkout"
-                              className="w-full bg-gray-800 hover:bg-gray-700 text-white text-center py-2 rounded-md text-sm"
-                              onClick={() => setIsCartOpen(false)}
-                            >
-                              לתשלום
-                            </Link>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <button className="mobile-icon p-2">
+                <FaSearch className="text-white text-xl" />
+              </button>
             </div>
-            <Link href="/account" className="text-white hover:text-orange-400 p-1">
-              <FaUser className="h-5 w-5" />
-            </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            {/* Mobile cart icon */}
-            <Link href="/cart" className="text-white hover:text-orange-400 p-1 relative ml-4">
-              <FaShoppingCart className="h-5 w-5" />
-              {mounted && cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-            
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-orange-400"
-            >
-              {isMenuOpen ? (
-                <FaTimes className="h-6 w-6" />
-              ) : (
-                <FaBars className="h-6 w-6" />
-              )}
-            </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-gray-800 text-right">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link
-              href="/"
-              className="block px-3 py-2 text-white hover:text-orange-400 font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              דף הבית
-            </Link>
-            
-            {/* Mobile Products dropdown */}
-            <div className="block px-3 py-2">
-              <button 
-                className="flex justify-between w-full font-medium text-white hover:text-orange-400 items-center"
-                onClick={() => toggleSubmenu('products')}
-              >
-                מוצרים
-                <FaChevronDown className={`w-3 h-3 transition-transform ${activeSubmenu === 'products' ? 'transform rotate-180' : ''}`} />
-              </button>
+        {/* תפריט מובייל - מסך מלא וברור */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="mobile-menu-overlay fixed inset-0 bg-black/50 z-40"
+                onClick={() => setIsMenuOpen(false)}
+              />
               
-              {activeSubmenu === 'products' && (
-                <div className="mt-2 space-y-1">
-                  <Link
-                    href="/products/diamond-core-drill-bits"
-                    className="block pr-4 py-1 text-gray-300 hover:text-orange-400 text-sm"
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "tween", duration: 0.3 }}
+                className="mobile-menu fixed top-0 right-0 bottom-0 z-50 w-4/5 max-w-xs bg-gray-900 shadow-xl overflow-y-auto"
+              >
+                <div className="mobile-menu-header flex items-center justify-between p-4 border-b border-gray-800">
+                  <span className="text-xl font-bold">תפריט</span>
+                  <button 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="p-1 rounded-full hover:bg-gray-800"
+                  >
+                    <FaTimes className="text-white text-xl" />
+                  </button>
+                </div>
+                
+                <div className="mobile-menu-links py-2">
+                  <Link 
+                    href="/"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    כוסות קידוח יהלום
+                    דף הבית
                   </Link>
-                  <Link
-                    href="/products/diamond-saw-blades"
-                    className="block pr-4 py-1 text-gray-300 hover:text-orange-400 text-sm"
+                  
+                  {/* קטגוריית מוצרים */}
+                  <div>
+                    <button 
+                      onClick={() => toggleSubmenu('products')}
+                      className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
+                    >
+                      <span>מוצרים</span>
+                      <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'products' ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {activeSubmenu === 'products' && (
+                      <div className="submenu bg-gray-800">
+                        {/* כוסות קידוח */}
+                        <div>
+                          <button
+                            onClick={() => toggleSubmenu('diamond-core')}
+                            className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
+                          >
+                            <span>כוסות קידוח יהלום</span>
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'diamond-core' ? 'rotate-180' : ''}`} />
+                          </button>
+                          
+                          {activeSubmenu === 'diamond-core' && (
+                            <div className="submenu-child bg-gray-700">
+                              <Link 
+                                href="/products/diamond-core-drill-bits/wet-drilling"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                כוסות קידוח רטובות
+                              </Link>
+                              <Link 
+                                href="/products/diamond-core-drill-bits/dry-vacuum-drilling"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                כוסות קידוח יבשות/ואקום
+                              </Link>
+                              <Link 
+                                href="/products/diamond-core-drill-bits/special"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                כוסות קידוח מיוחדות
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* מסורי יהלום */}
+                        <div>
+                          <button
+                            onClick={() => toggleSubmenu('diamond-saw')}
+                            className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
+                          >
+                            <span>מסורי יהלום</span>
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'diamond-saw' ? 'rotate-180' : ''}`} />
+                          </button>
+                          
+                          {activeSubmenu === 'diamond-saw' && (
+                            <div className="submenu-child bg-gray-700">
+                              <Link 
+                                href="/products/diamond-saw-blades/concrete-reinforced"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                לבטון ובטון מזוין
+                              </Link>
+                              <Link 
+                                href="/products/diamond-saw-blades/stone-granite"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                לאבן, גרניט וחומרי בניין קלים
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* מכונות קידוח */}
+                        <Link 
+                          href="/products/drilling-machines"
+                          className="block px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          מכונות קידוח
+                        </Link>
+                        
+                        {/* אביזרים */}
+                        <div>
+                          <button
+                            onClick={() => toggleSubmenu('accessories')}
+                            className="w-full text-right flex justify-between items-center px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
+                          >
+                            <span>אביזרים נלווים</span>
+                            <FaChevronDown className={`transition-transform duration-300 ${activeSubmenu === 'accessories' ? 'rotate-180' : ''}`} />
+                          </button>
+                          
+                          {activeSubmenu === 'accessories' && (
+                            <div className="submenu-child bg-gray-700">
+                              <Link 
+                                href="/products/accessories/vacuum-drills"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                מקדחי ואקום לקידוח יבש
+                              </Link>
+                              <Link 
+                                href="/products/accessories/thread-adapters"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                מתאמי הברגות
+                              </Link>
+                              <Link 
+                                href="/products/accessories/drill-extensions"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                מאריכי קידוח
+                              </Link>
+                              <Link 
+                                href="/products/accessories/drill-holders"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                מחזיקי כוסות קידוח/מקדחים
+                              </Link>
+                              <Link 
+                                href="/products/accessories/water-pumps"
+                                className="block px-6 py-3 text-white hover:bg-gray-600 border-b border-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                משאבות מים ומערכות איסוף
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* מוצרים מיוחדים */}
+                        <Link 
+                          href="/products/special-products"
+                          className="block px-4 py-3 text-white hover:bg-gray-700 border-b border-gray-700"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          מוצרים מיוחדים
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <Link 
+                    href="/about"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    מסורי יהלום
+                    אודות
                   </Link>
-                  <Link
-                    href="/products/drilling-machines"
-                    className="block pr-4 py-1 text-gray-300 hover:text-orange-400 text-sm"
+                  
+                  <Link 
+                    href="/faq"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    שאלות נפוצות
+                  </Link>
+                  
+                  <Link 
+                    href="/blog"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    בלוג
+                  </Link>
+                  
+                  <Link 
+                    href="/contact"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    צור קשר
+                  </Link>
+                  
+                  <Link 
+                    href="/account"
+                    className="mobile-menu-item block px-4 py-3 text-white hover:bg-gray-800 border-b border-gray-800"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    החשבון שלי
+                  </Link>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+        
+        {/* עגלת קניות למובייל */}
+        <AnimatePresence>
+          {isCartOpen && (
+            <>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="cart-overlay fixed inset-0 bg-black/50 z-40"
+                onClick={() => setIsCartOpen(false)}
+              />
+              
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ type: "tween", duration: 0.3 }}
+                className="cart-drawer fixed right-0 left-0 bottom-0 z-50 w-full bg-white rounded-t-xl overflow-hidden"
+                style={{ maxHeight: "85vh" }}
+              >
+                <div className="cart-header flex items-center justify-between p-4 border-b">
+                  <h3 className="font-bold text-lg">עגלת קניות</h3>
+                  <button 
+                    onClick={() => setIsCartOpen(false)}
+                    className="p-1 rounded-full hover:bg-gray-100"
+                  >
+                    <FaTimes className="text-gray-600" />
+                  </button>
+                </div>
+                
+                <div className="cart-items overflow-y-auto" style={{ maxHeight: "60vh" }}>
+                  {cartCount > 0 ? (
+                    <div className="divide-y">
+                      {items.map((item) => (
+                        <div key={item.id} className="p-4 flex items-start gap-3">
+                          <div className="flex-shrink-0 w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
+                            <img 
+                              src={item.image || '/product-placeholder.jpg'} 
+                              alt={item.name} 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <h4 className="text-sm font-medium text-gray-800 truncate">{item.name}</h4>
+                            <div className="flex justify-between items-center mt-2">
+                              <div className="text-sm text-gray-600">₪{item.price.toFixed(2)}</div>
+                              <div className="flex items-center">
+                                <button 
+                                  className="text-gray-500 hover:text-orange-500 p-1"
+                                  onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                                  aria-label="הקטן כמות"
+                                >
+                                  -
+                                </button>
+                                <span className="mx-2 text-sm text-gray-800">{item.quantity}</span>
+                                <button 
+                                  className="text-gray-500 hover:text-orange-500 p-1"
+                                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                  aria-label="הגדל כמות"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                            <div className="flex justify-between items-center mt-2">
+                              <div className="text-sm font-medium text-gray-800">סה"כ: ₪{(item.price * item.quantity).toFixed(2)}</div>
+                              <button 
+                                className="text-red-500 hover:text-red-700 text-xs"
+                                onClick={() => removeItem(item.id)}
+                                aria-label="הסר מהעגלה"
+                              >
+                                הסר
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-8 text-center">
+                      <div className="text-gray-500 mb-4">העגלה שלך ריקה</div>
+                      <Link 
+                        href="/products" 
+                        className="inline-block bg-orange-600 text-white px-4 py-2 rounded-md text-sm hover:bg-orange-700 transition duration-300"
+                        onClick={() => setIsCartOpen(false)}
+                      >
+                        לחזור לחנות
+                      </Link>
+                    </div>
+                  )}
+                </div>
+                
+                {cartCount > 0 && (
+                  <div className="cart-footer p-4 bg-gray-50 border-t">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-sm text-gray-600">סה"כ</span>
+                      <span className="text-lg font-bold text-gray-800">₪{cartTotal.toFixed(2)}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link 
+                        href="/cart" 
+                        className="block bg-white border border-gray-300 text-gray-800 px-4 py-3 rounded-md text-center font-medium hover:bg-gray-50 transition duration-300"
+                        onClick={() => setIsCartOpen(false)}
+                      >
+                        צפה בעגלה
+                      </Link>
+                      <Link 
+                        href="/checkout" 
+                        className="block bg-orange-600 text-white px-4 py-3 rounded-md text-center font-medium hover:bg-orange-700 transition duration-300"
+                        onClick={() => setIsCartOpen(false)}
+                      >
+                        מעבר לתשלום
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* נאבבר לדסקטופ */}
+      <nav className="desktop-navbar bg-gray-900 text-white shadow-lg sticky top-0 z-50 hidden md:block">
+        <div className="bg-orange-600 text-white py-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end">
+            <div className="flex items-center text-sm">
+              <FaPhone className="ml-1" />
+              <span>התקשרו עכשיו: 03-1234567</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-2xl font-bold text-white">
+                <span className="text-orange-500">X</span>-Drill
+              </Link>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="flex items-center space-x-6 space-x-reverse">
+              <Link href="/" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
+                דף הבית
+              </Link>
+              <div className="relative px-3 py-2 group">
+                <span className="text-white hover:text-orange-400 font-medium flex items-center cursor-pointer">
+                  מוצרים
+                  <FaChevronDown className="w-3 h-3 mr-1" />
+                </span>
+                <div className="absolute right-0 mt-5 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block text-right">
+                  {/* כוסות קידוח יהלום */}
+                  <div className="relative dropdown-item">
+                    <Link href="/products/diamond-core-drill-bits" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
+                      כוסות קידוח יהלום
+                      <FaChevronLeft className="h-3 w-3" />
+                    </Link>
+                    <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
+                      <Link href="/products/diamond-core-drill-bits/wet-drilling" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        כוסות קידוח רטובות
+                      </Link>
+                      <Link href="/products/diamond-core-drill-bits/dry-vacuum-drilling" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        כוסות קידוח יבשות/ואקום
+                      </Link>
+                      <Link href="/products/diamond-core-drill-bits/special" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        כוסות קידוח מיוחדות
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* מסורי יהלום */}
+                  <div className="relative dropdown-item">
+                    <Link href="/products/diamond-saw-blades" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
+                      מסורי יהלום
+                      <FaChevronLeft className="h-3 w-3" />
+                    </Link>
+                    <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
+                      <Link href="/products/diamond-saw-blades/concrete-reinforced" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        לבטון ובטון מזוין
+                      </Link>
+                      <Link href="/products/diamond-saw-blades/stone-granite" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        לאבן, גרניט וחומרי בניין קלים
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* מכונות קידוח */}
+                  <Link href="/products/drilling-machines" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
                     מכונות קידוח
                   </Link>
-                  <Link
-                    href="/products/accessories"
-                    className="block pr-4 py-1 text-gray-300 hover:text-orange-400 text-sm"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    אביזרים נלווים
-                  </Link>
-                  <Link
-                    href="/products/special-products"
-                    className="block pr-4 py-1 text-gray-300 hover:text-orange-400 text-sm"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+
+                  {/* אביזרים */}
+                  <div className="relative dropdown-item">
+                    <Link href="/products/accessories" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white flex justify-between items-center">
+                      אביזרים נלווים
+                      <FaChevronLeft className="h-3 w-3" />
+                    </Link>
+                    <div className="absolute right-full top-0 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden submenu text-right">
+                      <Link href="/products/accessories/vacuum-drills" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        מקדחי ואקום לקידוח יבש
+                      </Link>
+                      <Link href="/products/accessories/thread-adapters" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        מתאמי הברגות
+                      </Link>
+                      <Link href="/products/accessories/drill-extensions" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        מאריכי קידוח
+                      </Link>
+                      <Link href="/products/accessories/drill-holders" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        מחזיקי כוסות קידוח/מקדחים
+                      </Link>
+                      <Link href="/products/accessories/water-pumps" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
+                        משאבות מים ומערכות איסוף
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* מוצרים מיוחדים */}
+                  <Link href="/products/special-products" className="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">
                     מוצרים מיוחדים
                   </Link>
                 </div>
-              )}
-            </div>
-            
-            <Link
-              href="/about"
-              className="block px-3 py-2 text-white hover:text-orange-400 font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              אודות
-            </Link>
-            <Link
-              href="/faq"
-              className="block px-3 py-2 text-white hover:text-orange-400 font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              שאלות נפוצות
-            </Link>
-            <Link
-              href="/blog"
-              className="block px-3 py-2 text-white hover:text-orange-400 font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              בלוג
-            </Link>
-            <Link
-              href="/contact"
-              className="block px-3 py-2 text-white hover:text-orange-400 font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              צור קשר
-            </Link>
-            <div className="flex justify-between px-3 py-2">
-              <Link href="/account" className="text-white hover:text-orange-400">
-                <FaUser className="h-5 w-5" />
+              </div>
+              <Link href="/about" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
+                אודות
               </Link>
-              <button className="text-white hover:text-orange-400">
+              <Link href="/faq" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
+                שאלות נפוצות
+              </Link>
+              <Link href="/blog" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
+                בלוג
+              </Link>
+              <Link href="/contact" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
+                צור קשר
+              </Link>
+            </div>
+
+            {/* Desktop Icons */}
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <button className="text-white hover:text-orange-400 p-1">
                 <FaSearch className="h-5 w-5" />
               </button>
+              <div className="relative">
+                <button 
+                  className="text-white hover:text-orange-400 p-1 relative cart-trigger"
+                  onClick={() => setIsCartOpen(!isCartOpen)}
+                  aria-label="עגלת קניות"
+                >
+                  <FaShoppingCart className="h-5 w-5" />
+                  {mounted && cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
+                
+                {/* Desktop Cart Dropdown */}
+                <AnimatePresence>
+                  {isCartOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute left-0 right-auto mt-2 bg-white rounded-md shadow-lg py-2 z-50 cart-dropdown text-right"
+                      style={{ 
+                        width: '360px',
+                        maxHeight: '80vh',
+                        overflowY: 'auto',
+                      }}
+                    >
+                      <div className="px-4 py-2 border-b border-gray-200">
+                        <h3 className="font-semibold text-gray-800 flex justify-between items-center">
+                          עגלת קניות
+                          <span className="text-orange-500 text-sm">{cartCount} פריטים</span>
+                        </h3>
+                      </div>
+                      
+                      <div className="divide-y divide-gray-200">
+                        {cartCount > 0 ? (
+                          <>
+                            {items.map((item) => (
+                              <div key={item.id} className="p-4 flex items-start gap-3">
+                                <div className="flex-shrink-0 w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
+                                  <img 
+                                    src={item.image || '/product-placeholder.jpg'} 
+                                    alt={item.name} 
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <div className="flex-grow min-w-0">
+                                  <h4 className="text-sm font-medium text-gray-800 truncate">{item.name}</h4>
+                                  <div className="flex justify-between items-center mt-2">
+                                    <div className="text-sm text-gray-600">₪{item.price.toFixed(2)}</div>
+                                    <div className="flex items-center">
+                                      <button 
+                                        className="text-gray-500 hover:text-orange-500 p-1"
+                                        onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                                        aria-label="הקטן כמות"
+                                      >
+                                        -
+                                      </button>
+                                      <span className="mx-2 text-sm text-gray-800">{item.quantity}</span>
+                                      <button 
+                                        className="text-gray-500 hover:text-orange-500 p-1"
+                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                        aria-label="הגדל כמות"
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div className="flex justify-between items-center mt-2">
+                                    <div className="text-sm font-medium text-gray-800">סה"כ: ₪{(item.price * item.quantity).toFixed(2)}</div>
+                                    <button 
+                                      className="text-red-500 hover:text-red-700 text-xs"
+                                      onClick={() => removeItem(item.id)}
+                                      aria-label="הסר מהעגלה"
+                                    >
+                                      הסר
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+
+                            <div className="p-4 bg-gray-50">
+                              <div className="flex justify-between items-center mb-4">
+                                <span className="text-sm text-gray-600">סה"כ</span>
+                                <span className="text-lg font-bold text-gray-800">₪{cartTotal.toFixed(2)}</span>
+                              </div>
+                              <div className="flex gap-2">
+                                <Link 
+                                  href="/cart" 
+                                  className="block bg-white border border-gray-300 text-gray-800 px-4 py-2 rounded-md text-center text-sm hover:bg-gray-50 transition duration-300 flex-1"
+                                  onClick={() => setIsCartOpen(false)}
+                                >
+                                  צפה בעגלה
+                                </Link>
+                                <Link 
+                                  href="/checkout" 
+                                  className="block bg-orange-600 text-white px-4 py-2 rounded-md text-center text-sm hover:bg-orange-700 transition duration-300 flex-1"
+                                  onClick={() => setIsCartOpen(false)}
+                                >
+                                  מעבר לתשלום
+                                </Link>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="p-8 text-center">
+                            <div className="text-gray-500 mb-4">העגלה שלך ריקה</div>
+                            <Link 
+                              href="/products" 
+                              className="inline-block bg-orange-600 text-white px-4 py-2 rounded-md text-sm hover:bg-orange-700 transition duration-300"
+                              onClick={() => setIsCartOpen(false)}
+                            >
+                              לחזור לחנות
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <Link href="/account" className="text-white hover:text-orange-400 p-1">
+                <FaUser className="h-5 w-5" />
+              </Link>
             </div>
           </div>
         </div>
-      )}
-    </nav>
+      </nav>
+    </>
   );
 } 
