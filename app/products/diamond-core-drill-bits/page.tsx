@@ -255,17 +255,19 @@ export default function DiamondCoreDrillBits() {
       }
       
       // Apply size filter
-      if (selectedSizes.length > 0) {
+      if (Array.isArray(selectedSizes) && selectedSizes.length > 0) {
         products = products.filter(product => {
           const diameter = typeof product.diameter === 'string' ? product.diameter.split(' ')[0] : '';
-          return selectedSizes.includes(diameter);
+          return Array.isArray(selectedSizes) && selectedSizes.includes(diameter);
         });
       }
       
       // Apply thread filter
-      if (selectedThreads.length > 0) {
+      if (Array.isArray(selectedThreads) && selectedThreads.length > 0) {
         products = products.filter(product => 
-          typeof product.thread === 'string' && selectedThreads.includes(product.thread)
+          typeof product.thread === 'string' && 
+          Array.isArray(selectedThreads) && 
+          selectedThreads.includes(product.thread)
         );
       }
       
@@ -298,17 +300,17 @@ export default function DiamondCoreDrillBits() {
 
   const toggleSize = (size) => {
     setSelectedSizes(prevSizes => 
-      prevSizes.includes(size)
+      Array.isArray(prevSizes) && prevSizes.includes(size)
         ? prevSizes.filter(s => s !== size)
-        : [...prevSizes, size]
+        : [...(Array.isArray(prevSizes) ? prevSizes : []), size]
     );
   };
 
   const toggleThread = (thread) => {
     setSelectedThreads(prevThreads => 
-      prevThreads.includes(thread)
+      Array.isArray(prevThreads) && prevThreads.includes(thread)
         ? prevThreads.filter(t => t !== thread)
-        : [...prevThreads, thread]
+        : [...(Array.isArray(prevThreads) ? prevThreads : []), thread]
     );
   };
 
@@ -329,8 +331,8 @@ export default function DiamondCoreDrillBits() {
 
   const hasActiveFilters = () => {
     return searchTerm !== '' || 
-           selectedSizes.length > 0 || 
-           selectedThreads.length > 0 || 
+           (Array.isArray(selectedSizes) && selectedSizes.length > 0) || 
+           (Array.isArray(selectedThreads) && selectedThreads.length > 0) || 
            sortOption !== 'relevance' ||
            priceRange[0] > 0 || 
            priceRange[1] < 2000 ||
@@ -457,7 +459,7 @@ export default function DiamondCoreDrillBits() {
                         <button
                           key={size}
                           onClick={() => toggleSize(size)}
-                          className={`px-2 py-1 text-sm rounded-md ${selectedSizes.includes(size) ? 'bg-orange-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+                          className={`px-2 py-1 text-sm rounded-md ${Array.isArray(selectedSizes) && selectedSizes.includes(size) ? 'bg-orange-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
                         >
                           {size} מ"מ
                         </button>
@@ -474,7 +476,7 @@ export default function DiamondCoreDrillBits() {
                           <input
                             type="checkbox"
                             id={`thread-${thread}`}
-                            checked={selectedThreads.includes(thread)}
+                            checked={Array.isArray(selectedThreads) && selectedThreads.includes(thread)}
                             onChange={() => toggleThread(thread)}
                             className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
                           />
@@ -594,7 +596,7 @@ export default function DiamondCoreDrillBits() {
                     </div>
                   )}
                   
-                  {selectedSizes.map(size => (
+                  {Array.isArray(selectedSizes) && selectedSizes.map(size => (
                     <div key={size} className="bg-gray-100 px-3 py-1 rounded-full flex items-center text-sm">
                       <span>קוטר: {size} מ"מ</span>
                       <button 
@@ -606,7 +608,7 @@ export default function DiamondCoreDrillBits() {
                     </div>
                   ))}
                   
-                  {selectedThreads.map(thread => (
+                  {Array.isArray(selectedThreads) && selectedThreads.map(thread => (
                     <div key={thread} className="bg-gray-100 px-3 py-1 rounded-full flex items-center text-sm">
                       <span>חיבור: {thread}</span>
                       <button 
