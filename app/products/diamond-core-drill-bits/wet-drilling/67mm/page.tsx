@@ -124,7 +124,7 @@ export default function ProductDetail() {
   // Get cart context
   const { addItem } = useCart();
 
-  const handleQuantityChange = (newQuantity) => {
+  const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1 && newQuantity <= product.stock) {
       setQuantity(newQuantity);
     }
@@ -369,7 +369,7 @@ export default function ProductDetail() {
                     </div>
                   ) : (
                     <>
-                      <FaShoppingCart className="ml-2" ref={cartIconRef} />
+                      <FaShoppingCart className="ml-2" />
                       הוסף לעגלה
                     </>
                   )}

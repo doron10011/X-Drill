@@ -2,22 +2,24 @@
 
 import Link from 'next/link';
 
-export default function NotFound() {
+export default function ProductsNotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">מוצר לא נמצא</h2>
-        <p className="text-gray-600 mb-8">המוצר שחיפשת אינו קיים או שהוסר מהמלאי.</p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 rtl">
+      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+        <h2 className="text-2xl font-bold text-orange-600 mb-4">המוצר לא נמצא</h2>
+        <p className="text-gray-600 mb-6">
+          אנחנו מצטערים, אבל המוצר שחיפשת לא קיים או אינו זמין יותר.
+        </p>
+        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 sm:space-x-reverse justify-center">
+          <Link 
             href="/products"
-            className="px-5 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-md transition-colors"
+            className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
           >
-            חזרה לכל המוצרים
+            צפייה בכל המוצרים
           </Link>
-          <Link
+          <Link 
             href="/"
-            className="px-5 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-md transition-colors"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
           >
             חזרה לדף הבית
           </Link>

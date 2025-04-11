@@ -211,13 +211,24 @@ const dryVacuumProducts = [
 ];
 
 export default function DiamondCoreDrillBits() {
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSizes, setSelectedSizes] = useState([]);
-  const [selectedThreads, setSelectedThreads] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedThreads, setSelectedThreads] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState('relevance');
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState<Array<{
+    id: number;
+    name: string;
+    diameter: string;
+    length: string;
+    thread: string;
+    segment_height: string;
+    segment_count: string;
+    price: number;
+    image: string;
+    slug: string;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [priceRange, setPriceRange] = useState([0, 2000]);
 
@@ -257,7 +268,8 @@ export default function DiamondCoreDrillBits() {
       // Apply size filter
       if (Array.isArray(selectedSizes) && selectedSizes.length > 0) {
         products = products.filter(product => {
-          const diameter = typeof product.diameter === 'string' ? product.diameter.split(' ')[0] : '';
+          if (typeof product.diameter !== 'string') return false;
+          const diameter = product.diameter.split(' ')[0];
           return Array.isArray(selectedSizes) && selectedSizes.includes(diameter);
         });
       }
@@ -298,7 +310,7 @@ export default function DiamondCoreDrillBits() {
     }, 500);
   }, [selectedSubcategory, searchTerm, selectedSizes, selectedThreads, sortOption, priceRange]);
 
-  const toggleSize = (size) => {
+  const toggleSize = (size: string) => {
     setSelectedSizes(prevSizes => 
       Array.isArray(prevSizes) && prevSizes.includes(size)
         ? prevSizes.filter(s => s !== size)
@@ -306,7 +318,7 @@ export default function DiamondCoreDrillBits() {
     );
   };
 
-  const toggleThread = (thread) => {
+  const toggleThread = (thread: string) => {
     setSelectedThreads(prevThreads => 
       Array.isArray(prevThreads) && prevThreads.includes(thread)
         ? prevThreads.filter(t => t !== thread)
@@ -314,7 +326,7 @@ export default function DiamondCoreDrillBits() {
     );
   };
 
-  const handlePriceRangeChange = (index, value) => {
+  const handlePriceRangeChange = (index: number, value: string) => {
     const newRange = [...priceRange];
     newRange[index] = parseInt(value);
     setPriceRange(newRange);
