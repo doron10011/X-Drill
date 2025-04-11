@@ -250,14 +250,14 @@ export default function DiamondCoreDrillBits() {
         const term = searchTerm.toLowerCase();
         products = products.filter(product => 
           product.name.toLowerCase().includes(term) || 
-          product.diameter.toLowerCase().includes(term)
+          (typeof product.diameter === 'string' && product.diameter.toLowerCase().includes(term))
         );
       }
       
       // Apply size filter
       if (selectedSizes.length > 0) {
         products = products.filter(product => {
-          const diameter = product.diameter.split(' ')[0]; // Extract the numeric part
+          const diameter = typeof product.diameter === 'string' ? product.diameter.split(' ')[0] : '';
           return selectedSizes.includes(diameter);
         });
       }
@@ -265,7 +265,7 @@ export default function DiamondCoreDrillBits() {
       // Apply thread filter
       if (selectedThreads.length > 0) {
         products = products.filter(product => 
-          selectedThreads.includes(product.thread)
+          typeof product.thread === 'string' && selectedThreads.includes(product.thread)
         );
       }
       
@@ -668,7 +668,7 @@ export default function DiamondCoreDrillBits() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
                   <motion.div
-                    key={`${product.id}-${product.diameter}`}
+                    key={`${product.id}-${typeof product.diameter === 'string' ? product.diameter : ''}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -687,7 +687,7 @@ export default function DiamondCoreDrillBits() {
                       </div>
                       <div className="p-4">
                         <h3 className="font-semibold text-lg mb-1 truncate">{product.name}</h3>
-                        <p className="text-gray-600 mb-3">קוטר: {product.diameter}, חיבור: {product.thread}</p>
+                        <p className="text-gray-600 mb-3">קוטר: {typeof product.diameter === 'string' ? product.diameter : ''}, חיבור: {typeof product.thread === 'string' ? product.thread : ''}</p>
                         <p className="text-orange-600 font-bold text-xl">{product.price} ₪</p>
                       </div>
                     </Link>
