@@ -6,9 +6,11 @@ import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaPhone, FaChevronLe
 import { useCart } from './CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type SubmenuType = 'products' | 'diamond-core' | 'diamond-saw' | 'accessories' | null;
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<SubmenuType>(null);
   const [mounted, setMounted] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   
@@ -21,7 +23,7 @@ export default function Navbar() {
   }, []);
 
   // Handle submenu clicks on mobile
-  const toggleSubmenu = (submenu: string) => {
+  const toggleSubmenu = (submenu: SubmenuType) => {
     if (activeSubmenu === submenu) {
       setActiveSubmenu(null);
     } else {
