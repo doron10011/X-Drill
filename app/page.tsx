@@ -1,11 +1,22 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaChevronLeft, FaCheck, FaTruck, FaShieldAlt, FaHeadset, FaTools, FaWrench, FaCog, FaRuler } from 'react-icons/fa';
 import DiamondDrillingGuide from '../components/DiamondDrillingGuide';
+import { getFeaturedProducts } from './data/products';
+import { categories } from './data/categories';
+import { Product } from './data/types';
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const products = getFeaturedProducts(3);
+    setFeaturedProducts(products);
+  }, []);
+
   return (
     <div className="min-h-screen animate-fadeIn">
       {/* Hero Section */}
@@ -278,109 +289,49 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <Link href="/products/diamond-core-drill-bits/wet-drilling/67mm">
-                <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  <div className="text-4xl text-gray-400">
-                    <FaTools />
+            {featuredProducts.length > 0 ? (
+              featuredProducts.map((product) => (
+                <div key={product.id} className="bg-white rounded-lg shadow overflow-hidden">
+                  <Link href={product.slug}>
+                    <div className="h-48 bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-500">תמונת מוצר</span>
+                    </div>
+                  </Link>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2">
+                      <Link href={product.slug} className="hover:text-orange-600">
+                        {product.name}
+                      </Link>
+                    </h3>
+                    <p className="text-gray-600 mb-4 text-sm h-12 overflow-hidden">
+                      {product.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        {product.discount_price ? (
+                          <div className="flex flex-col">
+                            <span className="text-sm line-through text-gray-500">₪{product.price}</span>
+                            <span className="text-2xl font-bold text-orange-600">₪{product.discount_price}</span>
+                          </div>
+                        ) : (
+                          <span className="text-2xl font-bold">₪{product.price}</span>
+                        )}
+                      </div>
+                      <Link
+                        href={product.slug}
+                        className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
+                      >
+                        פרטים נוספים
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </Link>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  <Link href="/products/diamond-core-drill-bits/wet-drilling/67mm" className="hover:text-orange-600">
-                    כוס קידוח יהלום לקידוח רטוב - 67 מ"מ
-                  </Link>
-                </h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">399 ₪</span>
-                  <Link
-                    href="/products/diamond-core-drill-bits/wet-drilling/67mm"
-                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-sm"
-                  >
-                    פרטים
-                  </Link>
-                </div>
+              ))
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-lg text-gray-600">טוען מוצרים...</p>
               </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <Link href="/products/diamond-core-drill-bits/wet-drilling/102mm">
-                <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  <div className="text-4xl text-gray-400">
-                    <FaTools />
-                  </div>
-                </div>
-              </Link>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  <Link href="/products/diamond-core-drill-bits/wet-drilling/102mm" className="hover:text-orange-600">
-                    כוס קידוח יהלום לקידוח רטוב - 102 מ"מ
-                  </Link>
-                </h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">699 ₪</span>
-                  <Link
-                    href="/products/diamond-core-drill-bits/wet-drilling/102mm"
-                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-sm"
-                  >
-                    פרטים
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <Link href="/products/diamond-saw-blades/concrete-reinforced/350mm">
-                <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  <div className="text-4xl text-gray-400">
-                    <FaCog />
-                  </div>
-                </div>
-              </Link>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  <Link href="/products/diamond-saw-blades/concrete-reinforced/350mm" className="hover:text-orange-600">
-                    מסור יהלום לבטון מזוין - 350 מ"מ
-                  </Link>
-                </h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">1250 ₪</span>
-                  <Link
-                    href="/products/diamond-saw-blades/concrete-reinforced/350mm"
-                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-sm"
-                  >
-                    פרטים
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <Link href="/products/accessories/thread-adapters/unc-bsp">
-                <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  <div className="text-4xl text-gray-400">
-                    <FaWrench />
-                  </div>
-                </div>
-              </Link>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  <Link href="/products/accessories/thread-adapters/unc-bsp" className="hover:text-orange-600">
-                    מתאם הברגה 1-1/4" UNC ל-1/2" BSP
-                  </Link>
-                </h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">120 ₪</span>
-                  <Link
-                    href="/products/accessories/thread-adapters/unc-bsp"
-                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-sm"
-                  >
-                    פרטים
-                  </Link>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
           
           <div className="text-center mt-8">
