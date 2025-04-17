@@ -324,9 +324,9 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
   if (isProduct && product) {
     return (
       <div className="min-h-screen bg-gray-50 rtl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
           {/* Breadcrumb */}
-          <nav className="flex mb-8" aria-label="Breadcrumb">
+          <nav className="flex mb-4 sm:mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
               <li>
                 <Link href="/" className="text-gray-500 hover:text-gray-700">
@@ -354,15 +354,15 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
               <li>
                 <span className="text-gray-500 mx-2">/</span>
               </li>
-              <li className="text-gray-700">{product.name}</li>
+              <li className="text-gray-700 truncate max-w-[150px] sm:max-w-none">{product.name}</li>
             </ol>
           </nav>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {/* Product Images */}
             <div>
               <div className="bg-white rounded-lg shadow overflow-hidden mb-4">
-                <div className="h-96 bg-gray-200 flex items-center justify-center">
+                <div className="h-64 sm:h-96 bg-gray-200 flex items-center justify-center">
                   {product.images && product.images.length > 0 ? (
                     <Image 
                       src={product.images[selectedImage]} 
@@ -376,38 +376,45 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                   )}
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    className={`bg-white rounded-lg shadow overflow-hidden ${
-                      selectedImage === index ? 'ring-2 ring-orange-500' : ''
-                    }`}
-                    onClick={() => setSelectedImage(index)}
-                  >
-                    <div className="h-24 bg-gray-200 flex items-center justify-center">
-                      <Image 
-                        src={image} 
-                        alt={`${product.name} - תמונה ${index + 1}`}
-                        width={120}
-                        height={120}
-                        className="object-contain w-full h-full"
-                      />
+              <div className="overflow-x-auto pb-2">
+                <div className="flex gap-2 sm:gap-4" style={{ minWidth: 'max-content' }}>
+                  {product.images.slice(0, 8).map((image, index) => (
+                    <button
+                      key={index}
+                      className={`bg-white rounded-lg shadow overflow-hidden flex-shrink-0 ${
+                        selectedImage === index ? 'ring-2 ring-orange-500' : ''
+                      }`}
+                      onClick={() => setSelectedImage(index)}
+                    >
+                      <div className="h-16 sm:h-24 w-16 sm:w-24 bg-gray-200 flex items-center justify-center">
+                        <Image 
+                          src={image} 
+                          alt={`${product.name} - תמונה ${index + 1}`}
+                          width={120}
+                          height={120}
+                          className="object-contain w-full h-full"
+                        />
+                      </div>
+                    </button>
+                  ))}
+                  {product.images.length > 8 && (
+                    <div className="flex-shrink-0 h-16 sm:h-24 w-16 sm:w-24 bg-gray-100 flex items-center justify-center rounded-lg text-xs text-gray-600">
+                      +{product.images.length - 8} תמונות נוספות
                     </div>
-                  </button>
-                ))}
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Product Info */}
             <div>
-              <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2">{product.name}</h1>
               {product.nameEn && <p className="text-gray-600 mb-2">{product.nameEn}</p>}
               <p className="text-gray-600 mb-6">{product.description}</p>
 
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-xl font-semibold mb-4">מפרט טכני</h2>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold mb-4">מפרט טכני</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {Object.entries(product.specifications).map(([key, value], index) => (
                     <p key={index} className="text-gray-600">
                       <span className="font-semibold">{getSpecificationLabel(key)}:</span> {value}
@@ -416,17 +423,17 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
+                <div className="flex flex-wrap sm:flex-nowrap items-center justify-between mb-4 gap-3">
                   {product.discountPrice ? (
                     <div>
-                      <span className="text-3xl font-bold text-orange-600">{product.discountPrice} ₪</span>
-                      <span className="text-xl font-medium text-gray-500 line-through mr-2">{product.price} ₪</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-orange-600">{product.discountPrice} ₪</span>
+                      <span className="text-lg sm:text-xl font-medium text-gray-500 line-through mr-2">{product.price} ₪</span>
                     </div>
                   ) : (
-                    <span className="text-3xl font-bold">{product.price} ₪</span>
+                    <span className="text-2xl sm:text-3xl font-bold">{product.price} ₪</span>
                   )}
-                  <div className="flex items-center">
+                  <div className="flex items-center w-full sm:w-auto">
                     <button
                       className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-l"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -466,16 +473,16 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                 </button>
               </div>
 
-              <div className="flex flex-wrap gap-3 mb-6">
-                <div className="flex items-center text-sm text-gray-700 bg-gray-100 rounded-full px-4 py-1">
+              <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
+                <div className="flex items-center text-xs sm:text-sm text-gray-700 bg-gray-100 rounded-full px-3 sm:px-4 py-1">
                   <FaShieldAlt className="ml-1 text-orange-500" />
                   אחריות יצרן
                 </div>
-                <div className="flex items-center text-sm text-gray-700 bg-gray-100 rounded-full px-4 py-1">
+                <div className="flex items-center text-xs sm:text-sm text-gray-700 bg-gray-100 rounded-full px-3 sm:px-4 py-1">
                   <FaTruck className="ml-1 text-orange-500" />
                   משלוח מהיר
                 </div>
-                <div className="flex items-center text-sm text-gray-700 bg-gray-100 rounded-full px-4 py-1">
+                <div className="flex items-center text-xs sm:text-sm text-gray-700 bg-gray-100 rounded-full px-3 sm:px-4 py-1">
                   <FaExchangeAlt className="ml-1 text-orange-500" />
                   30 יום להחזרה
                 </div>
@@ -484,17 +491,17 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
           </div>
 
           {/* Additional Product Information Tabs */}
-          <div className="bg-white rounded-lg shadow overflow-hidden mb-12">
-            <div className="flex border-b">
+          <div className="bg-white rounded-lg shadow overflow-hidden mb-8 sm:mb-12">
+            <div className="flex flex-wrap border-b overflow-x-auto">
               <button 
-                className={`px-4 py-3 font-medium text-sm ${activeTab === 'description' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
+                className={`px-3 sm:px-4 py-3 font-medium text-xs sm:text-sm ${activeTab === 'description' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
                 onClick={() => setActiveTab('description')}
               >
                 תיאור מורחב
               </button>
               {product.applications && product.applications.length > 0 && (
                 <button 
-                  className={`px-4 py-3 font-medium text-sm ${activeTab === 'applications' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
+                  className={`px-3 sm:px-4 py-3 font-medium text-xs sm:text-sm ${activeTab === 'applications' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
                   onClick={() => setActiveTab('applications')}
                 >
                   שימושים מומלצים
@@ -502,20 +509,20 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
               )}
               {product.features && product.features.length > 0 && (
                 <button 
-                  className={`px-4 py-3 font-medium text-sm ${activeTab === 'features' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
+                  className={`px-3 sm:px-4 py-3 font-medium text-xs sm:text-sm ${activeTab === 'features' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
                   onClick={() => setActiveTab('features')}
                 >
                   תכונות המוצר
                 </button>
               )}
               <button 
-                className={`px-4 py-3 font-medium text-sm ${activeTab === 'shipping' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
+                className={`px-3 sm:px-4 py-3 font-medium text-xs sm:text-sm ${activeTab === 'shipping' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-600'}`}
                 onClick={() => setActiveTab('shipping')}
               >
                 משלוח והחזרות
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {activeTab === 'description' && (
                 <div>
                   <p className="mb-4">{product.description}</p>
@@ -554,13 +561,13 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">מוצרים קשורים</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="mb-8 sm:mb-12">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">מוצרים קשורים</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 {relatedProducts.map((relatedProduct) => (
                   <div key={relatedProduct.id} className="bg-white rounded-lg shadow overflow-hidden">
                     <Link href={`/products/${relatedProduct.slug}`}>
-                      <div className="h-48 bg-gray-200 flex items-center justify-center">
+                      <div className="h-36 sm:h-48 bg-gray-200 flex items-center justify-center">
                         {relatedProduct.images && relatedProduct.images.length > 0 ? (
                           <Image 
                             src={relatedProduct.images[0]} 
@@ -575,7 +582,7 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                       </div>
                     </Link>
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold mb-2">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 line-clamp-2">
                         <Link href={`/products/${relatedProduct.slug}`} className="hover:text-orange-600">
                           {relatedProduct.name}
                         </Link>
@@ -583,11 +590,11 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                       <div className="flex items-center justify-between">
                         {relatedProduct.discountPrice ? (
                           <div>
-                            <span className="text-lg font-bold text-orange-600">{relatedProduct.discountPrice} ₪</span>
-                            <span className="text-sm text-gray-500 line-through mr-2">{relatedProduct.price} ₪</span>
+                            <span className="text-base sm:text-lg font-bold text-orange-600">{relatedProduct.discountPrice} ₪</span>
+                            <span className="text-xs sm:text-sm text-gray-500 line-through mr-2">{relatedProduct.price} ₪</span>
                           </div>
                         ) : (
-                          <span className="text-lg font-bold">{relatedProduct.price} ₪</span>
+                          <span className="text-base sm:text-lg font-bold">{relatedProduct.price} ₪</span>
                         )}
                         <Link
                           href={`/products/${relatedProduct.slug}`}
@@ -648,7 +655,7 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
           </nav>
 
           {/* Search and Filter Bar */}
-          <div className="bg-white rounded-lg shadow mb-8 p-4 md:hidden">
+          <div className="bg-white rounded-lg shadow mb-8 p-4 md:hidden w-full">
             <div className="flex flex-col gap-4">
               {/* חיפוש */}
               <div className="relative w-full">
@@ -688,14 +695,14 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
               {/* כפתור פילטרים למובייל */}
               <button
                 className="w-full flex items-center justify-center px-4 py-2 rounded-lg border bg-orange-50 border-orange-300 text-orange-700"
-                onClick={() => setShowFilters(!showFilters)}
+                onClick={() => setShowFiltersMobile(!showFiltersMobile)}
               >
                 <FaSlidersH className="ml-2" />
-                {showFilters ? 'הסתר פילטרים' : 'הצג פילטרים'}
+                {showFiltersMobile ? 'הסתר פילטרים' : 'הצג פילטרים'}
               </button>
               
               {/* פילטרים למובייל */}
-              {showFilters && (
+              {showFiltersMobile && (
                 <div className="bg-gray-50 p-4 rounded-lg mt-2 border border-gray-200">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-medium">סינון מתקדם</h3>
@@ -881,10 +888,10 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                         </p>
                         <div className="flex flex-col gap-2">
                           {product.discountPrice ? (
-                            <div className="flex items-baseline">
+                            <div className="flex items-baseline flex-wrap">
                               <span className="text-lg font-bold text-orange-600">{product.discountPrice} ₪</span>
                               <span className="text-sm text-gray-500 line-through mr-2">{product.price} ₪</span>
-                              <span className="text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded ml-auto">
+                              <span className="text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded ml-auto mt-1 md:mt-0">
                                 {Math.round((1 - (product.discountPrice / product.price)) * 100)}% הנחה
                               </span>
                             </div>

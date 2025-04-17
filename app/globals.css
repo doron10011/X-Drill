@@ -181,15 +181,6 @@ a {
   background-color: #ea580c;
 }
 
-/* Force navbar visibility for debugging */
-nav {
-  display: block !important;
-}
-
-.hidden.md\:flex {
-  display: flex !important;
-}
-
 /* All navbar elements should be on the same line properly aligned */
 nav .md\:flex {
   align-items: center;

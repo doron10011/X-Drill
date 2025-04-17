@@ -22,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className={`${heebo.className} min-h-screen flex flex-col`}>
         <CartProvider>
           <Navbar />
