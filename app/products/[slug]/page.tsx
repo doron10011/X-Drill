@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useReducer } from 'react';
 import Link from 'next/link';
 import { FaArrowLeft, FaShoppingCart, FaTruck, FaShieldAlt, FaInfoCircle, FaExchangeAlt, FaFilter, FaSort, FaChevronLeft, FaSearch, FaSlidersH, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
@@ -10,10 +10,71 @@ import {
   getProductsByCategory,
   productCategories, 
   ProductCategory, 
-  Product 
+  Product,
+  getFiltersForCategory
 } from '@/app/data/products';
 import { notFound } from 'next/navigation';
 import { useCart } from '@/components/CartContext';
+
+interface FilterOption {
+  id: string;
+  label: string;
+}
+
+interface FilterGroup {
+  id: string;
+  name: string;
+  options: FilterOption[];
+}
+
+// נגדיר את טיפוסי הפעולות בפילטור
+type FilterAction = 
+  | { type: 'TOGGLE_FILTER'; filterKey: string; value: string }
+  | { type: 'RESET_FILTERS' }
+  | { type: 'SET_INITIAL_FILTERS'; filters: {[key: string]: string[]} };
+
+// נגדיר את פונקציית ה-reducer - פישטנו את המימוש למניעת בעיות
+function filterReducer(state: {[key: string]: string[]}, action: FilterAction): {[key: string]: string[]} {
+  switch (action.type) {
+    case 'TOGGLE_FILTER': {
+      const { filterKey, value } = action;
+      const currentValues = state[filterKey] || [];
+      
+      // בדוק אם הערך כבר קיים
+      const valueExists = currentValues.includes(value);
+      
+      // צור מערך חדש עם הערכים המעודכנים
+      const newValues = valueExists
+        ? currentValues.filter(v => v !== value)
+        : [...currentValues, value];
+      
+      // צור אובייקט סטייט חדש לגמרי
+      const newState = { ...state, [filterKey]: newValues };
+      
+      // לוג לדיבוג
+      console.log(`Filter ${filterKey} toggle ${value}: ${valueExists ? 'removed' : 'added'}`, newState);
+      
+      return newState;
+    }
+    case 'RESET_FILTERS': {
+      // יצירת אובייקט חדש לגמרי עם מערכים ריקים
+      const newState: {[key: string]: string[]} = {};
+      
+      for (const key of Object.keys(state)) {
+        newState[key] = [];
+      }
+      
+      console.log('Resetting all filters', newState);
+      return newState;
+    }
+    case 'SET_INITIAL_FILTERS': {
+      console.log('Setting initial filters', action.filters);
+      return { ...action.filters };
+    }
+    default:
+      return state;
+  }
+}
 
 export default function DynamicProductPage({ params }: { params: { slug: string } }) {
   const [product, setProduct] = useState<Product | null>(null);
@@ -35,9 +96,12 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
   
   // פילטרים
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
-  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
-  const [selectedUsageTypes, setSelectedUsageTypes] = useState<string[]>([]);
-  const [selectedDiameters, setSelectedDiameters] = useState<string[]>([]);
+  const [filterGroups, setFilterGroups] = useState<FilterGroup[]>([]);
+  const [showFiltersMobile, setShowFiltersMobile] = useState(false);
+  const [allAvailableOptions, setAllAvailableOptions] = useState<{[key: string]: FilterOption[]}>({});
+  
+  // שימוש ב-useReducer במקום useState
+  const [filterState, dispatchFilter] = useReducer(filterReducer, {});
 
   useEffect(() => {
     // First try to find if this is a product
@@ -99,6 +163,22 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
         setPriceRange([minPrice, maxPrice]);
       }
       
+      // Get dynamic filter configuration for this category
+      const filters = getFiltersForCategory(categoryEnum);
+      setFilterGroups(filters);
+      
+      // שמירה של כל אפשרויות הפילטור הזמינות בקטגוריה
+      const availableOptionsMap: {[key: string]: FilterOption[]} = {};
+      const initialFilters: {[key: string]: string[]} = {};
+      
+      filters.forEach(filter => {
+        availableOptionsMap[filter.id] = [...filter.options];
+        initialFilters[filter.id] = [];
+      });
+      
+      setAllAvailableOptions(availableOptionsMap);
+      dispatchFilter({ type: 'SET_INITIAL_FILTERS', filters: initialFilters });
+      
       setIsLoading(false);
       return;
     }
@@ -107,53 +187,12 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
     notFound();
   }, [params.slug]);
 
-  // פונקציות עזר לפילטרים
-  const getAllMaterials = useMemo(() => {
-    if (!products.length) return [];
-    const materialsSet = new Set<string>();
-    
-    products.forEach(product => {
-      if (product.specifications.material) {
-        const materials = product.specifications.material.split(', ');
-        materials.forEach(material => materialsSet.add(material));
-      }
-    });
-    
-    return Array.from(materialsSet);
-  }, [products]);
-  
-  const getAllUsageTypes = useMemo(() => {
-    if (!products.length) return [];
-    const usageTypesSet = new Set<string>();
-    
-    products.forEach(product => {
-      if (product.specifications.usageType) {
-        usageTypesSet.add(product.specifications.usageType);
-      }
-    });
-    
-    return Array.from(usageTypesSet);
-  }, [products]);
-  
-  const getAllDiameters = useMemo(() => {
-    if (!products.length) return [];
-    const diametersSet = new Set<string>();
-    
-    products.forEach(product => {
-      if (product.specifications.diameter) {
-        diametersSet.add(product.specifications.diameter);
-      }
-    });
-    
-    return Array.from(diametersSet);
-  }, [products]);
-
-  // עדכון הפילטרים
+  // עדכון הפילטרים - מאפשר לבחור כל שילוב של פילטרים
   useEffect(() => {
     applyFilters();
-  }, [searchQuery, selectedMaterials, selectedUsageTypes, selectedDiameters, sortOption, products]);
+  }, [searchQuery, filterState, sortOption, products]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...products];
     
     // פילטור לפי מחיר
@@ -162,29 +201,14 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
       return price >= priceRange[0] && price <= priceRange[1];
     });
     
-    // פילטור לפי חומרים
-    if (selectedMaterials.length > 0) {
-      filtered = filtered.filter(product => {
-        if (!product.specifications.material) return false;
-        const productMaterials = product.specifications.material.split(', ');
-        return selectedMaterials.some(material => productMaterials.includes(material));
-      });
-    }
-    
-    // פילטור לפי סוג שימוש
-    if (selectedUsageTypes.length > 0) {
-      filtered = filtered.filter(product => {
-        if (!product.specifications.usageType) return false;
-        return selectedUsageTypes.includes(product.specifications.usageType);
-      });
-    }
-    
-    // פילטור לפי קוטר
-    if (selectedDiameters.length > 0) {
-      filtered = filtered.filter(product => {
-        if (!product.specifications.diameter) return false;
-        return selectedDiameters.includes(product.specifications.diameter);
-      });
+    // החלת פילטרים דינמיים בהתאם לערכים שנבחרו
+    for (const [filterKey, selectedValues] of Object.entries(filterState)) {
+      if (selectedValues && selectedValues.length > 0) {
+        filtered = filtered.filter(product => {
+          if (!product.specifications[filterKey]) return false;
+          return selectedValues.includes(product.specifications[filterKey]);
+        });
+      }
     }
     
     // פילטור לפי חיפוש טקסט
@@ -199,7 +223,13 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
     
     // מיון תוצאות
     sortProducts(filtered);
-  };
+  }, [products, priceRange, filterState, searchQuery, sortOption]);
+  
+  // עדכון אוטומטי של הפילטרים כשמשנים אותם
+  useEffect(() => {
+    console.log("Filters changed, applying filters:", filterState);
+    applyFilters();
+  }, [applyFilters]);
   
   // מיון המוצרים
   const sortProducts = (productsToSort: Product[]) => {
@@ -269,43 +299,17 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
     setSortOption(e.target.value);
   };
   
-  const handleMaterialToggle = (material: string) => {
-    setSelectedMaterials(prev => 
-      prev.includes(material) 
-        ? prev.filter(m => m !== material) 
-        : [...prev, material]
-    );
-  };
-  
-  const handleUsageTypeToggle = (usageType: string) => {
-    setSelectedUsageTypes(prev => 
-      prev.includes(usageType) 
-        ? prev.filter(t => t !== usageType) 
-        : [...prev, usageType]
-    );
-  };
-  
-  const handleDiameterToggle = (diameter: string) => {
-    setSelectedDiameters(prev => 
-      prev.includes(diameter) 
-        ? prev.filter(d => d !== diameter) 
-        : [...prev, diameter]
-    );
+  const handleFilterChange = (filterKey: string, value: string) => {
+    console.log(`Toggle filter: ${filterKey} = ${value}`);
+    
+    // שימוש ב-dispatch פשוט
+    dispatchFilter({ type: 'TOGGLE_FILTER', filterKey, value });
   };
   
   const resetFilters = () => {
-    setSelectedMaterials([]);
-    setSelectedUsageTypes([]);
-    setSelectedDiameters([]);
+    console.log("Reset all filters");
+    dispatchFilter({ type: 'RESET_FILTERS' });
     setSearchQuery('');
-    setSortOption('default');
-    
-    // קביעת טווח מחירים לפי המוצרים בקטגוריה
-    if (products.length > 0) {
-      const minPrice = Math.min(...products.map(p => p.discountPrice || p.price));
-      const maxPrice = Math.max(...products.map(p => p.price));
-      setPriceRange([minPrice, maxPrice]);
-    }
   };
 
   if (isLoading) {
@@ -705,73 +709,34 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                   
                   <div className="space-y-6">
                     {/* פילטר חומרים */}
-                    {getAllMaterials.length > 0 && (
-                      <div>
-                        <h4 className="font-medium mb-2">חומר לקידוח</h4>
-                        <div className="space-y-1 max-h-40 overflow-y-auto">
-                          {getAllMaterials.map(material => (
-                            <div key={material} className="flex items-center">
-                              <input
-                                type="checkbox"
-                                id={`material-mobile-${material}`}
-                                checked={selectedMaterials.includes(material)}
-                                onChange={() => handleMaterialToggle(material)}
-                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                              />
-                              <label htmlFor={`material-mobile-${material}`} className="mr-2 text-sm text-gray-700">
-                                {material}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
+                    {filterGroups.map((group) => (
+                      <div key={group.id} className="mb-6">
+                        <details open className="group">
+                          <summary className="font-medium mb-2 text-gray-800 cursor-pointer flex justify-between items-center">
+                            <span>{group.name}</span>
+                            <span className="transition-transform duration-200 group-open:rotate-180">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                          </summary>
+                          <div className="pt-2 space-y-1 max-h-48 overflow-y-auto pr-1 pl-1">
+                            {allAvailableOptions[group.id]?.map((option: FilterOption) => (
+                              <div key={option.id} className="flex items-center py-1 hover:bg-gray-50 px-1 rounded">
+                                <input
+                                  type="checkbox"
+                                  id={`filter-mobile-${group.id}-${option.id}`}
+                                  checked={filterState[group.id]?.includes(option.id) || false}
+                                  onChange={() => handleFilterChange(group.id, option.id)}
+                                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                                />
+                                <label htmlFor={`filter-mobile-${group.id}-${option.id}`} className="mr-2 text-sm text-gray-700 cursor-pointer select-none flex-1">
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </details>
                       </div>
-                    )}
-                    
-                    {/* פילטר סוג שימוש */}
-                    {getAllUsageTypes.length > 0 && (
-                      <div>
-                        <h4 className="font-medium mb-2">סוג קידוח</h4>
-                        <div className="space-y-1">
-                          {getAllUsageTypes.map(usageType => (
-                            <div key={usageType} className="flex items-center">
-                              <input
-                                type="checkbox"
-                                id={`usageType-mobile-${usageType}`}
-                                checked={selectedUsageTypes.includes(usageType)}
-                                onChange={() => handleUsageTypeToggle(usageType)}
-                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                              />
-                              <label htmlFor={`usageType-mobile-${usageType}`} className="mr-2 text-sm text-gray-700">
-                                {usageType}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* פילטר קוטר */}
-                    {getAllDiameters.length > 0 && (
-                      <div>
-                        <h4 className="font-medium mb-2">קוטר</h4>
-                        <div className="space-y-1 max-h-40 overflow-y-auto">
-                          {getAllDiameters.map(diameter => (
-                            <div key={diameter} className="flex items-center">
-                              <input
-                                type="checkbox"
-                                id={`diameter-mobile-${diameter}`}
-                                checked={selectedDiameters.includes(diameter)}
-                                onChange={() => handleDiameterToggle(diameter)}
-                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                              />
-                              <label htmlFor={`diameter-mobile-${diameter}`} className="mr-2 text-sm text-gray-700">
-                                {diameter}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               )}
@@ -781,11 +746,6 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                 <div>
                   {filteredProducts.length} {filteredProducts.length === 1 ? 'מוצר נמצא' : 'מוצרים נמצאו'}
                 </div>
-                {Object.values([...selectedMaterials, ...selectedUsageTypes, ...selectedDiameters]).length > 0 && (
-                  <div className="mt-1">
-                    {Object.values([...selectedMaterials, ...selectedUsageTypes, ...selectedDiameters]).length} פילטרים פעילים
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -848,105 +808,40 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                   </div>
                   
                   {/* פילטר חומרים */}
-                  {getAllMaterials.length > 0 && (
-                    <div className="mb-6">
+                  {filterGroups.map((group) => (
+                    <div key={group.id} className="mb-6">
                       <details open className="group">
                         <summary className="font-medium mb-2 text-gray-800 cursor-pointer flex justify-between items-center">
-                          <span>חומר לקידוח</span>
+                          <span>{group.name}</span>
                           <span className="transition-transform duration-200 group-open:rotate-180">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                           </span>
                         </summary>
                         <div className="pt-2 space-y-1 max-h-48 overflow-y-auto pr-1 pl-1">
-                          {getAllMaterials.map(material => (
-                            <div key={material} className="flex items-center py-1 hover:bg-gray-50 px-1 rounded">
+                          {allAvailableOptions[group.id]?.map((option: FilterOption) => (
+                            <div key={option.id} className="flex items-center py-1 hover:bg-gray-50 px-1 rounded">
                               <input
                                 type="checkbox"
-                                id={`material-${material}`}
-                                checked={selectedMaterials.includes(material)}
-                                onChange={() => handleMaterialToggle(material)}
+                                id={`filter-desktop-${group.id}-${option.id}`}
+                                checked={filterState[group.id]?.includes(option.id) || false}
+                                onChange={() => handleFilterChange(group.id, option.id)}
                                 className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
                               />
-                              <label htmlFor={`material-${material}`} className="mr-2 text-sm text-gray-700 cursor-pointer select-none flex-1">
-                                {material}
+                              <label htmlFor={`filter-desktop-${group.id}-${option.id}`} className="mr-2 text-sm text-gray-700 cursor-pointer select-none flex-1">
+                                {option.label}
                               </label>
                             </div>
                           ))}
                         </div>
                       </details>
                     </div>
-                  )}
-                  
-                  {/* פילטר סוג שימוש */}
-                  {getAllUsageTypes.length > 0 && (
-                    <div className="mb-6">
-                      <details open className="group">
-                        <summary className="font-medium mb-2 text-gray-800 cursor-pointer flex justify-between items-center">
-                          <span>סוג קידוח</span>
-                          <span className="transition-transform duration-200 group-open:rotate-180">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                          </span>
-                        </summary>
-                        <div className="pt-2 space-y-1 max-h-48 overflow-y-auto pr-1 pl-1">
-                          {getAllUsageTypes.map(usageType => (
-                            <div key={usageType} className="flex items-center py-1 hover:bg-gray-50 px-1 rounded">
-                              <input
-                                type="checkbox"
-                                id={`usageType-${usageType}`}
-                                checked={selectedUsageTypes.includes(usageType)}
-                                onChange={() => handleUsageTypeToggle(usageType)}
-                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                              />
-                              <label htmlFor={`usageType-${usageType}`} className="mr-2 text-sm text-gray-700 cursor-pointer select-none flex-1">
-                                {usageType}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    </div>
-                  )}
-                  
-                  {/* פילטר קוטר */}
-                  {getAllDiameters.length > 0 && (
-                    <div className="mb-6">
-                      <details open className="group">
-                        <summary className="font-medium mb-2 text-gray-800 cursor-pointer flex justify-between items-center">
-                          <span>קוטר</span>
-                          <span className="transition-transform duration-200 group-open:rotate-180">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                          </span>
-                        </summary>
-                        <div className="pt-2 space-y-1 max-h-48 overflow-y-auto pr-1 pl-1">
-                          {getAllDiameters.map(diameter => (
-                            <div key={diameter} className="flex items-center py-1 hover:bg-gray-50 px-1 rounded">
-                              <input
-                                type="checkbox"
-                                id={`diameter-${diameter}`}
-                                checked={selectedDiameters.includes(diameter)}
-                                onChange={() => handleDiameterToggle(diameter)}
-                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                              />
-                              <label htmlFor={`diameter-${diameter}`} className="mr-2 text-sm text-gray-700 cursor-pointer select-none flex-1">
-                                {diameter}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    </div>
-                  )}
+                  ))}
                   
                   {/* סיכום תוצאות */}
                   <div className="pt-4 mt-4 border-t border-gray-200 text-sm text-gray-600">
                     <div>
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'מוצר נמצא' : 'מוצרים נמצאו'}
                     </div>
-                    {Object.values([...selectedMaterials, ...selectedUsageTypes, ...selectedDiameters]).length > 0 && (
-                      <div className="mt-1">
-                        {Object.values([...selectedMaterials, ...selectedUsageTypes, ...selectedDiameters]).length} פילטרים פעילים
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

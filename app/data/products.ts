@@ -870,6 +870,109 @@ const products: Product[] = [
     relatedProducts: ['wet-drill-67mm', 'wet-drill-77mm', 'vacuum-drill-90mm'],
     isFeatured: false,
   },
+  // Add these products after the existing wet-drill products
+  {
+    id: 'wet-drill-42mm-half-inch',
+    slug: 'wet-drill-42mm-half-inch',
+    name: 'כוס קידוח יהלום ברטוב בקוטר 42 מ"מ עם הברגה "1/2',
+    nameEn: 'Wet Diamond Core Drill Bit - 42mm with 1/2" Thread',
+    description: 'כוס קידוח יהלום מקצועית בקוטר 42 מ"מ, עם הברגה "1/2, מיועדת לקידוח רטוב בבטון ובטון מזוין. מתאימה למגוון מכונות קידוח עם הברגה "1/2.',
+    shortDescription: 'כוס קידוח יהלום מקצועית בקוטר 42 מ"מ עם הברגה "1/2 לקידוח רטוב בבטון',
+    type: ProductType.DIAMOND_CORE_DRILL_BIT,
+    category: ProductCategory.DIAMOND_CORE_DRILL_BITS,
+    specifications: {
+      diameter: '42 מ"מ',
+      length: '400 מ"מ',
+      thread: '1/2"',
+      segments: 6,
+      segmentHeight: '10 מ"מ',
+      segmentType: 'Premium',
+      material: 'בטון, בטון מזוין',
+      usageType: 'רטוב',
+      warranty: '12 חודשים',
+    },
+    price: 380,
+    discountPrice: 330,
+    stock: 15,
+    deliveryTime: '1-3 ימי עסקים',
+    applications: ['קידוח בבטון', 'קידוח בבטון מזוין', 'ביצוע עבודות אינסטלציה'],
+    features: [
+      'חוזק וקשיחות גבוהים',
+      'אורך חיים ארוך',
+      'קצב חדירה גבוה',
+    ],
+    images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    relatedProducts: ['wet-drill-52mm-half-inch', 'wet-drill-62mm-half-inch'],
+    isFeatured: false,
+  },
+  {
+    id: 'wet-drill-52mm-half-inch',
+    slug: 'wet-drill-52mm-half-inch',
+    name: 'כוס קידוח יהלום ברטוב בקוטר 52 מ"מ עם הברגה "1/2',
+    nameEn: 'Wet Diamond Core Drill Bit - 52mm with 1/2" Thread',
+    description: 'כוס קידוח יהלום מקצועית בקוטר 52 מ"מ, עם הברגה "1/2, מיועדת לקידוח רטוב בבטון ובטון מזוין. מתאימה למגוון מכונות קידוח עם הברגה "1/2.',
+    shortDescription: 'כוס קידוח יהלום מקצועית בקוטר 52 מ"מ עם הברגה "1/2 לקידוח רטוב בבטון',
+    type: ProductType.DIAMOND_CORE_DRILL_BIT,
+    category: ProductCategory.DIAMOND_CORE_DRILL_BITS,
+    specifications: {
+      diameter: '52 מ"מ',
+      length: '400 מ"מ',
+      thread: '1/2"',
+      segments: 7,
+      segmentHeight: '10 מ"מ',
+      segmentType: 'Premium',
+      material: 'בטון, בטון מזוין',
+      usageType: 'רטוב',
+      warranty: '12 חודשים',
+    },
+    price: 410,
+    discountPrice: 370,
+    stock: 12,
+    deliveryTime: '1-3 ימי עסקים',
+    applications: ['קידוח בבטון', 'קידוח בבטון מזוין', 'ביצוע עבודות אינסטלציה'],
+    features: [
+      'חוזק וקשיחות גבוהים',
+      'אורך חיים ארוך',
+      'קצב חדירה גבוה',
+    ],
+    images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    relatedProducts: ['wet-drill-42mm-half-inch', 'wet-drill-62mm-half-inch'],
+    isFeatured: false,
+  },
+  {
+    id: 'wet-drill-62mm-half-inch',
+    slug: 'wet-drill-62mm-half-inch',
+    name: 'כוס קידוח יהלום ברטוב בקוטר 62 מ"מ עם הברגה "1/2',
+    nameEn: 'Wet Diamond Core Drill Bit - 62mm with 1/2" Thread',
+    description: 'כוס קידוח יהלום מקצועית בקוטר 62 מ"מ, עם הברגה "1/2, מיועדת לקידוח רטוב בבטון ובטון מזוין. מתאימה למגוון מכונות קידוח עם הברגה "1/2.',
+    shortDescription: 'כוס קידוח יהלום מקצועית בקוטר 62 מ"מ עם הברגה "1/2 לקידוח רטוב בבטון',
+    type: ProductType.DIAMOND_CORE_DRILL_BIT,
+    category: ProductCategory.DIAMOND_CORE_DRILL_BITS,
+    specifications: {
+      diameter: '62 מ"מ',
+      length: '400 מ"מ',
+      thread: '1/2"',
+      segments: 7,
+      segmentHeight: '10 מ"מ',
+      segmentType: 'Premium',
+      material: 'בטון, בטון מזוין',
+      usageType: 'רטוב',
+      warranty: '12 חודשים',
+    },
+    price: 430,
+    discountPrice: 390,
+    stock: 10,
+    deliveryTime: '1-3 ימי עסקים',
+    applications: ['קידוח בבטון', 'קידוח בבטון מזוין', 'ביצוע עבודות אינסטלציה'],
+    features: [
+      'חוזק וקשיחות גבוהים',
+      'אורך חיים ארוך',
+      'קצב חדירה גבוה',
+    ],
+    images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    relatedProducts: ['wet-drill-42mm-half-inch', 'wet-drill-52mm-half-inch'],
+    isFeatured: false,
+  },
 ];
 
 // Export product utils
@@ -898,6 +1001,97 @@ export const getRelatedProducts = (productId: string): Product[] => {
   return product.relatedProducts
     .map(id => getProductById(id))
     .filter((product): product is Product => product !== undefined);
+};
+
+// Define the filter configurations for each product category
+export const categoryFilterConfig = {
+  [ProductCategory.DIAMOND_CORE_DRILL_BITS]: {
+    primaryFilter: {
+      key: 'diameter',
+      label: 'קוטר',
+    },
+    secondaryFilter: {
+      key: 'thread',
+      label: 'הברגה',
+    }
+  },
+  [ProductCategory.DIAMOND_SAW_BLADES]: {
+    primaryFilter: {
+      key: 'diameter',
+      label: 'קוטר',
+    },
+    secondaryFilter: null
+  },
+  [ProductCategory.ACCESSORIES]: {
+    primaryFilter: {
+      key: 'diameter',
+      label: 'קוטר',
+    },
+    secondaryFilter: null
+  },
+  [ProductCategory.DRILLING_MACHINES]: {
+    primaryFilter: {
+      key: 'power',
+      label: 'הספק',
+    },
+    secondaryFilter: null
+  },
+  [ProductCategory.SPECIAL_PRODUCTS]: {
+    primaryFilter: null,
+    secondaryFilter: null
+  }
+};
+
+// Helper function to get available filter values for a specific category and filter key
+export const getFilterValuesForCategory = (category: ProductCategory, filterKey: string): string[] => {
+  const productsInCategory = getProductsByCategory(category);
+  const valuesSet = new Set<string>();
+  
+  productsInCategory.forEach(product => {
+    if (product.specifications[filterKey]) {
+      valuesSet.add(product.specifications[filterKey]);
+    }
+  });
+  
+  return Array.from(valuesSet);
+};
+
+// Helper function to get all available filter configs for a category
+export const getFiltersForCategory = (category: ProductCategory) => {
+  const config = categoryFilterConfig[category];
+  const filters = [];
+  
+  if (config.primaryFilter) {
+    const values = getFilterValuesForCategory(category, config.primaryFilter.key);
+    
+    if (values.length > 0) {
+      filters.push({
+        id: config.primaryFilter.key,
+        name: config.primaryFilter.label,
+        options: values.map(value => ({
+          id: value,
+          label: value
+        }))
+      });
+    }
+  }
+  
+  if (config.secondaryFilter) {
+    const values = getFilterValuesForCategory(category, config.secondaryFilter.key);
+    
+    if (values.length > 0) {
+      filters.push({
+        id: config.secondaryFilter.key,
+        name: config.secondaryFilter.label,
+        options: values.map(value => ({
+          id: value,
+          label: value
+        }))
+      });
+    }
+  }
+  
+  return filters;
 };
 
 export default products; 
