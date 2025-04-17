@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --primary-color: #ea580c;
+  --primary-dark: #c2410c;
+  --secondary-color: #111827;
+  --text-color: #333;
+  --light-bg: #f9fafb;
+}
+
+/* Base styles */
+body {
+  color: var(--text-color);
+  background: rgb(var(--background-rgb));
+  text-align: right;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utility Classes */
+.text-primary {
+  color: var(--primary-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.btn {
+  @apply px-4 py-2 rounded font-medium transition-colors duration-300;
+}
+
+.btn-primary {
+  @apply bg-orange-600 hover:bg-orange-700 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-800 hover:bg-gray-700 text-white;
+}
+
+.btn-outline {
+  @apply border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white;
+}
+
+/* RTL specific overrides */
+.rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Enhanced RTL support */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rtl .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* For flexbox in RTL */
+.rtl-flex {
+  @apply flex flex-row-reverse;
+}
+
+/* Container styles */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Product card */
+.product-card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+/* Section spacing */
+.section-padding {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+/* Custom animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fix spacing in RTL layouts */
+.space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Dropdown menus - improved with padding bridge and delay */
+.group {
+  padding-bottom: 15px; /* Create padding bridge to help mouse movement */
+}
+
+.group:hover .group-hover\:block {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s, visibility 0s;
+}
+
+.group > .group-hover\:block {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0s 0.2s;
+  margin-top: 0; /* Removed negative margin */
+  position: absolute; /* Ensure absolute positioning */
+  top: 100%; /* Position at the bottom of the parent */
+}
+
+/* Nested dropdown menu */
+.dropdown-item {
+  position: relative;
+  padding-left: 15px; /* Create padding bridge for horizontal movement */
+}
+
+.dropdown-item:hover .submenu {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s, visibility 0s;
+}
+
+.dropdown-item .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0s 0.2s;
+  top: 0; /* Align with parent */
+}
+
+/* Create a wider transparent bridge between the menu item and submenu */
+.dropdown-item .submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -25px;
+  width: 25px;
+  height: 100%;
+  background: transparent;
+}
+
+/* Add a delay to the dropdown hiding to give user time to move cursor */
+.group-hover\:block, .submenu {
+  transition-delay: 0.2s;
+}
+
+/* Make sure the navbar text is visible and has high contrast */
+.bg-gray-900 {
+  background-color: #111827;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.bg-orange-600 {
+  background-color: #ea580c;
+}
+
+/* Force navbar visibility for debugging */
+nav {
+  display: block !important;
+}
+
+.hidden.md\:flex {
+  display: flex !important;
+}
+
+/* All navbar elements should be on the same line properly aligned */
+nav .md\:flex {
+  align-items: center;
+}
+
+/* Fix for RTL arrows in "צפה בכל המוצרים" buttons */
+a:has(.fa-chevron-left) .fa-chevron-left,
+a:has(.fa-chevron-left) svg,
+[class*="במוצרים"] .fa-chevron-left {
+  margin-right: 0.5rem;
+}
+
+/* Fix all arrow directions for RTL everywhere in the site */
+.fa-chevron-left,
+.fa-chevron-right,
+[class*="fa-chevron"],
+svg[data-icon="chevron-left"],
+svg[data-icon="chevron-right"] {
+  transform: none !important; /* Reset any existing transforms */
+}
+
+/* Make all arrows in links point left in RTL context */
+a .fa-chevron-left,
+a .fa-chevron-right,
+a [class*="fa-chevron"],
+a svg[data-icon="chevron-left"],
+a svg[data-icon="chevron-right"],
+button .fa-chevron-left,
+button .fa-chevron-right,
+button [class*="fa-chevron"] {
+  transform: scaleX(-1) !important; /* Force left-pointing in RTL context */
+}
+
+/* Reset arrow direction in dropdown menus for proper RTL */
+.dropdown-item .fa-chevron-right,
+.dropdown-item svg[data-icon="chevron-right"] {
+  transform: scaleX(1) !important; /* Point left in RTL context */
+}
+
+/* Override for chevron down which should not be flipped */
+.fa-chevron-down,
+svg[data-icon="chevron-down"] {
+  transform: none !important;
+}
+
+/* Ensure RTL spacing works correctly */
+.mr-2 {
+  margin-right: 0.5rem;
+}
