@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaCalendarAlt, FaUser, FaShare, FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
-export default function BlogPost({ params }: { params: { id: string } }) {
-  // Mock data - replace with actual data from your backend
-  const post = {
-    id: params.id,
+// Blog posts data with actual image paths
+const blogPosts = [
+  {
+    id: "1",
     title: 'כיצד לבחור את כוס הקידוח הנכונה',
     content: `
       <p>בחירת כוס קידוח יהלום מתאימה היא קריטית להצלחת העבודה. במדריך זה נסביר כיצד לבחור את הכוס המתאימה ביותר לצרכים שלכם.</p>
@@ -41,10 +41,103 @@ export default function BlogPost({ params }: { params: { id: string } }) {
     date: '2024-03-15',
     author: 'דוד כהן',
     category: 'טיפים מקצועיים',
-    image: '/images/blog/drill-bit-selection.jpg',
-  };
+    image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 05_29_14 PM.png',
+  },
+  {
+    id: "2",
+    title: 'תחזוקת כלי קידוח יהלום',
+    content: `
+      <p>תחזוקה נכונה של כלי קידוח יהלום תבטיח אורך חיים מקסימלי וביצועים אופטימליים. במדריך זה נפרט את שיטות התחזוקה המומלצות.</p>
+      
+      <h2>המלצות לתחזוקת כלי קידוח יהלום</h2>
+      
+      <h3>1. ניקוי לאחר השימוש</h3>
+      <p>תמיד נקו את הכלים לאחר השימוש כדי למנוע הצטברות של אבק ולכלוך שעלולים לפגוע בביצועים.</p>
+      
+      <h3>2. שימון והחלפת חלקים</h3>
+      <p>שמנו את החלקים הנעים באופן קבוע והחליפו חלקים שחוקים בזמן כדי למנוע נזק נוסף למכשיר.</p>
+      
+      <h3>3. בדיקות תקופתיות</h3>
+      <p>בצעו בדיקות תקופתיות של הכלים לאיתור בעיות מוקדם ככל האפשר:</p>
+      <ul>
+        <li>בדקו סימני בלאי בסגמנטים</li>
+        <li>וודאו שאין סדקים או עיוותים בגוף הכלי</li>
+        <li>בדקו את תקינות החיבורים</li>
+      </ul>
+    `,
+    date: '2024-03-10',
+    author: 'שלומי לוי',
+    category: 'תחזוקה',
+    image: '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 04_38_35 PM.png',
+  },
+  {
+    id: "3",
+    title: 'יתרונות השימוש במסורי יהלום',
+    content: `
+      <p>מסורי יהלום מציעים יתרונות רבים בעבודות חיתוך מקצועיות. בפוסט זה נסקור את היתרונות המרכזיים של שימוש במסורי יהלום איכותיים.</p>
+      
+      <h2>יתרונות מרכזיים של מסורי יהלום</h2>
+      
+      <h3>1. דיוק גבוה</h3>
+      <p>מסורי יהלום מאפשרים חיתוך מדויק יותר בהשוואה לאמצעי חיתוך אחרים, מה שמבטיח תוצאות מקצועיות.</p>
+      
+      <h3>2. מגוון שימושים</h3>
+      <p>ניתן להשתמש במסורי יהלום לחיתוך:</p>
+      <ul>
+        <li>בטון</li>
+        <li>אבן טבעית</li>
+        <li>אבן מלאכותית</li>
+        <li>קרמיקה ופורצלן</li>
+      </ul>
+      
+      <h3>3. עמידות ואורך חיים</h3>
+      <p>מסורי יהלום איכותיים מציעים אורך חיים ארוך יותר ועמידות גבוהה, מה שהופך אותם לכלכליים בטווח הארוך.</p>
+    `,
+    date: '2024-03-05',
+    author: 'רונן ישראלי',
+    category: 'ביקורות מוצרים',
+    image: '/images/saw-blade/ChatGPT Image Apr 11, 2025, 05_20_38 PM.png',
+  },
+  {
+    id: "4",
+    title: 'חידושים בתחום כלי הקידוח',
+    content: `
+      <p>תחום כלי הקידוח וחיתוך היהלום ממשיך להתפתח עם חידושים טכנולוגיים מרשימים. בפוסט זה נסקור את החידושים האחרונים בתחום.</p>
+      
+      <h2>חידושים טכנולוגיים בתחום כלי הקידוח</h2>
+      
+      <h3>1. סגמנטים בטכנולוגיה מתקדמת</h3>
+      <p>סגמנטים חדשים עם תרכובות יהלום משופרות מאפשרים קידוח מהיר יותר ואורך חיים ארוך יותר של הכלים.</p>
+      
+      <h3>2. מערכות קירור מתקדמות</h3>
+      <p>מערכות קירור חדשניות מפחיתות את החום בזמן העבודה, משפרות את הביצועים ומאריכות את חיי הכלי.</p>
+      
+      <h3>3. קידוח חכם</h3>
+      <p>טכנולוגיות חדשות מאפשרות:</p>
+      <ul>
+        <li>בקרת לחץ אוטומטית</li>
+        <li>חיישנים לזיהוי חומרים</li>
+        <li>התאמת מהירות אוטומטית לסוג החומר</li>
+      </ul>
+    `,
+    date: '2024-02-28',
+    author: 'אורי דוד',
+    category: 'חדשות',
+    image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_45_12 PM.png',
+  },
+];
 
+export default function BlogPost({ params }: { params: { id: string } }) {
+  const [post, setPost] = useState(blogPosts[0]);
   const [showShareMenu, setShowShareMenu] = useState(false);
+  
+  // Find the post based on the id param
+  useEffect(() => {
+    const foundPost = blogPosts.find(p => p.id === params.id);
+    if (foundPost) {
+      setPost(foundPost);
+    }
+  }, [params.id]);
 
   return (
     <div className="min-h-screen bg-gray-50 animate-fadeIn">
@@ -96,9 +189,12 @@ export default function BlogPost({ params }: { params: { id: string } }) {
           <div className="lg:col-span-3">
             <article className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-96 bg-gray-200 relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-gray-500">תמונת פוסט</span>
-                </div>
+                <Image 
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-contain bg-white p-4"
+                />
               </div>
               <div className="p-8">
                 <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -110,33 +206,33 @@ export default function BlogPost({ params }: { params: { id: string } }) {
                     <div className="relative">
                       <button
                         onClick={() => setShowShareMenu(!showShareMenu)}
-                        className="flex items-center text-gray-600 hover:text-orange-600"
+                        className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md"
                       >
-                        <FaShare className="ml-1" />
+                        <FaShare />
                         שתף
                       </button>
                       {showShareMenu && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
+                        <div className="absolute left-0 top-full mt-2 bg-white rounded-md shadow-lg overflow-hidden z-10">
                           <a
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                           >
-                            <FaFacebook className="ml-2" />
+                            <FaFacebook className="ml-2 text-blue-600" />
                             Facebook
                           </a>
                           <a
-                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                           >
-                            <FaTwitter className="ml-2" />
+                            <FaTwitter className="ml-2 text-blue-400" />
                             Twitter
                           </a>
                           <a
-                            href={`https://wa.me/?text=${encodeURIComponent(post.title + ' ' + window.location.href)}`}
+                            href={`https://wa.me/?text=${encodeURIComponent(post.title + ' ' + (typeof window !== 'undefined' ? window.location.href : ''))}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
@@ -171,6 +267,39 @@ export default function BlogPost({ params }: { params: { id: string } }) {
                     {category}
                   </Link>
                 ))}
+              </div>
+              
+              {/* Related blog posts preview */}
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-4">מאמרים קשורים</h3>
+                <div className="space-y-4">
+                  {blogPosts
+                    .filter(p => p.id !== params.id && p.category === post.category)
+                    .slice(0, 2)
+                    .map(relatedPost => (
+                      <div key={relatedPost.id} className="flex items-start">
+                        <div className="w-16 h-16 bg-gray-200 relative flex-shrink-0">
+                          <Image 
+                            src={relatedPost.image}
+                            alt={relatedPost.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="mr-3">
+                          <Link
+                            href={`/blog/${relatedPost.id}`}
+                            className="block font-medium hover:text-orange-600 mb-1 text-sm"
+                          >
+                            {relatedPost.title}
+                          </Link>
+                          <span className="text-xs text-gray-500">
+                            {new Date(relatedPost.date).toLocaleDateString('he-IL')}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
             </div>
           </div>

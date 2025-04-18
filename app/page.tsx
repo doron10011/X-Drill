@@ -58,46 +58,53 @@ export default function Home() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gray-800 rounded-lg h-72 md:h-96 flex items-center justify-center p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-bl from-orange-600/20 to-transparent"></div>
-                <div className="relative z-10 text-center">
-                  {/* Placeholder for hero image */}
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="relative w-64 h-64 md:w-80 md:h-80">
-                      <div className="flex items-center justify-center">
-                        <div className="text-6xl text-gray-400 mb-4">
-                          <FaTools />
-                        </div>
+              {/* Enhanced image container with better shadows and effects */}
+              <div className="relative w-full max-w-xl mx-auto overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.18)] border border-gray-100/20 transform transition-all duration-500 hover:shadow-[0_20px_50px_rgba(249,_115,_22,_0.25)] hover:-translate-y-1">
+                {/* Slightly larger container with enhanced image */}
+                <div className="w-full relative" style={{ paddingBottom: "70%" /* Slightly taller for better impact */ }}>
+                  <Image 
+                    src="/images/banner-photo/1.png" 
+                    alt="X-Drill Diamond Drilling Solutions" 
+                    fill
+                    className="object-cover transition-all duration-700 ease-in-out hover:scale-110 filter hover:brightness-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                  
+                  {/* Enhanced gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/50 via-gray-800/20 to-transparent z-10 transition-opacity duration-700 ease-in-out hover:opacity-70"></div>
+                
+                  {/* Improved floating cards */}
+                  <div className="absolute bottom-5 left-5 bg-white text-black rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] p-3 max-w-[160px] hidden md:block z-20 transform transition-all duration-500 hover:translate-x-2 hover:shadow-[0_15px_30px_rgba(249,_115,_22,_0.2)]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gradient-to-tr from-orange-600 to-orange-400 rounded-full w-8 h-8 flex items-center justify-center text-white shadow-md">
+                        <FaCheck className="text-sm" />
                       </div>
-                      <div className="text-center mt-4">
-                        <span className="text-lg text-gray-300">מגוון פתרונות קידוח יהלום מקצועיים</span>
-                      </div>
+                      <span className="font-semibold text-sm">איכות מעולה</span>
                     </div>
+                    <p className="text-xs text-gray-600">
+                      מוצרים איכותיים מהמובילים בעולם
+                    </p>
+                  </div>
+                  <div className="absolute top-5 right-5 bg-white text-black rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] p-3 max-w-[160px] hidden md:block z-20 transform transition-all duration-500 hover:-translate-x-2 hover:shadow-[0_15px_30px_rgba(249,_115,_22,_0.2)]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gradient-to-tr from-orange-600 to-orange-400 rounded-full w-8 h-8 flex items-center justify-center text-white shadow-md">
+                        <FaTools className="text-sm" />
+                      </div>
+                      <span className="font-semibold text-sm">תמיכה מקצועית</span>
+                    </div>
+                    <p className="text-xs text-gray-600">
+                      ייעוץ וליווי אישי לפני ואחרי הרכישה
+                    </p>
+                  </div>
+
+                  {/* Subtle edge glow effect */}
+                  <div className="absolute inset-0 pointer-events-none rounded-xl opacity-0 hover:opacity-60 transition-opacity duration-700 z-10" 
+                    style={{ 
+                      boxShadow: "inset 0 0 30px rgba(249, 115, 22, 0.3)",
+                    }}>
                   </div>
                 </div>
-              </div>
-              {/* Floating Cards */}
-              <div className="absolute -bottom-6 -left-6 bg-white text-black rounded-lg shadow-xl p-4 w-40 hidden md:block">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
-                    <FaCheck />
-                  </div>
-                  <span className="font-semibold">איכות מעולה</span>
-                </div>
-                <p className="text-sm text-gray-600">
-                  מוצרים איכותיים מהמובילים בעולם
-                </p>
-              </div>
-              <div className="absolute -top-6 -right-6 bg-white text-black rounded-lg shadow-xl p-4 w-40 hidden md:block">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
-                    <FaTools />
-                  </div>
-                  <span className="font-semibold">תמיכה מקצועית</span>
-                </div>
-                <p className="text-sm text-gray-600">
-                  ייעוץ וליווי אישי לפני ואחרי הרכישה
-                </p>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ import { FaSearch, FaCalendarAlt, FaUser } from 'react-icons/fa';
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  // Mock blog posts data - replace with actual data from your backend
+  // Blog posts data with actual image paths from our project
   const blogPosts = [
     {
       id: 1,
@@ -17,7 +17,7 @@ export default function Blog() {
       date: '2024-03-15',
       author: 'דוד כהן',
       category: 'טיפים מקצועיים',
-      image: '/images/blog/drill-bit-selection.jpg',
+      image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 05_29_14 PM.png',
     },
     {
       id: 2,
@@ -26,9 +26,26 @@ export default function Blog() {
       date: '2024-03-10',
       author: 'שלומי לוי',
       category: 'תחזוקה',
-      image: '/images/blog/drill-maintenance.jpg',
+      image: '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 04_38_35 PM.png',
     },
-    // Add more blog posts as needed
+    {
+      id: 3,
+      title: 'יתרונות השימוש במסורי יהלום',
+      excerpt: 'סקירה של היתרונות המרכזיים בשימוש במסורי יהלום איכותיים לעבודות חיתוך',
+      date: '2024-03-05',
+      author: 'רונן ישראלי',
+      category: 'ביקורות מוצרים',
+      image: '/images/saw-blade/ChatGPT Image Apr 11, 2025, 05_20_38 PM.png',
+    },
+    {
+      id: 4,
+      title: 'חידושים בתחום כלי הקידוח',
+      excerpt: 'סקירה של החידושים האחרונים בתחום כלי הקידוח והמסורים המקצועיים',
+      date: '2024-02-28',
+      author: 'אורי דוד',
+      category: 'חדשות',
+      image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_45_12 PM.png',
+    },
   ];
 
   const categories = ['all', 'טיפים מקצועיים', 'תחזוקה', 'חדשות', 'ביקורות מוצרים'];
@@ -111,9 +128,12 @@ export default function Blog() {
               {filteredPosts.map((post) => (
                 <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <div className="h-48 bg-gray-200 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-gray-500">תמונת פוסט</span>
-                    </div>
+                    <Image 
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center text-sm text-gray-500 mb-4">

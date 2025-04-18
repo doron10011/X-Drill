@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaInfoCircle, FaTools, FaCog, FaRuler, FaWrench, FaChevronLeft } from 'react-icons/fa';
 import { productCategories } from '@/app/data/products';
 
@@ -26,11 +27,12 @@ export default function DiamondDrillingGuide() {
           {/* כוסות קידוח רטובות */}
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="h-56 bg-gray-200 relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-5xl text-gray-400">
-                  <FaTools />
-                </div>
-              </div>
+              <Image 
+                src="/images/presentaion-photos/1.png"
+                alt="כוסות קידוח יהלום לקידוח רטוב"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4">כוסות קידוח יהלום לקידוח רטוב</h3>
@@ -61,11 +63,12 @@ export default function DiamondDrillingGuide() {
           {/* כוסות קידוח יבשות */}
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="h-56 bg-gray-200 relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-5xl text-gray-400">
-                  <FaTools />
-                </div>
-              </div>
+              <Image 
+                src="/images/presentaion-photos/2.png"
+                alt="כוסות קידוח יהלום לקידוח יבש/ואקום"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4">כוסות קידוח יהלום לקידוח יבש/ואקום</h3>
@@ -96,11 +99,12 @@ export default function DiamondDrillingGuide() {
           {/* מסורי יהלום */}
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="h-56 bg-gray-200 relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-5xl text-gray-400">
-                  <FaCog />
-                </div>
-              </div>
+              <Image 
+                src="/images/presentaion-photos/3.png"
+                alt="מסורי יהלום"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4">מסורי יהלום</h3>
