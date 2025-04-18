@@ -43,35 +43,47 @@ export default function Products() {
           <h2 className="text-3xl font-bold mb-8 text-center">קטגוריות מוצרים</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {productCategories.map((category) => (
-              <div key={category.id} className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="h-56 bg-gray-200 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    {category.image ? (
-                      <Image 
-                        src={category.image}
-                        alt={category.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
+              <Link 
+                href={`/products/${category.slug}`}
+                key={category.id}
+                className="block group bg-white rounded-lg shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                <div className="h-56 bg-gray-200 relative overflow-hidden">
+                  {category.image ? (
+                    <>
+                      <div className="absolute inset-0 bg-black opacity-30 z-10 transition-opacity duration-300 group-hover:opacity-0"></div>
+                      <div className="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110">
+                        <Image 
+                          src={category.image}
+                          alt={category.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="absolute top-0 right-0 bg-orange-600 text-white px-3 py-1 font-semibold text-sm rounded-bl-lg z-20">
+                        {category.name}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-gray-500">תמונת קטגוריה</span>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
-                <div className="p-6 rtl">
-                  <h3 className="text-xl font-semibold mb-4">{category.name}</h3>
-                  <p className="text-gray-600 mb-4">
+                <div className="p-6 rtl relative">
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-orange-600 transition-colors">{category.name}</h3>
+                  <p className="text-gray-600 mb-4 line-clamp-2">
                     {category.description}
                   </p>
-                  <Link
-                    href={`/products/${category.slug}`}
-                    className="text-orange-600 hover:text-orange-700 font-semibold flex items-center justify-end"
-                  >
-                    צפה בכל המוצרים
-                    <FaChevronLeft className="mr-2" />
-                  </Link>
+                  <div className="flex items-center justify-end text-orange-600 font-semibold group-hover:text-orange-700">
+                    <span className="relative inline-flex items-center">
+                      צפה בכל המוצרים
+                      <FaChevronLeft className="mr-2 transition-transform duration-300 group-hover:translate-x-[-4px]" />
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 w-0 h-1 bg-orange-600 transition-all duration-300 group-hover:w-full"></div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -82,31 +94,38 @@ export default function Products() {
             <h2 className="text-3xl font-bold mb-8 text-center">מוצרים מובילים</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {featuredProducts.map(product => (
-                <div key={product.id} className="bg-white rounded-lg shadow overflow-hidden">
-                  <Link href={`/products/${product.slug}`}>
-                    <div className="h-48 bg-gray-200 flex items-center justify-center">
+                <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                  <Link href={`/products/${product.slug}`} className="block overflow-hidden">
+                    <div className="h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden">
                       {product.images && product.images.length > 0 ? (
-                        <Image 
-                          src={product.images[0]} 
-                          alt={product.name}
-                          width={300}
-                          height={200}
-                          className="object-contain w-full h-full"
-                        />
+                        <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+                          <Image 
+                            src={product.images[0]} 
+                            alt={product.name}
+                            width={300}
+                            height={200}
+                            className="object-contain w-full h-full"
+                          />
+                        </div>
                       ) : (
                         <span className="text-gray-500">תמונת מוצר</span>
                       )}
+                      {product.discountPrice && (
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                          מבצע!
+                        </div>
+                      )}
                     </div>
                   </Link>
-                  <div className="p-6 rtl">
-                    <h3 className="text-xl font-semibold mb-2">
-                      <Link href={`/products/${product.slug}`} className="hover:text-orange-600">
+                  <div className="p-6 rtl border-t border-gray-100">
+                    <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2">
+                      <Link href={`/products/${product.slug}`} className="hover:text-orange-600 transition-colors">
                         {product.name}
                       </Link>
                     </h3>
                     <div className="flex items-center justify-between">
                       {product.discountPrice ? (
-                        <div className="flex flex-wrap items-baseline gap-3">
+                        <div className="flex flex-wrap items-baseline gap-2">
                           <div className="flex items-baseline">
                             <span className="text-2xl font-bold text-orange-600">{product.discountPrice}</span>
                             <span className="text-lg mr-1">₪</span>
@@ -118,15 +137,16 @@ export default function Products() {
                         </div>
                       ) : (
                         <div className="flex items-baseline">
-                          <span className="text-2xl font-bold">{product.price}</span>
+                          <span className="text-2xl font-bold text-gray-800">{product.price}</span>
                           <span className="text-lg mr-1">₪</span>
                         </div>
                       )}
                       <Link
                         href={`/products/${product.slug}`}
-                        className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
+                        className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition-colors flex items-center"
                       >
                         פרטים נוספים
+                        <FaChevronLeft className="mr-1 text-xs transition-transform duration-300 group-hover:translate-x-[-4px]" />
                       </Link>
                     </div>
                   </div>

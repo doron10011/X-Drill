@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaTrash, FaChevronLeft, FaShoppingCart, FaCreditCard, FaTruck, FaShieldAlt, FaInfoCircle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../components/CartContext';
@@ -98,8 +99,18 @@ export default function Cart() {
                         className="p-6"
                       >
                         <div className="flex flex-col md:flex-row">
-                          <div className="h-24 w-24 bg-gray-200 rounded-md flex-shrink-0 flex items-center justify-center">
-                            <span className="text-gray-500">תמונת מוצר</span>
+                          <div className="h-24 w-24 bg-gray-100 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
+                            {item.image ? (
+                              <Image 
+                                src={item.image} 
+                                alt={item.name}
+                                width={96}
+                                height={96}
+                                className="object-contain w-full h-full"
+                              />
+                            ) : (
+                              <span className="text-gray-500 text-xs">תמונה לא זמינה</span>
+                            )}
                           </div>
                           <div className="mr-4 flex-1 mt-4 md:mt-0">
                             <div className="flex flex-col md:flex-row md:justify-between">

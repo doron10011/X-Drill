@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaShoppingCart, FaCheck, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Define cart item type
 export type CartItem = {
@@ -223,33 +224,63 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
-            className="fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-4 z-50 max-w-sm w-full"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed bottom-0 sm:bottom-6 inset-x-0 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 bg-white shadow-xl sm:rounded-lg rounded-t-lg z-50 sm:w-[340px] w-full sm:max-w-[95vw] border border-gray-100 rtl overflow-hidden"
+            style={{ boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.1)' }}
           >
-            <div className="flex items-start">
-              <div className="bg-green-100 text-green-600 p-2 rounded-full ml-3">
-                <FaCheck />
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-semibold text-gray-900">נוסף לעגלה בהצלחה!</h3>
-                  <button 
-                    onClick={closeNotification}
-                    className="text-gray-400 hover:text-gray-600"
-                  >
-                    <FaTimes />
-                  </button>
+            <div className="bg-gradient-to-l from-orange-600 to-orange-500 h-1 sm:h-1.5 w-full"></div>
+            <div className="p-3 sm:p-5">
+              <div className="flex items-start">
+                <div className="bg-white border border-gray-100 rounded-md shadow-sm overflow-hidden h-12 w-12 sm:h-16 sm:w-16 ml-3 flex-shrink-0 flex items-center justify-center">
+                  {lastAddedItem.image ? (
+                    <Image 
+                      src={lastAddedItem.image} 
+                      alt={lastAddedItem.name}
+                      width={64}
+                      height={64}
+                      className="object-contain w-full h-full"
+                    />
+                  ) : (
+                    <div className="bg-gradient-to-tr from-green-600 to-green-500 text-white p-1.5 sm:p-2.5 rounded-full shadow-sm flex items-center justify-center">
+                      <FaCheck size={12} className="sm:hidden" />
+                      <FaCheck size={16} className="hidden sm:block" />
+                    </div>
+                  )}
                 </div>
-                <p className="text-gray-700 mt-1 truncate">{lastAddedItem.name}</p>
-                <div className="flex justify-between items-center mt-3">
-                  <p className="text-orange-600 font-semibold">
-                    {lastAddedItem.quantity} x {lastAddedItem.price} ₪
+                <div className="flex-1 min-w-0 mr-2">
+                  <div className="flex justify-between items-center mb-1">
+                    <h3 className="font-bold text-gray-900 text-sm sm:text-base truncate">נוסף לעגלה!</h3>
+                    <button 
+                      onClick={closeNotification}
+                      className="text-gray-400 hover:text-gray-600 p-1 sm:p-1.5 rounded-full hover:bg-gray-100 transition-all -mr-1 flex-shrink-0"
+                      aria-label="סגור התראה"
+                    >
+                      <FaTimes size={12} className="sm:hidden" />
+                      <FaTimes size={14} className="hidden sm:block" />
+                    </button>
+                  </div>
+                  <p className="text-gray-700 mb-2 text-xs sm:text-sm truncate break-words" title={lastAddedItem.name}>
+                    {lastAddedItem.name}
                   </p>
-                  <Link
-                    href="/cart"
-                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-sm transition-colors"
-                  >
-                    צפה בעגלה
-                  </Link>
+                  
+                  <div className="pt-2 border-t border-gray-100">
+                    <div className="flex items-center mb-2">
+                      <p className="text-gray-600 text-xs ml-1">סה"כ:</p>
+                      <p className="text-orange-600 font-bold text-xs sm:text-sm">
+                        <span>{lastAddedItem.quantity}</span>
+                        <span className="mx-1">x</span>
+                        <span>{lastAddedItem.price} ₪</span>
+                      </p>
+                    </div>
+                    <Link
+                      href="/cart"
+                      className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 sm:py-2 rounded text-xs font-medium transition-colors flex items-center justify-center w-full gap-1"
+                    >
+                      <FaShoppingCart size={10} className="sm:hidden" />
+                      <FaShoppingCart size={14} className="hidden sm:block" />
+                      צפה בעגלה
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

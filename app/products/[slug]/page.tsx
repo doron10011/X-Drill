@@ -598,12 +598,12 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                       </h3>
                       <div className="flex items-center justify-between">
                         {relatedProduct.discountPrice ? (
-                          <div>
-                            <span className="text-base sm:text-lg font-bold text-orange-600">{relatedProduct.discountPrice} ₪</span>
-                            <span className="text-xs sm:text-sm text-gray-500 line-through mr-2">{relatedProduct.price} ₪</span>
+                          <div className="flex flex-wrap items-center">
+                            <span className="text-base sm:text-lg font-bold text-orange-600">{relatedProduct.discountPrice}&#8362;</span>
+                            <span className="text-xs sm:text-sm text-gray-500 line-through mr-2 pr-2">{relatedProduct.price}&#8362;</span>
                           </div>
                         ) : (
-                          <span className="text-base sm:text-lg font-bold">{relatedProduct.price} ₪</span>
+                          <span className="text-base sm:text-lg font-bold">{relatedProduct.price}&#8362;</span>
                         )}
                         <Link
                           href={`/products/${relatedProduct.slug}`}

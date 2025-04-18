@@ -111,25 +111,38 @@ a {
   --tw-space-x-reverse: 1;
 }
 
-/* Dropdown menus - improved with padding bridge and delay */
+/* Enhanced Dropdown menus with smooth transitions and better spacing */
 .group {
-  padding-bottom: 15px; /* Create padding bridge to help mouse movement */
+  position: relative;
+  padding-bottom: 0px; /* No bridge, handled with invisible div in component */
 }
 
 .group:hover .group-hover\:block {
   display: block !important;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.2s, visibility 0s;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s;
 }
 
 .group > .group-hover\:block {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s, visibility 0s 0.2s;
-  margin-top: 0; /* Removed negative margin */
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
   position: absolute; /* Ensure absolute positioning */
-  top: 100%; /* Position at the bottom of the parent */
+  top: calc(100% + 10px); /* Position with extra space below the parent */
+  right: 0px; /* Align to the right */
+  margin-top: 0; /* No negative margin */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Nested dropdown menu */
@@ -161,11 +174,6 @@ a {
   width: 25px;
   height: 100%;
   background: transparent;
-}
-
-/* Add a delay to the dropdown hiding to give user time to move cursor */
-.group-hover\:block, .submenu {
-  transition-delay: 0.2s;
 }
 
 /* Make sure the navbar text is visible and has high contrast */
