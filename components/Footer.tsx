@@ -45,14 +45,14 @@ export default function Footer() {
             <p className="text-gray-400 mb-6">
               חנות מקוונת לכלי קידוח יהלום מקצועיים, המיועדים לקבלנים, שיפוצניקים ובעלי מקצוע בישראל
             </p>
-            <div className="flex space-x-4 justify-end">
-              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full">
+            <div className="flex items-center justify-center space-x-6 space-x-reverse">
+              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full transition duration-300">
                 <FaWhatsapp className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full">
+              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full transition duration-300">
                 <FaInstagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full">
+              <a href="#" className="text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full transition duration-300">
                 <FaFacebookF className="h-5 w-5" />
               </a>
             </div>
@@ -165,9 +165,9 @@ export default function Footer() {
             </p>
             <div className="mt-4 md:mt-0">
               <img 
-                src="/payment-methods.png" 
+                src="images/payment-methods.png" 
                 alt="אמצעי תשלום" 
-                className="h-8"
+                className="h-16"
               />
             </div>
           </div>

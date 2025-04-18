@@ -106,12 +106,21 @@ export default function Products() {
                     </h3>
                     <div className="flex items-center justify-between">
                       {product.discountPrice ? (
-                        <div>
-                          <span className="text-2xl font-bold text-orange-600">{product.discountPrice} ₪</span>
-                          <span className="text-lg text-gray-500 line-through mr-2">{product.price} ₪</span>
+                        <div className="flex flex-wrap items-baseline gap-3">
+                          <div className="flex items-baseline">
+                            <span className="text-2xl font-bold text-orange-600">{product.discountPrice}</span>
+                            <span className="text-lg mr-1">₪</span>
+                          </div>
+                          <div className="flex items-baseline">
+                            <span className="text-lg font-medium text-gray-400 line-through">{product.price}</span>
+                            <span className="text-base mr-1 text-gray-400">₪</span>
+                          </div>
                         </div>
                       ) : (
-                        <span className="text-2xl font-bold">{product.price} ₪</span>
+                        <div className="flex items-baseline">
+                          <span className="text-2xl font-bold">{product.price}</span>
+                          <span className="text-lg mr-1">₪</span>
+                        </div>
                       )}
                       <Link
                         href={`/products/${product.slug}`}

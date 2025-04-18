@@ -70,26 +70,28 @@ const getProductImagePaths = (type: ProductType, count: number = 2): string[] =>
   switch (type) {
     case ProductType.DIAMOND_CORE_DRILL_BIT:
       const drillImages = [
-        '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_41_18 PM.png',
-        '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_45_12 PM.png',
-        '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 05_20_47 PM.png',
-        '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 05_29_14 PM.png'
+        '/images/Diamond-Core-Drill-Bit/2.png',
+        '/images/Diamond-Core-Drill-Bit/3.png',
+        '/images/Diamond-Core-Drill-Bit/4.png',
+        '/images/Diamond-Core-Drill-Bit/7.png'
       ];
       return drillImages.slice(0, count);
     case ProductType.SAW_BLADE:
       const sawImages = [
-        '/images/saw-blade/ChatGPT Image Apr 11, 2025, 04_32_34 PM.png',
-        '/images/saw-blade/ChatGPT Image Apr 11, 2025, 05_20_38 PM.png'
+        '/images/saw-blade/4.png',
+        '/images/saw-blade/1.png',
+        '/images/saw-blade/7.png',
+        '/images/saw-blade/5.png'
       ];
       return sawImages.slice(0, count);
     case ProductType.ACCESSORY:
       // Use all available vacuum driller images
       const accessoryImages = [
-        '/images/vacum-drillers/Apr 11, 2025, 04_35_55 PM.png',
-        '/images/vacum-drillers/Apr 11, 2025, 04_35_59 PM.png',
-        '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 04_38_35 PM.png',
-        '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 04_39_12 PM.png',
-        '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 05_24_35 PM.png'
+        '/images/vacum-drillers/6.png',
+        '/images/vacum-drillers/9.png',
+        '/images/vacum-drillers/3.png',
+        '/images/vacum-drillers/2.png',
+        '/images/vacum-drillers/1.png',
       ];
       return accessoryImages.slice(0, count);
     default:
@@ -103,21 +105,21 @@ export const productCategories = [
     id: 'diamond-core-drill-bits',
     name: 'כוסות קידוח יהלום',
     description: 'כוסות קידוח מקצועיות בקטרים שונים, מתאימות לקידוח רטוב ויבש ולמגוון סוגי משטחים',
-    image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_41_18 PM.png',
+    image: '/images/Diamond-Core-Drill-Bit/6.png',
     slug: 'diamond-core-drill-bits',
   },
   {
     id: 'diamond-saw-blades',
     name: 'מסורי יהלום',
     description: 'מסורים מקצועיים לחיתוך בטון, בטון מזוין וחומרים קשים עם דיוק וביצועים מעולים',
-    image: '/images/saw-blade/ChatGPT Image Apr 11, 2025, 04_32_34 PM.png',
+    image: '/images/saw-blade/7.png',
     slug: 'diamond-saw-blades',
   },
   {
     id: 'accessories',
     name: 'אביזרים נלווים',
     description: 'אביזרים משלימים לכלי הקידוח: מתאמים, מקדחים ואביזרי עזר שיעזרו לכם לבצע את העבודה בצורה מושלמת',
-    image: '/images/vacum-drillers/Apr 11, 2025, 04_35_55 PM.png',
+    image: '/images/vacum-drillers/6.png',
     slug: 'accessories',
   },
 ];

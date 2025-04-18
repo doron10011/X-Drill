@@ -138,8 +138,8 @@ export default function DiamondDrillingGuide() {
           <h3 className="text-2xl font-semibold mb-6 text-center">אביזרים חיוניים לעבודה מקצועית</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="flex items-start">
-              <div className="mr-4 bg-orange-100 rounded-full p-3 text-orange-600">
+            <div className="flex items-start space-x-6 space-x-reverse">
+              <div className="bg-orange-100 rounded-full p-3 text-orange-600 shrink-0">
                 <FaWrench className="text-xl" />
               </div>
               <div>
@@ -151,8 +151,8 @@ export default function DiamondDrillingGuide() {
               </div>
             </div>
             
-            <div className="flex items-start">
-              <div className="mr-4 bg-orange-100 rounded-full p-3 text-orange-600">
+            <div className="flex items-start space-x-6 space-x-reverse">
+              <div className="bg-orange-100 rounded-full p-3 text-orange-600 shrink-0">
                 <FaRuler className="text-xl" />
               </div>
               <div>
@@ -164,8 +164,8 @@ export default function DiamondDrillingGuide() {
               </div>
             </div>
             
-            <div className="flex items-start">
-              <div className="mr-4 bg-orange-100 rounded-full p-3 text-orange-600">
+            <div className="flex items-start space-x-6 space-x-reverse">
+              <div className="bg-orange-100 rounded-full p-3 text-orange-600 shrink-0">
                 <FaTools className="text-xl" />
               </div>
               <div>

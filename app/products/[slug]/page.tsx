@@ -426,12 +426,21 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
               <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
                 <div className="flex flex-wrap sm:flex-nowrap items-center justify-between mb-4 gap-3">
                   {product.discountPrice ? (
-                    <div>
-                      <span className="text-2xl sm:text-3xl font-bold text-orange-600">{product.discountPrice} ₪</span>
-                      <span className="text-lg sm:text-xl font-medium text-gray-500 line-through mr-2">{product.price} ₪</span>
+                    <div className="flex flex-wrap items-baseline gap-3">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-bold text-orange-600">{product.discountPrice}</span>
+                        <span className="text-xl mr-1">₪</span>
+                      </div>
+                      <div className="flex items-baseline">
+                        <span className="text-xl font-medium text-gray-400 line-through">{product.price}</span>
+                        <span className="text-lg mr-1 text-gray-400">₪</span>
+                      </div>
                     </div>
                   ) : (
-                    <span className="text-2xl sm:text-3xl font-bold">{product.price} ₪</span>
+                    <div className="flex items-baseline">
+                      <span className="text-3xl font-bold">{product.price}</span>
+                      <span className="text-xl mr-1">₪</span>
+                    </div>
                   )}
                   <div className="flex items-center w-full sm:w-auto">
                     <button
@@ -888,15 +897,21 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
                         </p>
                         <div className="flex flex-col gap-2">
                           {product.discountPrice ? (
-                            <div className="flex items-baseline flex-wrap">
-                              <span className="text-lg font-bold text-orange-600">{product.discountPrice} ₪</span>
-                              <span className="text-sm text-gray-500 line-through mr-2">{product.price} ₪</span>
-                              <span className="text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded ml-auto mt-1 md:mt-0">
-                                {Math.round((1 - (product.discountPrice / product.price)) * 100)}% הנחה
-                              </span>
+                            <div className="flex flex-wrap items-baseline gap-3">
+                              <div className="flex items-baseline">
+                                <span className="text-3xl font-bold text-orange-600">{product.discountPrice}</span>
+                                <span className="text-xl mr-1">₪</span>
+                              </div>
+                              <div className="flex items-baseline">
+                                <span className="text-xl font-medium text-gray-400 line-through">{product.price}</span>
+                                <span className="text-lg mr-1 text-gray-400">₪</span>
+                              </div>
                             </div>
                           ) : (
-                            <span className="text-lg font-bold">{product.price} ₪</span>
+                            <div className="flex items-baseline">
+                              <span className="text-3xl font-bold">{product.price}</span>
+                              <span className="text-xl mr-1">₪</span>
+                            </div>
                           )}
                           
                           <div className="flex gap-2 mt-2">

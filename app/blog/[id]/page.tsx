@@ -41,7 +41,7 @@ const blogPosts = [
     date: '2024-03-15',
     author: 'דוד כהן',
     category: 'טיפים מקצועיים',
-    image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 05_29_14 PM.png',
+    image: '/images/Diamond-Core-Drill-Bit/6.png',
   },
   {
     id: "2",
@@ -68,7 +68,7 @@ const blogPosts = [
     date: '2024-03-10',
     author: 'שלומי לוי',
     category: 'תחזוקה',
-    image: '/images/vacum-drillers/ChatGPT Image Apr 11, 2025, 04_38_35 PM.png',
+    image: '/images/vacum-drillers/6.png',
   },
   {
     id: "3",
@@ -96,7 +96,7 @@ const blogPosts = [
     date: '2024-03-05',
     author: 'רונן ישראלי',
     category: 'ביקורות מוצרים',
-    image: '/images/saw-blade/ChatGPT Image Apr 11, 2025, 05_20_38 PM.png',
+    image: '/images/saw-blade/7.png',
   },
   {
     id: "4",
@@ -123,7 +123,7 @@ const blogPosts = [
     date: '2024-02-28',
     author: 'אורי דוד',
     category: 'חדשות',
-    image: '/images/Diamond-Core-Drill-Bit/ChatGPT Image Apr 11, 2025, 04_45_12 PM.png',
+    image: '/images/Diamond-Core-Drill-Bit/6.png',
   },
 ];
 
