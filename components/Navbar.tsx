@@ -81,12 +81,12 @@ export default function Navbar() {
             <Link href="/" className="px-3 py-2 text-white hover:text-orange-400 font-medium">
               דף הבית
             </Link>
-            <div className="relative px-3 py-2 group">
-              <span className="text-white hover:text-orange-400 font-medium flex items-center cursor-pointer">
+            <div className="relative group">
+              <a href="#" onClick={(e) => e.preventDefault()} className="px-3 py-2 text-white hover:text-orange-400 font-medium">
                 מוצרים
-                <FaChevronDown className="w-3 h-3 mr-1" />
-              </span>
-              <div className="absolute right-0 mt-5 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block text-right">
+                <FaChevronDown className="w-3 h-3 mr-1 inline-block" />
+              </a>
+              <div className="absolute right-0 mt-1 w-64 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block text-right">
                 {productCategories.map(category => (
                   <Link
                     key={category.id}

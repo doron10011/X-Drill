@@ -126,26 +126,25 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           {/* Contact Info */}
           <div>
             <h3 className="text-xl font-bold mb-6 text-orange-500">צור קשר</h3>
             <ul className="space-y-3 text-right">
-              <li className="flex items-center justify-end">
-                <span className="text-gray-400 mr-2">03-1234567</span>
-                <FaPhone className="text-orange-500" />
+              <li className="flex items-center justify-start">
+                <FaPhone className="text-orange-500 ml-2" />
+                <span className="text-gray-400">03-1234567</span>
               </li>
-              <li className="flex items-center justify-end">
-                <span className="text-gray-400 mr-2">info@x-drill.co.il</span>
-                <FaEnvelope className="text-orange-500" />
+              <li className="flex items-center justify-start">
+                <FaEnvelope className="text-orange-500 ml-2" />
+                <span className="text-gray-400">info@x-drill.co.il</span>
               </li>
-              <li className="flex items-center justify-end">
-                <span className="text-gray-400 mr-2">רחוב התעשייה 1, תל אביב</span>
-                <FaMapMarkerAlt className="text-orange-500" />
+              <li className="flex items-center justify-start">
+                <FaMapMarkerAlt className="text-orange-500 ml-2" />
+                <span className="text-gray-400">רחוב התעשייה 1, תל אביב</span>
               </li>
-              <li className="flex items-center justify-end">
-                <span className="text-gray-400 mr-2">א'-ה' 09:00-18:00 | ו' 09:00-13:00</span>
-                <FaClock className="text-orange-500" />
+              <li className="flex items-center justify-start">
+                <FaClock className="text-orange-500 ml-2" />
+                <span className="text-gray-400">א'-ה' 09:00-18:00 | ו' 09:00-13:00</span>
               </li>
             </ul>
             <div className="mt-6">
