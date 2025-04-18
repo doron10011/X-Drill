@@ -92,61 +92,51 @@ export default function Products() {
         {featuredProducts.length > 0 && (
           <div>
             <h2 className="text-3xl font-bold mb-8 text-center">מוצרים מובילים</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {featuredProducts.map(product => (
-                <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                <div key={product.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
                   <Link href={`/products/${product.slug}`} className="block overflow-hidden">
-                    <div className="h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                    <div className="h-36 bg-gray-100 flex items-center justify-center relative overflow-hidden">
                       {product.images && product.images.length > 0 ? (
                         <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
                           <Image 
                             src={product.images[0]} 
                             alt={product.name}
-                            width={300}
-                            height={200}
+                            width={180}
+                            height={120}
                             className="object-contain w-full h-full"
                           />
                         </div>
                       ) : (
-                        <span className="text-gray-500">תמונת מוצר</span>
+                        <span className="text-gray-500 text-sm">תמונת מוצר</span>
                       )}
                       {product.discountPrice && (
-                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-bold">
                           מבצע!
                         </div>
                       )}
                     </div>
                   </Link>
-                  <div className="p-6 rtl border-t border-gray-100">
-                    <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2">
+                  <div className="p-3 rtl border-t border-gray-100">
+                    <h3 className="text-sm font-medium mb-2 h-10 line-clamp-2 group-hover:text-orange-600 transition-colors">
                       <Link href={`/products/${product.slug}`} className="hover:text-orange-600 transition-colors">
                         {product.name}
                       </Link>
                     </h3>
                     <div className="flex items-center justify-between">
                       {product.discountPrice ? (
-                        <div className="flex flex-wrap items-baseline gap-2">
-                          <div className="flex items-baseline">
-                            <span className="text-2xl font-bold text-orange-600">{product.discountPrice}</span>
-                            <span className="text-lg mr-1">₪</span>
-                          </div>
-                          <div className="flex items-baseline">
-                            <span className="text-lg font-medium text-gray-400 line-through">{product.price}</span>
-                            <span className="text-base mr-1 text-gray-400">₪</span>
-                          </div>
+                        <div className="flex flex-col items-start">
+                          <span className="text-xs text-gray-500 line-through">{product.price} ₪</span>
+                          <span className="text-sm font-bold text-orange-600">{product.discountPrice} ₪</span>
                         </div>
                       ) : (
-                        <div className="flex items-baseline">
-                          <span className="text-2xl font-bold text-gray-800">{product.price}</span>
-                          <span className="text-lg mr-1">₪</span>
-                        </div>
+                        <span className="text-sm font-bold">{product.price} ₪</span>
                       )}
                       <Link
                         href={`/products/${product.slug}`}
-                        className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition-colors flex items-center"
+                        className="text-xs bg-orange-100 text-orange-600 hover:bg-orange-200 font-medium px-2 py-1 rounded transition-colors"
                       >
-                        פרטים נוספים
-                        <FaChevronLeft className="mr-1 text-xs transition-transform duration-300 group-hover:translate-x-[-4px]" />
+                        פרטים
                       </Link>
                     </div>
                   </div>
