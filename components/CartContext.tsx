@@ -259,7 +259,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                       <FaTimes size={14} className="hidden sm:block" />
                     </button>
                   </div>
-                  <p className="text-gray-700 mb-2 text-xs sm:text-sm truncate break-words" title={lastAddedItem.name}>
+                  <p className="text-gray-700 mb-2 text-xs sm:text-sm break-words whitespace-normal" title={lastAddedItem.name}>
                     {lastAddedItem.name}
                   </p>
                   
@@ -267,9 +267,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                     <div className="flex items-center mb-2">
                       <p className="text-gray-600 text-xs ml-1">סה"כ:</p>
                       <p className="text-orange-600 font-bold text-xs sm:text-sm">
-                        <span>{lastAddedItem.quantity}</span>
+                        <span>{lastAddedItem.price} ₪ </span>
                         <span className="mx-1">x</span>
-                        <span>{lastAddedItem.price} ₪</span>
+                        <span>{lastAddedItem.quantity}</span>
                       </p>
                     </div>
                     <Link
