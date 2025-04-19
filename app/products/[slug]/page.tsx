@@ -865,91 +865,74 @@ export default function DynamicProductPage({ params }: { params: { slug: string 
             
             {/* Products Section */}
             <div className="flex-1">
-              {/* Products Grid */}
-              {filteredProducts.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProducts.map(product => (
-                    <div key={product.id} className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                      <Link href={`/products/${product.slug}`}>
-                        <div className="h-48 bg-gray-200 flex items-center justify-center relative group">
-                          {product.images && product.images.length > 0 ? (
-                            <Image 
-                              src={product.images[0]} 
-                              alt={product.name}
-                              width={300}
-                              height={200}
-                              className="object-contain w-full h-full"
-                            />
-                          ) : (
-                            <span className="text-gray-500">תמונת מוצר</span>
-                          )}
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                        </div>
-                      </Link>
-                      <div className="p-4 rtl">
-                        <h3 className="text-lg font-semibold mb-2 h-14 overflow-hidden">
-                          <Link href={`/products/${product.slug}`} className="hover:text-orange-600">
-                            {product.name}
-                          </Link>
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10 overflow-hidden">
-                          {product.shortDescription || product.description.substring(0, 100) + '...'}
-                        </p>
-                        <div className="flex flex-col gap-2">
-                          {product.discountPrice ? (
-                            <div className="flex flex-wrap items-baseline gap-3">
-                              <div className="flex items-baseline">
-                                <span className="text-3xl font-bold text-orange-600">{product.discountPrice}</span>
-                                <span className="text-xl mr-1">₪</span>
-                              </div>
-                              <div className="flex items-baseline">
-                                <span className="text-xl font-medium text-gray-400 line-through">{product.price}</span>
-                                <span className="text-lg mr-1 text-gray-400">₪</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex items-baseline">
-                              <span className="text-3xl font-bold">{product.price}</span>
-                              <span className="text-xl mr-1">₪</span>
-                            </div>
-                          )}
-                          
-                          <div className="flex gap-2 mt-2">
-                            <button
-                              onClick={() => handleAddToCart(product, 1)}
-                              className="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-md text-sm text-center flex justify-center items-center"
-                              disabled={product.stock === 0}
-                            >
-                              <FaShoppingCart className="ml-2" />
-                              {product.stock > 0 ? 'הוסף לעגלה' : 'אזל מהמלאי'}
-                            </button>
-                            <Link
-                              href={`/products/${product.slug}`}
-                              className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-md text-sm text-center"
-                            >
-                              פרטים
-                            </Link>
+              {/* Product Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map(product => (
+                  <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group">
+                    <Link href={`/products/${product.slug}`} className="block overflow-hidden">
+                      <div className="h-52 bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                        {product.mainImage ? (
+                          <Image 
+                            src={product.mainImage}
+                            alt={product.name}
+                            width={300}
+                            height={220}
+                            className="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : product.images && product.images.length > 0 ? (
+                           <Image 
+                            src={product.images[0]} // Fallback
+                            alt={product.name}
+                            width={300}
+                            height={220}
+                            className="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <span className="text-gray-400">תמונת מוצר</span>
+                        )}
+                        {product.discountPrice && (
+                          <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold z-10">
+                            מבצע!
                           </div>
-                        </div>
+                        )}
                       </div>
+                    </Link>
+                    <div className="p-4 rtl border-t border-gray-100">
+                      <h3 className="text-lg font-medium mb-2 h-14 line-clamp-2">
+                        <Link href={`/products/${product.slug}`} className="hover:text-orange-600 transition-colors">
+                          {product.name}
+                        </Link>
+                      </h3>
+                      <div className="flex items-center justify-between mb-4">
+                        {product.discountPrice ? (
+                          <div className="flex flex-wrap items-baseline gap-2">
+                            <div className="flex items-baseline">
+                              <span className="text-xl font-bold text-orange-600">{product.discountPrice}</span>
+                              <span className="text-base mr-1">₪</span>
+                            </div>
+                            <div className="flex items-baseline">
+                              <span className="text-base font-medium text-gray-400 line-through">{product.price}</span>
+                              <span className="text-sm mr-1 text-gray-400">₪</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-baseline">
+                            <span className="text-xl font-bold text-gray-800">{product.price}</span>
+                            <span className="text-base mr-1">₪</span>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleAddToCart(product, 1)}
+                        className="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 font-medium"
+                      >
+                        <FaShoppingCart size={16} />
+                        הוסף לעגלה
+                      </button>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12 bg-white rounded-lg shadow">
-                  <div className="flex flex-col items-center p-8">
-                    <FaSearch className="text-gray-400 text-5xl mb-4" />
-                    <h3 className="text-xl font-medium text-gray-900 mb-2">לא נמצאו מוצרים</h3>
-                    <p className="text-gray-600 mb-6">לא נמצאו מוצרים התואמים לפילטרים שבחרת.</p>
-                    <button
-                      onClick={resetFilters}
-                      className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
-                    >
-                      נקה פילטרים
-                    </button>
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </div>

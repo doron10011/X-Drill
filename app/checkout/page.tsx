@@ -239,7 +239,7 @@ export default function Checkout() {
               </div>
               <div className="flex items-start">
                 <FaInfoCircle className="text-orange-500 ml-3 mt-1 flex-shrink-0" />
-                <div>
+          <div>
                   <p className="font-medium">שאלות?</p>
                   <p className="text-sm text-gray-600">צוות שירות הלקוחות שלנו זמין לעזור בכל שאלה: support@xdrill.co.il</p>
                 </div>
@@ -302,60 +302,60 @@ export default function Checkout() {
                         פרטים אישיים
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                             שם פרטי <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleInputChange}
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
                             className={`w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.firstName ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
-                          />
+                    />
                           {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
-                        </div>
-                        <div>
-                          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
                             שם משפחה <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleInputChange}
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
                             className={`w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.lastName ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
-                          />
+                    />
                           {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                           אימייל <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                           className={`w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
                           placeholder="your@email.com"
-                        />
+                  />
                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                      </div>
-                      <div className="mt-4">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                           טלפון נייד <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
                           className={`w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
                           placeholder="050-0000000"
                           dir="ltr"
@@ -443,34 +443,34 @@ export default function Checkout() {
                               </p>
                             </label>
                           </div>
-                        </div>
-                      </div>
-                      
+                </div>
+              </div>
+
                       {formData.deliveryMethod === 'shipping' && (
                         <>
                           <hr className="my-6" />
                           <h3 className="text-lg font-medium mb-4">כתובת למשלוח</h3>
                           <div className="grid grid-cols-2 gap-4">
                             <div className="col-span-2 md:col-span-1">
-                              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
                                 רחוב <span className="text-red-500">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                id="address"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleInputChange}
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
                                 className={`w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.address ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
-                              />
+                  />
                               {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
-                            </div>
+                </div>
                             <div className="col-span-2 md:col-span-1">
                               <label htmlFor="addressNumber" className="block text-sm font-medium text-gray-700 mb-1">
                                 מספר בית <span className="text-red-500">*</span>
-                              </label>
-                              <input
-                                type="text"
+                    </label>
+                    <input
+                      type="text"
                                 id="addressNumber"
                                 name="addressNumber"
                                 value={formData.addressNumber}
@@ -484,10 +484,10 @@ export default function Checkout() {
                                 עיר <span className="text-red-500">*</span>
                               </label>
                               <select
-                                id="city"
-                                name="city"
-                                value={formData.city}
-                                onChange={handleInputChange}
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
                                 className={`w-full border rounded-md px-3 py-2.5 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition ${errors.city ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
                               >
                                 <option value="">בחר עיר</option>
@@ -496,20 +496,20 @@ export default function Checkout() {
                                 ))}
                               </select>
                               {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
-                            </div>
+                  </div>
                             <div className="col-span-2 md:col-span-1">
-                              <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
-                                מיקוד
-                              </label>
-                              <input
-                                type="text"
-                                id="postalCode"
-                                name="postalCode"
-                                value={formData.postalCode}
-                                onChange={handleInputChange}
+                    <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
+                      מיקוד
+                    </label>
+                    <input
+                      type="text"
+                      id="postalCode"
+                      name="postalCode"
+                      value={formData.postalCode}
+                      onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-400 outline-none transition"
-                              />
-                            </div>
+                    />
+                  </div>
                           </div>
                           <div className="mt-4">
                             <label htmlFor="deliveryNotes" className="block text-sm font-medium text-gray-700 mb-1">
@@ -543,8 +543,8 @@ export default function Checkout() {
                         >
                           המשך לתשלום
                         </button>
-                      </div>
-                    </div>
+                </div>
+              </div>
                   )}
 
                   {/* שלב 3: תשלום */}
@@ -557,17 +557,17 @@ export default function Checkout() {
                       
                       <div className="mb-6">
                         <h3 className="text-lg font-medium mb-3">בחר אמצעי תשלום</h3>
-                        <div className="space-y-4">
+                <div className="space-y-4">
                           <div className="flex items-center p-3 rounded-md border border-gray-300 transition-all hover:bg-gray-50 cursor-pointer">
-                            <input
-                              type="radio"
-                              id="credit"
-                              name="paymentMethod"
-                              value="credit"
-                              checked={formData.paymentMethod === 'credit'}
-                              onChange={handleInputChange}
+                    <input
+                      type="radio"
+                      id="credit"
+                      name="paymentMethod"
+                      value="credit"
+                      checked={formData.paymentMethod === 'credit'}
+                      onChange={handleInputChange}
                               className="h-4 w-4 text-orange-600 focus:ring-orange-400"
-                            />
+                    />
                             <label htmlFor="credit" className="mr-3 flex-1 cursor-pointer">
                               <div className="flex items-center justify-between">
                                 <span className="font-medium">כרטיס אשראי</span>
@@ -577,45 +577,45 @@ export default function Checkout() {
                                   <FaCcAmex className="text-blue-500 text-2xl" />
                                 </div>
                               </div>
-                            </label>
-                          </div>
+                    </label>
+                  </div>
                           <div className="flex items-center p-3 rounded-md border border-gray-300 transition-all hover:bg-gray-50 cursor-pointer">
-                            <input
-                              type="radio"
-                              id="bit"
-                              name="paymentMethod"
-                              value="bit"
-                              checked={formData.paymentMethod === 'bit'}
-                              onChange={handleInputChange}
+                    <input
+                      type="radio"
+                      id="bit"
+                      name="paymentMethod"
+                      value="bit"
+                      checked={formData.paymentMethod === 'bit'}
+                      onChange={handleInputChange}
                               className="h-4 w-4 text-orange-600 focus:ring-orange-400"
-                            />
+                    />
                             <label htmlFor="bit" className="mr-3 flex-1 cursor-pointer">
                               <div className="flex items-center">
                                 <span className="font-medium">תשלום באפליקציית ביט</span>
                                 <FaMobileAlt className="mr-2 text-blue-500" />
                               </div>
-                            </label>
-                          </div>
+                    </label>
+                  </div>
                           <div className="flex items-center p-3 rounded-md border border-gray-300 transition-all hover:bg-gray-50 cursor-pointer">
-                            <input
-                              type="radio"
-                              id="bank"
-                              name="paymentMethod"
-                              value="bank"
-                              checked={formData.paymentMethod === 'bank'}
-                              onChange={handleInputChange}
+                    <input
+                      type="radio"
+                      id="bank"
+                      name="paymentMethod"
+                      value="bank"
+                      checked={formData.paymentMethod === 'bank'}
+                      onChange={handleInputChange}
                               className="h-4 w-4 text-orange-600 focus:ring-orange-400"
-                            />
+                    />
                             <label htmlFor="bank" className="mr-3 flex-1 cursor-pointer">
                               <div className="flex items-center">
                                 <span className="font-medium">העברה בנקאית</span>
                                 <FaUniversity className="mr-2 text-gray-600" />
                               </div>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
+                    </label>
+                  </div>
+                </div>
+              </div>
+
                       {formData.paymentMethod === 'credit' && (
                         <div className="mt-6 border border-gray-300 rounded-md p-4 bg-gray-50">
                           <h4 className="font-medium mb-4 flex items-center">
@@ -743,11 +743,11 @@ export default function Checkout() {
                           חזרה
                         </button>
                         
-                        <button
-                          type="submit"
+                <button
+                  type="submit"
                           disabled={loading}
                           className={`bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 px-6 rounded-md flex items-center ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-                        >
+                >
                           {loading ? (
                             <>
                               <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full ml-2"></div>
@@ -759,16 +759,16 @@ export default function Checkout() {
                               סיום הזמנה ותשלום
                             </>
                           )}
-                        </button>
-                      </div>
+                </button>
+              </div>
                     </div>
                   )}
                   
-                </form>
-              </div>
+            </form>
+          </div>
 
               {/* סיכום הזמנה */}
-              <div>
+          <div>
                 <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
                   <h2 className="text-xl font-semibold mb-4 flex items-center border-b pb-4">
                     <FaShoppingCart className="text-orange-600 ml-2" />
@@ -865,17 +865,17 @@ export default function Checkout() {
                   {/* חישוב הסכום */}
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">סכום ביניים</span>
+                  <span className="text-gray-600">סכום ביניים</span>
                       <span>{cartTotal} ₪</span>
                     </div>
                     {discountApplied && discount > 0 && (
                       <div className="flex justify-between text-sm">
                         <span className="text-green-600">הנחה</span>
                         <span className="text-green-600">- {discount} ₪</span>
-                      </div>
+                </div>
                     )}
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">משלוח</span>
+                  <span className="text-gray-600">משלוח</span>
                       <span>{shippingCost === 0 ? 'חינם!' : `${shippingCost} ₪`}</span>
                     </div>
                     <div className="border-t border-gray-200 pt-3 mt-3">

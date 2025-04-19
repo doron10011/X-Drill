@@ -97,10 +97,20 @@ export default function Products() {
                 <div key={product.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
                   <Link href={`/products/${product.slug}`} className="block overflow-hidden">
                     <div className="h-36 bg-gray-100 flex items-center justify-center relative overflow-hidden">
-                      {product.images && product.images.length > 0 ? (
+                      {product.mainImage ? (
                         <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
                           <Image 
-                            src={product.images[0]} 
+                            src={product.mainImage} 
+                            alt={product.name}
+                            width={180}
+                            height={120}
+                            className="object-contain w-full h-full"
+                          />
+                        </div>
+                       ) : product.images && product.images.length > 0 ? (
+                        <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+                          <Image 
+                            src={product.images[0]} // Fallback to first image 
                             alt={product.name}
                             width={180}
                             height={120}

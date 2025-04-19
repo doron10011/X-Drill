@@ -18,6 +18,7 @@ export interface Product {
   applications?: string[];
   features?: string[];
   images: string[];
+  mainImage: string; // Added main image field
   relatedProducts?: string[]; // IDs of related products
   isFeatured?: boolean;
   isNewArrival?: boolean;
@@ -88,7 +89,7 @@ const getProductImagePaths = (type: ProductType, count: number = 2): string[] =>
       // Use all available vacuum driller images
       const accessoryImages = [
         '/images/vacum-drillers/6.png',
-        '/images/vacum-drillers/9.png',
+        '/images/vacum-drillers/8.png', // Changed from 9.png to 8.png which exists
         '/images/vacum-drillers/3.png',
         '/images/vacum-drillers/2.png',
         '/images/vacum-drillers/1.png',
@@ -158,6 +159,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[0], // Use index 0 for the first one
     relatedProducts: ['wet-drill-72mm', 'wet-drill-77mm', 'wet-drill-82mm'],
     isFeatured: true,
   },
@@ -192,6 +194,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 1
     relatedProducts: ['wet-drill-67mm', 'wet-drill-77mm', 'wet-drill-82mm'],
     isFeatured: false,
   },
@@ -226,6 +229,7 @@ const products: Product[] = [
       'מתאים לשטחי עבודה תובעניים',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 0
     relatedProducts: ['wet-drill-67mm', 'wet-drill-72mm', 'wet-drill-82mm'],
     isFeatured: false,
   },
@@ -250,17 +254,17 @@ const products: Product[] = [
       warranty: '12 חודשים',
     },
     price: 550,
-    discountPrice: 499,
-    stock: 7,
+    stock: 15,
     deliveryTime: '1-3 ימי עסקים',
-    applications: ['קידוח בבטון', 'קידוח בבטון מזוין', 'ביצוע עבודות אינסטלציה'],
+    applications: ['קידוח בבטון', 'קידוח בבטון מזוין', 'עבודות תשתית'],
     features: [
-      'טכנולוגיה להקטנת החימום',
-      'דיוק מוגבר בעת הקידוח',
+      'טכנולוגיה להקטנת חימום',
+      'דיוק גבוה',
       'ביצועים משופרים',
     ],
-    images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
-    relatedProducts: ['wet-drill-77mm', 'wet-drill-91mm', 'wet-drill-102mm'],
+    images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 4),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 4)[2] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 4)[0], // Use index 2
+    relatedProducts: ['wet-drill-67mm', 'wet-drill-77mm', 'wet-drill-87mm'],
     isFeatured: false,
   },
   {
@@ -294,6 +298,7 @@ const products: Product[] = [
       'עמידות גבוהה במיוחד',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 1
     relatedProducts: ['wet-drill-82mm', 'wet-drill-102mm', 'wet-drill-132mm'],
     isFeatured: false,
   },
@@ -330,6 +335,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[0], // Use index 1
     relatedProducts: ['arix-67mm', 'arix-77mm', 'adapter-unc-bsp'],
     isFeatured: true,
   },
@@ -361,6 +367,7 @@ const products: Product[] = [
       'נוח לשימוש',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 0
     relatedProducts: ['adapter-bsp-unc', 'arix-67mm', 'arix-77mm'],
     isFeatured: false,
   },
@@ -395,6 +402,7 @@ const products: Product[] = [
       'חוזק מוגבר',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 1
     relatedProducts: ['wet-drill-91mm', 'wet-drill-132mm', 'wet-drill-162mm'],
     isFeatured: true,
   },
@@ -429,6 +437,7 @@ const products: Product[] = [
       'ביצועים תעשייתיים',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 0
     relatedProducts: ['wet-drill-102mm', 'wet-drill-162mm', 'wet-drill-200mm'],
     isFeatured: false,
   },
@@ -463,6 +472,7 @@ const products: Product[] = [
       'חוזק ועמידות גבוהים במיוחד',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 1
     relatedProducts: ['wet-drill-132mm', 'wet-drill-200mm'],
     isFeatured: false,
   },
@@ -498,6 +508,7 @@ const products: Product[] = [
       'מתאים לפרויקטים מיוחדים',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 2)[0], // Use index 0
     relatedProducts: ['wet-drill-162mm', 'wet-drill-132mm'],
     isFeatured: true,
   },
@@ -530,6 +541,7 @@ const products: Product[] = [
       'ביצועים יציבים',
     ],
     images: getProductImagePaths(ProductType.SAW_BLADE, 2),
+    mainImage: getProductImagePaths(ProductType.SAW_BLADE, 2)[1] || getProductImagePaths(ProductType.SAW_BLADE, 2)[0], // Use index 1
     relatedProducts: ['saw-blade-250mm', 'saw-blade-300mm'],
     isFeatured: false,
   },
@@ -560,6 +572,7 @@ const products: Product[] = [
       'ביצועים יציבים',
     ],
     images: getProductImagePaths(ProductType.SAW_BLADE, 2),
+    mainImage: getProductImagePaths(ProductType.SAW_BLADE, 2)[0], // Use index 0
     relatedProducts: ['saw-blade-200mm', 'saw-blade-300mm', 'saw-blade-350mm'],
     isFeatured: false,
   },
@@ -581,7 +594,7 @@ const products: Product[] = [
     },
     price: 600,
     discountPrice: 550,
-    stock: 5,
+    stock: 20,
     deliveryTime: '1-3 ימי עסקים',
     applications: ['חיתוך בטון', 'חיתוך בטון מזוין', 'אתרי בנייה גדולים'],
     features: [
@@ -589,7 +602,8 @@ const products: Product[] = [
       'תוצאות מדויקות',
       'ביצועים יציבים באתרים גדולים',
     ],
-    images: getProductImagePaths(ProductType.SAW_BLADE, 2),
+    images: getProductImagePaths(ProductType.SAW_BLADE, 3),
+    mainImage: getProductImagePaths(ProductType.SAW_BLADE, 3)[1] || getProductImagePaths(ProductType.SAW_BLADE, 3)[0], // Use index 1
     relatedProducts: ['saw-blade-250mm', 'saw-blade-350mm', 'saw-blade-400mm'],
     isFeatured: true,
   },
@@ -620,6 +634,7 @@ const products: Product[] = [
       'פתרון מקצועי לפרויקטים גדולים',
     ],
     images: getProductImagePaths(ProductType.SAW_BLADE, 2),
+    mainImage: getProductImagePaths(ProductType.SAW_BLADE, 2)[1] || getProductImagePaths(ProductType.SAW_BLADE, 2)[0], // Use index 1
     relatedProducts: ['saw-blade-300mm', 'saw-blade-400mm'],
     isFeatured: false,
   },
@@ -650,6 +665,7 @@ const products: Product[] = [
       'ביצועים מיטביים בפרויקטים תעשייתיים',
     ],
     images: getProductImagePaths(ProductType.SAW_BLADE, 2),
+    mainImage: getProductImagePaths(ProductType.SAW_BLADE, 2)[0], // Use index 0
     relatedProducts: ['saw-blade-350mm', 'saw-blade-300mm'],
     isFeatured: true,
   },
@@ -683,6 +699,7 @@ const products: Product[] = [
       'ביצועים יציבים',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[1] || getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 1
     relatedProducts: ['vacuum-drill-85mm', 'vacuum-drill-90mm'],
     isFeatured: false,
   },
@@ -714,6 +731,7 @@ const products: Product[] = [
       'ביצועים יציבים',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 0
     relatedProducts: ['vacuum-drill-80mm', 'vacuum-drill-90mm', 'vacuum-drill-95mm'],
     isFeatured: false,
   },
@@ -745,6 +763,7 @@ const products: Product[] = [
       'ביצועים יציבים',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[1] || getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 1
     relatedProducts: ['vacuum-drill-85mm', 'vacuum-drill-95mm', 'vacuum-drill-100mm'],
     isFeatured: false,
   },
@@ -776,6 +795,7 @@ const products: Product[] = [
       'ביצועים יציבים בתנאים קשים',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 0
     relatedProducts: ['vacuum-drill-90mm', 'vacuum-drill-100mm', 'vacuum-drill-105mm'],
     isFeatured: false,
   },
@@ -807,6 +827,7 @@ const products: Product[] = [
       'מתאים לסביבות יבשות במיוחד',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[1] || getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 1
     relatedProducts: ['vacuum-drill-95mm', 'vacuum-drill-105mm'],
     isFeatured: true,
   },
@@ -838,6 +859,7 @@ const products: Product[] = [
       'ביצועים יציבים בתנאים מאתגרים',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 0
     relatedProducts: ['vacuum-drill-100mm', 'vacuum-drill-95mm'],
     isFeatured: false,
   },
@@ -869,6 +891,7 @@ const products: Product[] = [
       'נוח לשימוש',
     ],
     images: getProductImagePaths(ProductType.ACCESSORY, 2),
+    mainImage: getProductImagePaths(ProductType.ACCESSORY, 2)[1] || getProductImagePaths(ProductType.ACCESSORY, 2)[0], // Use index 1
     relatedProducts: ['wet-drill-67mm', 'wet-drill-77mm', 'vacuum-drill-90mm'],
     isFeatured: false,
   },
@@ -904,6 +927,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[1] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[0], // Use index 1
     relatedProducts: ['wet-drill-52mm-half-inch', 'wet-drill-62mm-half-inch'],
     isFeatured: false,
   },
@@ -938,6 +962,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[2] || getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[0], // Use index 2
     relatedProducts: ['wet-drill-42mm-half-inch', 'wet-drill-62mm-half-inch'],
     isFeatured: false,
   },
@@ -972,6 +997,7 @@ const products: Product[] = [
       'קצב חדירה גבוה',
     ],
     images: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3),
+    mainImage: getProductImagePaths(ProductType.DIAMOND_CORE_DRILL_BIT, 3)[0], // Use index 0
     relatedProducts: ['wet-drill-42mm-half-inch', 'wet-drill-52mm-half-inch'],
     isFeatured: false,
   },

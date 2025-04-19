@@ -234,7 +234,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                 <div className="bg-white border border-gray-100 rounded-md shadow-sm overflow-hidden h-12 w-12 sm:h-16 sm:w-16 ml-3 flex-shrink-0 flex items-center justify-center">
                   {lastAddedItem.image ? (
                     <Image 
-                      src={lastAddedItem.image} 
+                      src={lastAddedItem.image}
                       alt={lastAddedItem.name}
                       width={64}
                       height={64}

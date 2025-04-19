@@ -332,9 +332,17 @@ export default function Home() {
                     </div>
                   )}
                   <div className="h-32 bg-gray-100 flex items-center justify-center overflow-hidden">
-                    {product.images && product.images.length > 0 ? (
+                    {product.mainImage ? (
                       <Image 
-                        src={product.images[0]} 
+                        src={product.mainImage} 
+                        alt={product.name}
+                        width={150}
+                        height={100}
+                        className="object-contain w-full h-full transition-transform duration-300 group-hover:scale-110"
+                      />
+                    ) : product.images && product.images.length > 0 ? (
+                      <Image 
+                        src={product.images[0]} // Fallback to first image if mainImage is missing
                         alt={product.name}
                         width={150}
                         height={100}
